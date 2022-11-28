@@ -21,7 +21,8 @@ user_id int unsigned,
 phone_number varchar(11),
 constraint phone_pk primary key (user_id, phone_number),
 constraint phone_users_fk foreign key (user_id) references users(user_id) on update restrict on delete restrict,
-constraint phone_digit check (phone_number REGEXP '^[0-9]{12}$')
+constraint phone_digit check (char_length(phone_number) = 9 or (phone_number REGEXP '^[0-9]{11}$')), 
+constraint homephone_digit check (char_length(phone_number) = 11 or (phone_number REGEXP '^[0-9]{9}$')) 
 );
 
 create table posts (
