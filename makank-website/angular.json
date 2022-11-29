@@ -103,5 +103,8 @@
       }
     }
   },
-  "defaultProject": "makank-website"
+  "defaultProject": "makank-website",
+  "cli": {
+    "analytics": false
+  }
 }
