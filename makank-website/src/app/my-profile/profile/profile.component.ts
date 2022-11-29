@@ -11,5 +11,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
+   num =[
+    {
+      id: 1,
+      name: 'mark'
+    },
+    {
+      id: 2,
+      name: 'ma'
+    },
+    {
+      id: 3,
+      name: 'mi'
+    }
+   ]
 }

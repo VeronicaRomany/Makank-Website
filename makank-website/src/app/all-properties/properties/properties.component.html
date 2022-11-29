@@ -1,20 +1,20 @@
-<li *ngFor= "let item of posts" >{{item.postId}}</li>
+
 
 <div class="article-contener"  >
-    <ul class="groups" >
+    <ul class="groups" *ngFor="let item of posts"  >
         <li>
-            <div class="card" >
+            <div class="card"  >
                 <div class="image-session">
-                    <span class="image" style="background-image: url('assets/images/v.jpg');"></span>
+                    <span class="image" style="background-image: url({{item.property.pictures}});"></span>
                 </div>
                 <div class="meta-sission" >
                     <div class="head">
-                        <a href="#" class="catogry">Catogry</a>
+                        <a href="#" class="catogry">{{item.property.city}}</a>
                         <span class="flexone"></span>
                       
                     </div>
                     <div class="body">
-                        <h2 class="title">Lorem ipsum dolor sit amet consectetur.</h2>
+                        <h2 class="title">{{item.property.price}} LE</h2>
                         <p class="desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur ex
                             corporis nisi dignissimos quam debitis enim repellat cum explicabo consequatur.</p>
                     </div>

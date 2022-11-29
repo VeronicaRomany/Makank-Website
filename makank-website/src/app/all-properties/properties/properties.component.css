@@ -1,7 +1,8 @@
 
 *{
     margin: 0;padding: 0;box-sizing: border-box;}
-body{background: #eee;font-family: sans-serif;}
+body{
+    background: #eee;font-family: sans-serif;}
 .flexone{
     flex: 1;
 }
@@ -32,15 +33,15 @@ body{background: #eee;font-family: sans-serif;}
     text-align: right;
 }
 .meta-sission .head .per input{
-    -webkit-appearance: none
-    ;height: 5px;
+   
+    height: 5px;
     border-radius: 5px;
     background: #0001;
     margin-bottom: 4px;
     overflow: hidden;
 }
 .meta-sission .head .per input::-webkit-slider-thumb{
-    -webkit-appearance: none;
+    
     width: 0;
     box-shadow: -100px 0 0 100px #0075ff;
 }
