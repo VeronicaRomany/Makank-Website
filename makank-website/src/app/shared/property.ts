@@ -8,16 +8,33 @@ export class Property{
     rent:boolean=false
     info:String=""
     pictures:string[] = []
+
+    
+    view_Small(){
+
+    }
+
 }
 
 export class Apartment extends Property{
     level: number=1
     elevator: boolean= false
     studentHousing: boolean= false 
+
+
+
+
+
 }
 
 export class Villa extends Property{
     hasGarden:boolean=false
     hasPool:boolean=false 
     numberOfLevels:number=1;
+
+
+
+
+
+
 }

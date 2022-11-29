@@ -17,9 +17,14 @@ export class PropertiesComponent implements OnInit {
     this.posts.push(p2)
     console.log(this.posts)
   }
-  
-  getDummyPost():Post{
+
+ getDummyPost():Post{
     let p = new Post()
+    let v = new Villa()
+    v.hasGarden=false
+    v.hasPool=true 
+    v.numberOfLevels=3
+    p.property=v
     p.postID=5
     p.publishDate=new Date()
     p.property=new Property()
@@ -32,6 +37,10 @@ export class PropertiesComponent implements OnInit {
     p.property.roomNumber=4
     p.property.sellerID=145
     p.property.price=50000000000
+
+    let x = (p.property as Villa).hasGarden
+    console.log(x)
+    console.log(p.property instanceof Villa)
     return p
   }
 

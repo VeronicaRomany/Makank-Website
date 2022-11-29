@@ -12,18 +12,25 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
   }
   
-   num =[
-    {
-      id: 1,
-      name: 'mark'
-    },
-    {
-      id: 2,
-      name: 'ma'
-    },
-    {
-      id: 3,
-      name: 'mi'
-    }
+   zoo =[
+    new animal(),
+    new animal(),
+    new animal()
    ]
+    
+  
+}
+
+
+class animal{
+  name:string=""
+
+  getdog(){
+    return new dog()
+  }
+}
+
+
+class dog{
+  name = "woof"
 }
