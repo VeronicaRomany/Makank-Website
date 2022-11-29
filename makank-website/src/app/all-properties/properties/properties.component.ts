@@ -7,12 +7,17 @@ import { Apartment, Property, Villa } from 'src/app/shared/property';
   styleUrls: ['./properties.component.css' ]
 })
 export class PropertiesComponent implements OnInit {
-
+  posts:Post[] =[]
   constructor() { }
 
   ngOnInit(): void {
+    let p = this.getDummyPost()
+    let p2= this.getDummyPost()
+    this.posts.push(p)
+    this.posts.push(p2)
+    console.log(this.posts)
   }
-
+  
   getDummyPost():Post{
     let p = new Post()
     p.postID=5

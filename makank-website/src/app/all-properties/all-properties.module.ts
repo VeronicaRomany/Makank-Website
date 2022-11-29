@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PropertiesComponent } from './properties/properties.component';
-
+import { BrowserModule } from '@angular/platform-browser'
 
 
 @NgModule({
@@ -9,7 +9,10 @@ import { PropertiesComponent } from './properties/properties.component';
     PropertiesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AllPropertiesModule,
+    BrowserModule
+    
   ]
 })
 export class AllPropertiesModule { }
