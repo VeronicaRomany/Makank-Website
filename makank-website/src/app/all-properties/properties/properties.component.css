@@ -19,7 +19,7 @@ body{
 }
 .groups .card{overflow: hidden;display: block;}
 .groups .image-session{float: left;overflow: hidden;margin-right: 20px;}
-.groups .image-session .image{width: 280px;height: 220px;display: block;background-size: cover;
+.groups .image-session .image{width: 280px;height: 220px;display: block;background-size: contain;
     background-position: center;}
 .groups .meta-sission{position: relative;padding: 15px;display: block;height: 220px;}
 .groups .meta-sission .head{display: flex;margin-bottom: 10px;}
