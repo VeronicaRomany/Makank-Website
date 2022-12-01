@@ -1,0 +1,20 @@
+.frame{
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    
+}
+
+.card{
+    height: 70%;
+    width: 30%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+form{
+   margin: auto;
+   
+}
