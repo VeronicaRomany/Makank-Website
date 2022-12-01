@@ -77,12 +77,22 @@ constraint villa_pk primary key (post_id),
 constraint villa_posts_fk foreign key (post_id) references posts(post_id) on update cascade on delete cascade
 );
 
+create view login_credentials as
+select user_id, username, user_password
+from users;
+
+select *
+from login_credentials;
+
 /*
 insert into users values(null, 'yara hossam', 'yaraboo', 'yarahossam@gmail.com', 'alex', null, 'passwordyara', null);
 insert into users values(null, 'yara hossam', 'yaraboo2', 'yarahossam@alexu.edu.eg', 'alex', null, 'passwordyara', null);
 insert into users values(null, 'yara hossam', 'yaraboo3', 'yarahossam@alex.eg', 'alex', null, 'passwordyara', null);
 insert into users values(null, 'yara hossam', 'yaraboo4', 'yarahossam@alex.eg', 'alex', null, 'passwordyara', null);
-
+*/
 select *
 from users;
-*/
+
+select *
+from phone_numbers;
+
