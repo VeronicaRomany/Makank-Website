@@ -1,5 +1,9 @@
+
 import { Component } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
+import { Component,OnInit } from '@angular/core';
+
+
 
 
 @Component({
@@ -7,7 +11,18 @@ import { TokenStorageService } from './_services/token-storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+
+export class AppComponent implements OnInit{
+ 
+
+  constructor() {}
+
+  ngOnInit(): void {
+   
+  }
+
+  
+
   title = 'makank-website';
 
   username?: string;

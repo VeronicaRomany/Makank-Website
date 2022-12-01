@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
+import { RouterModule, Routes } from '@angular/router';
+import { PropertiesComponent } from './all-properties/properties/properties.component';
+import { LoginComponent } from './login/login/login.component';
+import { ProfileComponent } from './my-profile/profile/profile.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-
-  { path: 'profile', component: ProfileComponent },
-
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+{path:"Home" , component:PropertiesComponent},
+{path:"Profile" , component:ProfileComponent},
+{path:"Login" , component:LoginComponent},
+{path:"**" ,redirectTo:"Home",pathMatch:"full"}
 ];
 
 @NgModule({
