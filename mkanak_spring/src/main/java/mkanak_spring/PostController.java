@@ -14,8 +14,8 @@ public class PostController {
     }
 
     @GetMapping("/homepage")
-    List<Post> getHomePage(){
-        return app.getHomePage(new ViewingPreference());
+    List<Post> getHomePage(@RequestBody ViewingPreference preference){
+        return app.getHomePage(preference);
     }
 
     @GetMapping("/saved/{targetUserID}")
