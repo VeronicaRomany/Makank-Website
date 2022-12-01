@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 
 import {  ValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/user';
 
 
@@ -49,12 +51,34 @@ export class RegisterComponent implements OnInit {
   });
   submitted = false;
 
-  urllink:string=""
+  urllink:string="/assets/";
   
-  newAccount:User= new User()
- 
+  file:File={
+    lastModified: 0,
+    name: '',
+    webkitRelativePath: '',
+    size: 0,
+    type: '',
+    arrayBuffer: function (): Promise<ArrayBuffer> {
+      throw new Error('Function not implemented.');
+    },
+    slice: function (start?: number | undefined, end?: number | undefined, contentType?: string | undefined): Blob {
+      throw new Error('Function not implemented.');
+    },
+    stream: function (): ReadableStream<Uint8Array> {
+      throw new Error('Function not implemented.');
+    },
+    text: function (): Promise<string> {
+      throw new Error('Function not implemented.');
+    }
+  }
 
-  constructor(private formBuilder: FormBuilder) {}
+  newAccount:User= new User()
+  
+  
+  
+
+  constructor(private formBuilder: FormBuilder, private http:HttpClient) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -106,17 +130,22 @@ export class RegisterComponent implements OnInit {
     this.newAccount.name = this.f['fullname'].value
     this.newAccount.password=this.f['password'].value
     this.newAccount.username = this.f['username'].value
-    this.newAccount.phoneNumber = this.f['phoneNumber'].value
+    this.newAccount.phone_numbers[0] = this.f['phoneNumber'].value
     this.newAccount.email = this.f['email'].value
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
-    this.newAccount.profilePicture=this.f['profilePicture'].value
+    this.newAccount.profile_pic_link =this.f['profilePicture'].value
 
    
     var NewAccountJsonString = JSON.stringify(this.newAccount)
     console.log(NewAccountJsonString)
+    this.urllink="/assets/p.png"
 
-   
+    this.http.post("http://localhost:8080/server/users/new",NewAccountJsonString,{responseType:'text'}).subscribe((data:any) =>{
+      console.log(data);
+      this.urllink="/assets/"
+    })
+
   }
 
   onReset(): void {
@@ -124,16 +153,17 @@ export class RegisterComponent implements OnInit {
     this.form.reset();
   }
 
-  selectFile(event:any){
-    if(event.target.files){
-      var reader = new FileReader()
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event:any)=>{
+  
 
-        this.urllink = event.target.result
-        this.f['profilePicture'].setValue (this.urllink)
-        
-      }
-    }
+
+  SelectFile(event:any){
+    this.file = event.target.files[0];
+    this.urllink += this.file.name
+
+    console.log(this.urllink)
+    this.f['profilePicture'].setValue (this.urllink)
   }
+
+
+
 }
