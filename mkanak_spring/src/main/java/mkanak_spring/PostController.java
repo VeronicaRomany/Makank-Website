@@ -1,26 +1,25 @@
+package mkanak_spring;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/posts")
 public class PostController {
     PostManager app = new PostManager();
     @GetMapping("/{targetUserID}")
-    List<Post> getPersonPosts(@PathVariable int targetUserID, @RequestParam ViewingPreferences preferences){
+    List<Post> getPersonPosts(@PathVariable int targetUserID, @RequestParam ViewingPreference preferences){
             return app.getPersonPosts(targetUserID,preferences);
     }
 
     @GetMapping("/homepage")
-    List<Post> getHomePage(@RequestParam ViewingPreferences preferences){
-        return app.getHomePage(preferences);
+    List<Post> getHomePage(){
+        return app.getHomePage(new ViewingPreference());
     }
 
     @GetMapping("/saved/{targetUserID}")
-    List<Post> getSavedPosts(@PathVariable int userID,@RequestParam ViewingPreferences preferences){
+    List<Post> getSavedPosts(@PathVariable int userID,@RequestParam ViewingPreference preferences){
         return app.getPersonPosts(userID,preferences);
     }
 
@@ -29,7 +28,7 @@ public class PostController {
         return app.editPost(userID,post);
     }
 
-    @PostMapping("/")
+    @PostMapping("/savePost")
     boolean addToSavedPost(int userID, int postID){
         return app.addToSavedPost(userID, postID);
     }

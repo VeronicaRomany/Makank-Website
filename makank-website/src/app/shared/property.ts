@@ -1,4 +1,3 @@
-import { ViewData } from "./viewData"
 
 export class Property{
     type:string=""

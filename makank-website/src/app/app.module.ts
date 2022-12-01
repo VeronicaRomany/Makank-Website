@@ -10,7 +10,6 @@ import { PropertiesComponent } from './all-properties/properties/properties.comp
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -37,7 +36,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
 
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
     ReactiveFormsModule,
     SharedModule
   ],

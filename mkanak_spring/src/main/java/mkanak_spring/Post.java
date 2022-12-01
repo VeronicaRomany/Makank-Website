@@ -1,9 +1,11 @@
-import java.sql.Date;
+package mkanak_spring;
+
+import java.util.Date;
 
 public class Post {
-    int postID;
-    Property property;
-    Date publishDate;
+    public int postID;
+    public Property property;
+    public Date publishDate;
 
     public int getPostID() {
         return postID;

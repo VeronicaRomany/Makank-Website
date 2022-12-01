@@ -1,5 +1,4 @@
 
-import { Component } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
 import { Component,OnInit } from '@angular/core';
 
@@ -14,15 +13,6 @@ import { Component,OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit{
  
-
-  constructor() {}
-
-  ngOnInit(): void {
-   
-  }
-
-  
-
   title = 'makank-website';
 
   username?: string;
