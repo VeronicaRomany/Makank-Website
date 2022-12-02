@@ -3,6 +3,3 @@
     font-family: "Poppins";
     src: local("Poppins"), url(./assets/fonts/Poppins-Regular.ttf) format("truetype");
 }
-.image{
-    background-image: url("assets/images/v.jpg");
-}
