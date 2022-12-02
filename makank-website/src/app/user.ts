@@ -1,4 +1,4 @@
-import { Post } from "./post"
+import { Post } from "./shared/post"
 export class User {
     name:string=""
     username:string=""

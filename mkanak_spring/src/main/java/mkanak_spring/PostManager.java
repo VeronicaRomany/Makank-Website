@@ -38,7 +38,7 @@ public class PostManager {
         x.sellerID=5;
         x.address="22nd 45street";
         String[] pics = new String[5];
-        pics[0] = "https://cdn.britannica.com/43/93843-050-A1F1B668/White-House-Washington-DC.jpg";
+        pics[0] = "https://i.ibb.co/HtcV5Zk/red.png";
         x.pictures=pics;
         x.area=250;
         x.info="for sale owner is moving to Banha";
@@ -47,8 +47,9 @@ public class PostManager {
         x.bathroomNumber=4;
         x.city="Alexandria, Egypt";
         x.rent=false;
-        x.hasGarden=true;
-        x.hasPool=false;
+        x.setElevator(true);
+
+ 
         Post p = new Post();
         p.postID=217;
         p.property=x;

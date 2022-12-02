@@ -11,11 +11,21 @@ export class PropertiesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    let p = this.getDummyPost()
-    let p2= this.getDummyPost()
-    this.posts.push(p)
-    this.posts.push(p2)
-    console.log(this.posts)
+    // let p = this.getDummyPost()
+    // let p2= this.getDummyPost()
+    // this.posts.push(p)
+    // this.posts.push(p2)
+    // console.log(this.posts)
+    this.sendPostsRequests()
+    
+  }
+
+  sendPostsRequests(){
+      this.serv.getPostsHomePage(this.preference).subscribe(results => {
+          
+          this.posts=results
+      } );
+   
   }
 
  getDummyPost():Post{

@@ -7,6 +7,21 @@ body{
     flex: 1;
 }
 
+
+.type{
+    overflow: hidden;
+    font-size: 20px;
+    color: rgb(87, 87, 87);
+}
+
+
+.price{
+    overflow: hidden;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+}
+
+
 .groups{
     margin: 0 auto;width: 780px;padding: 10px;height: auto;
 }
@@ -54,7 +69,7 @@ body{
     height: 45px;
     overflow: hidden;
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: 17px;
 }
 .groups .footer .button{
     position: absolute;
