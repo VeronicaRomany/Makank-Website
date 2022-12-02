@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -9,11 +8,8 @@ import { ViewingPreference } from 'src/app/shared/viewingPreference';
   providedIn: 'root'
 })
 export class PropertiesService {
-  
-  constructor(private http:HttpClient) { }
-  postsURL:string = "http://localhost:8080/posts"
-  
 
+  constructor() { }
 
   getPostsHomePage(preference:ViewingPreference):Observable<Post[]>{
     console.log(preference)

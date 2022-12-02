@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterPreference, SortingPreference, ViewingPreference } from '../viewingPreference';
-import { TokenStorageService } from 'src/app/login/services/token-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -8,22 +7,11 @@ import { TokenStorageService } from 'src/app/login/services/token-storage.servic
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  username?: string;
-  password?:string;
-  isLoggedIn=false;
-  constructor(private tokenStorageService: TokenStorageService) { }
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-    console.log(this.tokenStorageService.getUser())
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.username = user.username;
-      this.password=user.password;
-      console.log(this.username)
-    }
   }
-
 
   temp(){
     let v:ViewingPreference = new ViewingPreference()
@@ -38,18 +26,12 @@ export class HeaderComponent implements OnInit {
     
     s.ascending=true
     s.sortingCriteria="price"
-    v.filterPreference=f
+    v.filterPrereferene=f
     v.sortingPreference=s
     v.sorted=false
     v.filtered=true
     console.log(JSON.stringify(v));
     
-  }
-
-
-  logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
   }
 
 }

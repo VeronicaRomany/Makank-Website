@@ -13,7 +13,7 @@ nav{
     
 }
 .logo{
-    color:rgb(0, 0, 0);
+    color:black;
     text-transform: uppercase;
     letter-spacing: 4px;
     font-size: 22px;
@@ -27,7 +27,6 @@ nav{
 }
 .nav-links li{
     list-style: none;
-
 }
 .nav-links a{
     color:black ;
