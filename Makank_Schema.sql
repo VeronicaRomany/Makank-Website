@@ -84,12 +84,6 @@ from users;
 select *
 from login_credentials;
 
-/*
-insert into users values(null, 'yara hossam', 'yaraboo', 'yarahossam@gmail.com', 'alex', null, 'passwordyara', null);
-insert into users values(null, 'yara hossam', 'yaraboo2', 'yarahossam@alexu.edu.eg', 'alex', null, 'passwordyara', null);
-insert into users values(null, 'yara hossam', 'yaraboo3', 'yarahossam@alex.eg', 'alex', null, 'passwordyara', null);
-insert into users values(null, 'yara hossam', 'yaraboo4', 'yarahossam@alex.eg', 'alex', null, 'passwordyara', null);
-*/
 select *
 from users;
 
