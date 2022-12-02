@@ -1,8 +1,6 @@
 package mkanak_spring.models;
 
-
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,6 @@ public class User {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
-
     private String name;
     @Column(unique = true)
     private String username;
@@ -29,6 +26,8 @@ public class User {
     @OneToMany()
     @JoinColumn(referencedColumnName = "user_id")
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
+
+    private List<String> savedItems = new ArrayList<>(); // to be updated
 
     public Long getUserID() {
         return userID;
@@ -100,20 +99,5 @@ public class User {
 
     public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + userID +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", profile_pic_link='" + profile_pic_link + '\'' +
-                ", password='" + password + '\'' +
-                ", description='" + description + '\'' +
-                ", phone_numbers=" + phoneNumbers +
-                '}';
     }
 }
