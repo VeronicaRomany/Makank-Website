@@ -3,9 +3,9 @@ package mkanak_spring;
 import java.util.Date;
 
 public class Post {
-    public int postID;
-    public Property property;
-    public Date publishDate;
+    private int postID;
+    private Property property;
+    private Date publishDate;
 
     public int getPostID() {
         return postID;
