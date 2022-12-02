@@ -1,5 +1,4 @@
-<nav>
-   
+<nav (click)="temp()">
             <h2 class = "logo">Makank</h2>
             <ul class = "nav-links">
                 <li>
@@ -8,9 +7,19 @@
                 <li>
                     <a href="/Profile" >Profile</a>
                 </li>
+                <ul *ngIf="!isLoggedIn">
                 <li>
                     <a href="/Login" >Login</a>
                 </li>
+                  </ul>
+                  <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+                    <li class="nav-item">
+                      <a href="/Profile" class="nav-link" routerLink="Profile">{{ username }}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href class="nav-link" (click)="logout()">Logout</a>
+                    </li>
+                  </ul>
             </ul>
   
 </nav>

@@ -7,6 +7,21 @@ body{
     flex: 1;
 }
 
+
+.type{
+    overflow: hidden;
+    font-size: 20px;
+    color: rgb(87, 87, 87);
+}
+
+
+.price{
+    overflow: hidden;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+}
+
+
 .groups{
     margin: 0 auto;width: 780px;padding: 10px;height: auto;
 }
@@ -19,7 +34,7 @@ body{
 }
 .groups .card{overflow: hidden;display: block;}
 .groups .image-session{float: left;overflow: hidden;margin-right: 20px;}
-.groups .image-session .image{width: 280px;height: 220px;display: block;background-size: cover;
+.groups .image-session .image{width: 280px;height: 220px;display: block;background-size: contain;
     background-position: center;}
 .groups .meta-sission{position: relative;padding: 15px;display: block;height: 220px;}
 .groups .meta-sission .head{display: flex;margin-bottom: 10px;}
@@ -54,7 +69,7 @@ body{
     height: 45px;
     overflow: hidden;
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: 17px;
 }
 .groups .footer .button{
     position: absolute;
