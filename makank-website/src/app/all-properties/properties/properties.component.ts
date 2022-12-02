@@ -28,7 +28,11 @@ export class PropertiesComponent implements OnInit {
   }
 
   sendPostsRequests(){
-      this.serv.getPostsHomePage(this.preference).subscribe(results => console.log(results));
+      this.serv.getPostsHomePage(this.preference).subscribe(results => {
+          
+          this.posts=results
+      } );
+   
   }
 
  getDummyPost():Post{

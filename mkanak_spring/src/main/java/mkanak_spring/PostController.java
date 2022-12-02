@@ -1,6 +1,7 @@
 package mkanak_spring;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import com.google.gson.Gson;
 
 @CrossOrigin
 @RestController
@@ -14,11 +15,11 @@ public class PostController {
 
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference){
-//        GSON gson = new GSON();
+        Gson gson = new Gson();
         System.out.println("GOT A REQUEST >> "+preference);
 //
-//        ViewingPreference p= gson.fromJSON(preference,ViewingPreference.class);
-        ViewingPreference p= new ViewingPreference();
+        ViewingPreference p= gson.fromJson(preference,ViewingPreference.class);
+//        ViewingPreference p= new ViewingPreference();
         return app.getHomePage(p);
     }
 
