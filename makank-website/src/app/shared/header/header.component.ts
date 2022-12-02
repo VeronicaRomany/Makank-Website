@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     
     s.ascending=true
     s.sortingCriteria="price"
-    v.filterPrereferene=f
+    v.filterPreference=f
     v.sortingPreference=s
     v.sorted=false
     v.filtered=true

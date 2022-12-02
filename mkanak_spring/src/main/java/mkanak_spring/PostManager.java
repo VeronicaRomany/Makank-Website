@@ -1,14 +1,14 @@
 package mkanak_spring;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostManager {
-    List<Post> getPersonPosts(int targetUserID, ViewingPreference preferences) {
-        return new ArrayList<>();
+    public List<Post> getPersonPosts(int targetUserID, ViewingPreference preferences) {
+        return null;
     }
-    List<Post> getHomePage(ViewingPreference preferences){
+    public List<Post> getHomePage(ViewingPreference preferences){
         List<Post> homePageContent= new ArrayList<>();
         for(int i=0;i<5;i++){
             homePageContent.add(getDummyPost());
@@ -16,25 +16,25 @@ public class PostManager {
         return homePageContent;
     }
 
-    List<Post> getSavedPosts(int userID, ViewingPreference preferences){
-        return new ArrayList<>();
+    public List<Post> getSavedPosts(int userID, ViewingPreference preferences){
+        return null;
     }
 
-    boolean editPost(int userID, Post post){
+    public boolean editPost(int userID, Post post){
         return false;
     }
 
-    boolean addToSavedPost(int userID, int postID){
+    public boolean addToSavedPost(int userID, int postID){
         return false;
     }
 
-    boolean removePostFromSaved(int userID, int postID){
+    public boolean removePostFromSaved(int userID, int postID){
         return false;
     }
 
 
     private Post getDummyPost(){
-        Villa x = new Villa();
+        Apartment x = new Apartment();
         x.sellerID=5;
         x.address="22nd 45street";
         String[] pics = new String[5];
@@ -47,12 +47,10 @@ public class PostManager {
         x.bathroomNumber=4;
         x.city="Alexandria, Egypt";
         x.rent=false;
-        x.hasGarden=true;
-        x.hasPool=false;
+
         Post p = new Post();
-        p.postID=217;
-        p.property=x;
-        p.publishDate=new Date(System.currentTimeMillis());
+        p.setPostID(271);
+        p.setProperty(x);
         return p;
     }
 
