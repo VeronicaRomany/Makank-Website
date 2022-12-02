@@ -12,6 +12,4 @@ public class Property {
     public String info;
     public String[] pictures;
     public String type;
-
-
 }

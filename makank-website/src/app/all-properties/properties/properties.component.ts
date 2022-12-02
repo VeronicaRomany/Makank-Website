@@ -1,9 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/shared/post';
 import { Apartment, Property, Villa } from 'src/app/shared/property';
-import { ViewingPreference } from 'src/app/shared/viewingPreference';
-import { PropertiesService } from '../services/properties.service';
 @Component({
   selector: 'app-properties',
   templateUrl: './properties.component.html',
@@ -11,24 +8,14 @@ import { PropertiesService } from '../services/properties.service';
 })
 export class PropertiesComponent implements OnInit {
   posts:Post[] =[]
-  serv: PropertiesService 
-  preference:ViewingPreference=new ViewingPreference()
-  constructor(private service:PropertiesService) { 
-    this.serv= service
-  }
+  constructor() { }
 
   ngOnInit(): void {
-    // let p = this.getDummyPost()
-    // let p2= this.getDummyPost()
-    // this.posts.push(p)
-    // this.posts.push(p2)
-    // console.log(this.posts)
-    this.sendPostsRequests()
-    
-  }
-
-  sendPostsRequests(){
-      this.serv.getPostsHomePage(this.preference).subscribe(results => console.log(results));
+    let p = this.getDummyPost()
+    let p2= this.getDummyPost()
+    this.posts.push(p)
+    this.posts.push(p2)
+    console.log(this.posts)
   }
 
  getDummyPost():Post{
