@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { PropertiesComponent } from './all-properties/properties/properties.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,9 +15,11 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './registration/register/register.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
+
+
 
 import { SharedModule } from './shared/shared.module';
-import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    PropertiesComponent
+   
 
   ],
   imports: [
@@ -38,7 +39,7 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
