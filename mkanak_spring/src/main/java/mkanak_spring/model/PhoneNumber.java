@@ -1,19 +1,24 @@
-package mkanak_spring.models;
+package mkanak_spring.model;
 
-import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-@EqualsAndHashCode
-@AllArgsConstructor
+@Entity
+@Table(name = "phone_numbers")
 @NoArgsConstructor
-public class PhoneNumberId implements Serializable {
+@IdClass(PhoneNumberId.class)
+public class PhoneNumber {
+    @Id
     @Column(name = "user_id")
     private Long user_id;
+    @Id
     @Column(name = "phone_number")
     private String phone_number;
+
+    public PhoneNumber(Long user_id, String phone_number) {
+        this.user_id = user_id;
+        this.phone_number = phone_number;
+    }
 
     public Long getUser_id() {
         return user_id;
@@ -31,3 +36,5 @@ public class PhoneNumberId implements Serializable {
         this.phone_number = phone_number;
     }
 }
+
+

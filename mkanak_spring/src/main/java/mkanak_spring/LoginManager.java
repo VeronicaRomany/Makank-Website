@@ -1,5 +1,5 @@
 package mkanak_spring;
-
+/*
 public class LoginManager {
     UserCredentials userCredentials;
     LoginManager(){}
@@ -14,3 +14,5 @@ public class LoginManager {
     }
 
 }
+
+ */

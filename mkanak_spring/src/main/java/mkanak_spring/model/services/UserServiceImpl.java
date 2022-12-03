@@ -1,11 +1,10 @@
-package mkanak_spring.models.services;
+package mkanak_spring.model.services;
 
-import jakarta.transaction.Transactional;
-import mkanak_spring.models.PhoneNumber;
-import mkanak_spring.models.User;
-import mkanak_spring.models.UserCredentials;
-import mkanak_spring.models.dao.PhoneNumberRepo;
-import mkanak_spring.models.dao.UserDAO;
+import mkanak_spring.model.PhoneNumber;
+import mkanak_spring.model.User;
+import mkanak_spring.model.UserCredentials;
+import mkanak_spring.model.dao.PhoneNumberRepo;
+import mkanak_spring.model.dao.UserDAO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -57,7 +56,7 @@ public class UserServiceImpl implements UserService {
     public Long logInUser(String username, String password) {
         UserCredentials userCredentials = userDAO.logInUser(username);
         if(userCredentials == null) return -1L;
-        if(!userCredentials.getUser_password().equals(password)) return -2L;
+        if(!userCredentials.getPassword().equals(password)) return -2L;
         return userCredentials.getUser_id();
     }
 }

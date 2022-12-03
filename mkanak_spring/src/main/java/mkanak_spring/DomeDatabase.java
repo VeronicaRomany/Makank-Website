@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DomeDatabase {
-    class Data{
+    public class Data{
         String userName;
         String password;
-        int userID;
+        public int userID;
         Data(String userName, String password, int userID){
             this.userName=userName;
             this.password=password;
@@ -16,7 +16,7 @@ public class DomeDatabase {
     }
 
     Set<Data> data=new HashSet<>();
-    DomeDatabase(){
+    public DomeDatabase(){
         data.add(new Data("A","p1",1));
         data.add(new Data("B","p2",2));
         data.add(new Data("C","p3",3));

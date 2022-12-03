@@ -1,4 +1,4 @@
-package mkanak_spring.models;
+package mkanak_spring.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
     private String name;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     @Column(unique = true)
     private String email;
@@ -27,7 +27,7 @@ public class User {
     @JoinColumn(referencedColumnName = "user_id")
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
-    private List<String> savedItems = new ArrayList<>(); // to be updated
+    //private List<String> savedItems = new ArrayList<>(); // to be updated
 
     public Long getUserID() {
         return userID;
