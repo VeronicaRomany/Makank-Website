@@ -5,8 +5,10 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 
 
 import {  ValidatorFn } from '@angular/forms';
+
 import { Observable } from 'rxjs';
 import { User } from 'src/app/user';
+import { RegisterService } from '../service/register.service';
 
 
 
@@ -51,7 +53,7 @@ export class RegisterComponent implements OnInit {
   });
   submitted = false;
 
-  urllink:string="/assets/";
+  urllink:string="";
   
   file:File={
     lastModified: 0,
@@ -78,7 +80,7 @@ export class RegisterComponent implements OnInit {
   
   
 
-  constructor(private formBuilder: FormBuilder, private http:HttpClient) {}
+  constructor(private formBuilder: FormBuilder, private http:HttpClient, private readonly registerservice: RegisterService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -126,6 +128,7 @@ export class RegisterComponent implements OnInit {
     var jsonString = JSON.stringify(this.form.value, null, 2)
     console.log(jsonString);
    
+    this.f['profilePicture'].setValue (this.urllink)
   
     this.newAccount.name = this.f['fullname'].value
     this.newAccount.password=this.f['password'].value
@@ -139,11 +142,11 @@ export class RegisterComponent implements OnInit {
    
     var NewAccountJsonString = JSON.stringify(this.newAccount)
     console.log(NewAccountJsonString)
-    this.urllink="/assets/p.png"
+    this.urllink=""
 
     this.http.post("http://localhost:8080/server/users/new",NewAccountJsonString,{responseType:'text'}).subscribe((data:any) =>{
       console.log(data);
-      this.urllink="/assets/"
+      
     })
 
   }
@@ -153,16 +156,35 @@ export class RegisterComponent implements OnInit {
     this.form.reset();
   }
 
+
+
   
 
 
   SelectFile(event:any){
     this.file = event.target.files[0];
-    this.urllink += this.file.name
+
+
+    this.registerservice.upload(this.file).subscribe(url => this.urllink=url)
+    
 
     console.log(this.urllink)
-    this.f['profilePicture'].setValue (this.urllink)
+    
   }
+
+  selectFile(event:any){
+    if(event.target.files){
+      var reader = new FileReader()
+      reader.readAsDataURL(event.target.files[0])
+      reader.onload = (event:any)=>{
+
+        this.urllink = event.target.result
+        this.f['profilePicture'].setValue (this.urllink)
+        
+      }
+    }
+  }
+    
 
 
 
