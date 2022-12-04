@@ -1,17 +1,19 @@
 import { Post } from "./shared/post"
+
 export class User {
+    
     name:string=""
     username:string=""
     password:string=""
-    phoneNumber:string[]=[]
+    phone_numbers:string[]=[]
 
     
     email:string=""
-    profilePicture:string=""
+    profile_pic_link:string=""
     address:string=""
     description:string=""
     
-    savedPosts: Post[] = []
+    saved_posts: Post[] = []
 
     constructor(){}
    

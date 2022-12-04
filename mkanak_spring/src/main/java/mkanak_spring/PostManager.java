@@ -38,7 +38,7 @@ public class PostManager {
         x.sellerID=5;
         x.address="22nd 45street";
         String[] pics = new String[5];
-        pics[0] = "https://i.ibb.co/HtcV5Zk/red.png";
+        pics[0] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYI7wP8BBfh928fLg3Ui5Slj7ROZW_zc3rag&usqp=CAU";
         x.pictures=pics;
         x.area=250;
         x.info="for sale owner is moving to Banha";
