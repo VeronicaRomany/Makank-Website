@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.constant.Constable;
-
+/*
 @CrossOrigin
 @RestController
 @RequestMapping("/makank")
@@ -26,3 +26,4 @@ public class userController {
 
 
 }
+*/
