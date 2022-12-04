@@ -1,5 +1,6 @@
 package mkanak_spring.model.services;
 
+import mkanak_spring.LoginManager;
 import mkanak_spring.model.PhoneNumber;
 import mkanak_spring.model.User;
 import mkanak_spring.model.UserCredentials;
@@ -54,7 +55,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long logInUser(String username, String password) {
-        UserCredentials userCredentials = userDAO.logInUser(username);
+        LoginManager loginManager = new LoginManager();
+        UserCredentials userCredentials = loginManager.SignInUser(username, password);
+        userCredentials = userDAO.logInUser(userCredentials);
         if(userCredentials == null) return -1L;
         if(!userCredentials.getPassword().equals(password)) return -2L;
         return userCredentials.getUser_id();

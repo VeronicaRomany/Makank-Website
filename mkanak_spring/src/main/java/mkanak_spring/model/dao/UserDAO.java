@@ -14,8 +14,8 @@ public class UserDAO {
     public void saveUser(User user) {
         userRepo.save(user);
     }
-    public UserCredentials logInUser(String username) {
-        UserCredentials userCredentials = userCredentialsRepo.findByUsername(username);
+    public UserCredentials logInUser(UserCredentials userCredentials) {
+        userCredentials = userCredentialsRepo.findByUsername(userCredentials.getUsername());
         return userCredentials;
     }
 

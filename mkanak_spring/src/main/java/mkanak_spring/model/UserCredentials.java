@@ -16,7 +16,7 @@ public class UserCredentials {
     @Column(name = "user_password")
     private String password;
 
-    UserCredentials(String userName,String password){
+    public UserCredentials(String userName, String password){
         this.username=userName;
         this.password=password;
     }

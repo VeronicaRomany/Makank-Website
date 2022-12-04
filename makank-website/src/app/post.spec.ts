@@ -1,4 +1,4 @@
-import { Post } from './post';
+import { Post } from "./shared/post";
 
 describe('Post', () => {
   it('should create an instance', () => {

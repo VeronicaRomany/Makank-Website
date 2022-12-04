@@ -1,5 +1,6 @@
 package mkanak_spring.controllers;
 
+import mkanak_spring.LoginManager;
 import mkanak_spring.model.User;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
@@ -9,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/makank")
+@RequestMapping()
 public class UserController {
     @Autowired
     UserService userService;
+
 
     @PostMapping(value = "users/signin")
     public Long signInUser(@RequestBody JSONObject userCredentials) {
@@ -28,6 +30,7 @@ public class UserController {
             return userID;
 
         */
+      //LoginManager loginManager = new LoginManager();
         String username = (String) userCredentials.get("username");
         String password = (String) userCredentials.get("password");
         return userService.logInUser(username, password);
