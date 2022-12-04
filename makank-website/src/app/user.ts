@@ -1,4 +1,5 @@
 import { Post } from "./shared/post"
+
 export class User {
     
     name:string=""

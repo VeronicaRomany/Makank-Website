@@ -20,26 +20,25 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 import { SharedModule } from './shared/shared.module';
+import { HeaderComponent } from './shared/header/header.component';
+import { PropertiesComponent } from './all-properties/properties/properties.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-   
-
+    PropertiesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-    FormsModule,
+    SharedModule,
+    FormsModule,  
     HttpClientModule,
     ReactiveFormsModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]
