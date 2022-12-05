@@ -20,12 +20,12 @@ public class UserDAO {
     }
 
     public Boolean usernameExists(String username) {
-        if(userRepo.findByUsername(username) != null) return true;
+        if(userRepo.findByUsername(username)) return true;
         return false;
     }
 
     public Boolean emailExists(String email) {
-        if(userRepo.findByEmail(email) != null) return true;
+        if(userRepo.findByEmail(email)) return true;
         return false;
     }
 
