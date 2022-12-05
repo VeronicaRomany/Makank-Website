@@ -68,7 +68,7 @@ class UserCredentialsRepoTest {
 
         UserCredentials userCredentials = new UserCredentials(username, password);
         userCredentials.setUser_id(1L);
-        
+
 
         // when
         UserCredentials userCredentialsRepoTestByUsername = userCredentialsRepoTest.findByUsername(username);

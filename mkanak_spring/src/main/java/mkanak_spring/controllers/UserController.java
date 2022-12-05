@@ -30,7 +30,6 @@ public class UserController {
             return userID;
 
         */
-      //LoginManager loginManager = new LoginManager();
         String username = (String) userCredentials.get("username");
         String password = (String) userCredentials.get("password");
         return userService.logInUser(username, password);
