@@ -18,18 +18,6 @@ public class UserController {
 
     @PostMapping(value = "users/signin")
     public Long signInUser(@RequestBody JSONObject userCredentials) {
-        /**
-            JSONObject json = new JSONObject(data);
-            System.out.println(json.getString("username"));
-            String userName=json.getString("username");
-            String password=json.getString("password");
-            LoginManager loginManager=new LoginManager();
-            int userID = loginManager.SignInUser(userName,password);
-            System.out.println(userID);
-
-            return userID;
-
-        */
         String username = (String) userCredentials.get("username");
         String password = (String) userCredentials.get("password");
         return userService.logInUser(username, password);

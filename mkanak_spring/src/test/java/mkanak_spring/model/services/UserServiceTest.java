@@ -39,8 +39,6 @@ class UserServiceTest {
         String password = "password";
         UserCredentials userCredentialsTest = loginManager.SignInUser(username, password);
         userCredentialsTest.setUser_id(1L);
-        UserCredentials input = new UserCredentials(username, password);
-        input.setUser_id(1L);
 
 
         userDAO.logInUser(userCredentialsTest);
