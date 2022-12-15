@@ -29,7 +29,7 @@ class UserCredentialsRepoTest {
         String password = "password";
 
         UserCredentials userCredentials = new UserCredentials(username, password);
-        userCredentials.setUser_id(1L);
+        userCredentials.setUserID(1L);
 
         userCredentialsRepoTest.save(userCredentials);
 
@@ -48,7 +48,7 @@ class UserCredentialsRepoTest {
         String password = "password";
 
         UserCredentials userCredentials = new UserCredentials(username, password);
-        userCredentials.setUser_id(1L);
+        userCredentials.setUserID(1L);
 
         userCredentialsRepoTest.save(userCredentials);
 
@@ -67,7 +67,7 @@ class UserCredentialsRepoTest {
         String password = "password";
 
         UserCredentials userCredentials = new UserCredentials(username, password);
-        userCredentials.setUser_id(1L);
+        userCredentials.setUserID(1L);
 
 
         // when
