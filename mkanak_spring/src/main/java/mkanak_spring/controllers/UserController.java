@@ -1,7 +1,5 @@
 package mkanak_spring.controllers;
 
-import mkanak_spring.LoginManager;
-import mkanak_spring.model.User;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;

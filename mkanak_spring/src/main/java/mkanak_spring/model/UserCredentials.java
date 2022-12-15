@@ -2,7 +2,6 @@ package mkanak_spring.model;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import mkanak_spring.DomeDatabase;
 import org.hibernate.annotations.Immutable;
 
 @Entity
@@ -11,7 +10,8 @@ import org.hibernate.annotations.Immutable;
 @Table(name = "login_credentials")
 public class UserCredentials {
     @Id
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userID;
     private String username;
     @Column(name = "user_password")
     private String password;
@@ -23,15 +23,15 @@ public class UserCredentials {
     public UserCredentials getUserData(){
         DomeDatabase domeDatabase=new DomeDatabase();
         DomeDatabase.Data d=domeDatabase.getData(this.username,this.password);
-      //  this.user_id=d.userID;
         return this;
     }
-    public Long getUser_id() {
-        return user_id;
+
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {

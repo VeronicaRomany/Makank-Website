@@ -11,23 +11,23 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class PhoneNumberId implements Serializable {
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userID;
     @Column(name = "phone_number")
-    private String phone_number;
+    private String phoneNumber;
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

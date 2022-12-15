@@ -2,7 +2,6 @@ package mkanak_spring.model;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,8 @@ public class User {
     @Column(unique = true)
     private String email;
     private String address;
-    private String profile_pic_link;
+    @Column(name = "profile_pic_link")
+    private String profilePicLink;
     @Column(name = "user_password")
     private String password;
     @Column(name = "user_description")
@@ -35,13 +35,13 @@ public class User {
     //private List<String> savedItems = new ArrayList<>(); // to be updated
 
 
-    public User(Long userID, String name, String username, String email, String address, String profile_pic_link, String password, String description, List<PhoneNumber> phoneNumbers) {
+    public User(Long userID, String name, String username, String email, String address, String profilePicLink, String password, String description, List<PhoneNumber> phoneNumbers) {
         this.userID = userID;
         this.name = name;
         this.username = username;
         this.email = email;
         this.address = address;
-        this.profile_pic_link = profile_pic_link;
+        this.profilePicLink = profilePicLink;
         this.password = password;
         this.description = description;
         this.phoneNumbers = phoneNumbers;
@@ -87,12 +87,12 @@ public class User {
         this.address = address;
     }
 
-    public String getProfile_pic_link() {
-        return profile_pic_link;
+    public String getProfilePicLink() {
+        return profilePicLink;
     }
 
-    public void setProfile_pic_link(String profile_pic_link) {
-        this.profile_pic_link = profile_pic_link;
+    public void setProfilePicLink(String profilePicLink) {
+        this.profilePicLink = profilePicLink;
     }
 
     public String getPassword() {
@@ -127,7 +127,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-                ", profile_pic_link='" + profile_pic_link + '\'' +
+                ", profile_pic_link='" + profilePicLink + '\'' +
                 ", password='" + password + '\'' +
                 ", description='" + description + '\'' +
                 ", phone_numbers=" + phoneNumbers +

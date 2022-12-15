@@ -1,4 +1,4 @@
-package mkanak_spring;
+package mkanak_spring.model;
 
 public class PostsRequestObject {
     int id;

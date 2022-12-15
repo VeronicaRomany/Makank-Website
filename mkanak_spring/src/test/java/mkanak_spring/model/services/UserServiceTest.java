@@ -1,16 +1,14 @@
 package mkanak_spring.model.services;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mkanak_spring.LoginManager;
+import mkanak_spring.model.LoginManager;
 import mkanak_spring.model.User;
 import mkanak_spring.model.UserCredentials;
 import mkanak_spring.model.dao.UserCredentialsRepo;
 import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.dao.UserRepo;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

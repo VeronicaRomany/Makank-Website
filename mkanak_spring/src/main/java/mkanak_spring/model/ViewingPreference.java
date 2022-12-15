@@ -1,4 +1,7 @@
-package mkanak_spring;
+package mkanak_spring.model;
+
+import mkanak_spring.model.FilterPreference;
+import mkanak_spring.model.SortingPreference;
 
 public class ViewingPreference {
     private boolean sorted;

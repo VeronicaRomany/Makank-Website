@@ -1,5 +1,8 @@
-package mkanak_spring;
+package mkanak_spring.controllers;
 
+import mkanak_spring.model.Post;
+import mkanak_spring.model.PostManager;
+import mkanak_spring.model.ViewingPreference;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.google.gson.Gson;

@@ -1,6 +1,6 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.LoginManager;
+import mkanak_spring.model.LoginManager;
 import mkanak_spring.model.User;
 import mkanak_spring.model.UserCredentials;
 import org.junit.jupiter.api.Test;

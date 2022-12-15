@@ -1,6 +1,6 @@
-package mkanak_spring;
+package mkanak_spring.model;
 
-public class Apartment extends Property{
+public class Apartment extends Property {
     private int level;
     private boolean elevator;
     private boolean studentHousing;

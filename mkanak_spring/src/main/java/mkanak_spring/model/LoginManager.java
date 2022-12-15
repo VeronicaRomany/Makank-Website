@@ -1,4 +1,4 @@
-package mkanak_spring;
+package mkanak_spring.model;
 
 import mkanak_spring.model.UserCredentials;
 import mkanak_spring.model.services.UserService;

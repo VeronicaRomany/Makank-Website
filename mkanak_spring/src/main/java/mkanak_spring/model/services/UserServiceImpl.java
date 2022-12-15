@@ -1,6 +1,6 @@
 package mkanak_spring.model.services;
 
-import mkanak_spring.LoginManager;
+import mkanak_spring.model.LoginManager;
 import mkanak_spring.model.PhoneNumber;
 import mkanak_spring.model.User;
 import mkanak_spring.model.UserCredentials;
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         userInstance.setDescription((String) object.get("description"));
         userInstance.setPassword((String) object.get("password"));
         userInstance.setEmail((String) object.get("email"));
-        userInstance.setProfile_pic_link((String) object.get("profile_pic_link"));
+        userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
 
         if(userDAO.usernameExists(userInstance.getUsername())) return "Username already exists";
         if(userDAO.emailExists(userInstance.getEmail())) return "Account with same email exists";
@@ -60,6 +60,6 @@ public class UserServiceImpl implements UserService {
         userCredentials = userDAO.logInUser(userCredentials);
         if(userCredentials == null) return -1L;
         if(!userCredentials.getPassword().equals(password)) return -2L;
-        return userCredentials.getUser_id();
+        return userCredentials.getUserID();
     }
 }
