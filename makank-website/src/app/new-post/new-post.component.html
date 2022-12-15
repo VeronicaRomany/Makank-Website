@@ -1,0 +1,89 @@
+<h1>Enter Your Property Details</h1>
+
+<form [formGroup]="newPostForm" >
+
+   <label for="type">Type</label><br>
+    <select formControlName="type" id="type">
+        <option  value="villa">Villa</option>
+        <option  value="appartment">Appartment</option>
+    </select>
+    <br>
+
+    <label for="type">Buy/Rent</label><br>
+    <select formControlName="RentOrBuy" id="rentOBuy">
+        <option value="rent">Rent</option>
+        <option value="buy">Buy</option>
+    </select><br>
+    
+
+    <label for="type">City</label><br>
+    <select formControlName="city" id="city">
+        <option value="cairo">Cairo</option>
+        <option value="alex">Alexandria</option>
+        <option value="tanta">Tanta</option>
+        <option value="asuit">Asuit</option>
+        <option value="sohag">Sohag</option>
+        <option value="luxor">Luxor</option>
+        <option value="aswan">Aswan</option>
+    </select><br>
+
+    <label for="levels">Level</label><br>
+    <input type="number" id ="levels" placeholder="Enter the Level" formControlName="level" min="0"><br>
+
+    <label for="price">Price</label><br>
+    <input type="number" id ="price" placeholder="Enter the Price" formControlName="price" min="0"><br>
+
+    <label for="area">Area</label><br>
+    <input type="number" id ="area" placeholder="Enter the Area" formControlName="area" min="0"><br>
+
+    <label for="rooms">Rooms</label><br>
+    <input type="number" id ="rooms" placeholder="Add Room numbers" formControlName="rommsNum" min="0"><br>
+
+    <label for="bath">Bathrooms</label><br>
+    <input type="number" id ="bath" placeholder="Add WC numbers" formControlName="WC-Num" min="0"><br>
+
+    <label for="address">address</label><br>
+    <input type="text" id ="address" placeholder="Add detailed address" formControlName="address" ><br>
+
+    <label for="info">Info</label><br>
+    <input type="text" id ="info" placeholder="Add Info" formControlName="info" ><br>
+
+    <div >
+        <div >
+            <input type="radio" id="elev" formControlName="elevator">
+            <label for="elev">Has Elevator</label>
+        
+            <input type="radio" id="student" formControlName="studentHousing">
+            <label for="student">Student Housing</label><br>
+         </div>
+           
+        <div >
+            <input type="radio" id="pool" formControlName="pool">
+            <label for="pool">Has Pool</label>
+        
+            <input type="radio" id="garden" formControlName="garden">
+            <label for="garden">Has Garden</label><br>
+        </div>
+        
+    </div>
+
+
+
+    <label for="uni">Choose All Universities</label><br>
+    <select formControlName="universities" id="uni" multiple>
+        <option value="Faculty of Engineering, Alex university">Faculty of Engineering, Alex university</option>
+        <option value="Faculty of Medicine, Alex university">Faculty of Medicine, Alex university</option>
+        <option value="Faculty of Pharmacy, Alex university">Faculty of Pharmacy, Alex university</option>
+        <option value="Faculty of Dentistry, Alex university">Faculty of  Dentistry, Alex university</option>
+        
+    </select><br>
+
+    
+
+    
+
+    
+
+
+
+</form>
