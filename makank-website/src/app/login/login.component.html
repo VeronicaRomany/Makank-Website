@@ -1,5 +1,5 @@
-<div class="col-md-12">
-  <div class="card card-container">
+<div class="frame">
+  <div class="card">
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -47,6 +47,7 @@
         <button class="btn btn-primary btn-block">
           Login
         </button>
+        
       </div>
       <div class="form-group">
         <div
@@ -56,10 +57,13 @@
         >
           Login failed: {{ errorMessage }}
         </div>
+        <li class="signUP">
+          <a href="/Register" >Sign up</a>
+      </li>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isLoggedIn">
+    <div class="alert alert-success" *ngIf="isLoggedIn" >
       Logged in as {{ username }}.
     </div>
   </div>

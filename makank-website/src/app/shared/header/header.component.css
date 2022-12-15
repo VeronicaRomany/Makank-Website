@@ -1,0 +1,38 @@
+*{
+    margin :0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: rgb(135, 237, 125);
+    font-family: 'Poppins',sans-serif;
+    
+}
+.logo{
+    color:rgb(0, 0, 0);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 22px;
+    
+}
+.nav-links{
+    display: flex;
+
+    justify-content: space-around;
+    width: 35%;
+}
+.nav-links li{
+    list-style: none;
+
+}
+.nav-links a{
+    color:black ;
+    text-decoration: none;
+    letter-spacing: 3px;
+     
+
+}

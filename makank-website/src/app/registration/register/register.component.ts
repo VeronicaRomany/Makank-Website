@@ -144,7 +144,7 @@ export class RegisterComponent implements OnInit {
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    this.http.post("http://localhost:8080/server/users/new",NewAccountJsonString,{responseType:'text'}).subscribe((data:any) =>{
+    this.http.post("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString),{responseType:'text'}).subscribe((data:any) =>{
       console.log(data);
       
     })

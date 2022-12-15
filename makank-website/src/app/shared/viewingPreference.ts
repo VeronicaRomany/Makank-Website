@@ -2,7 +2,7 @@ export class ViewingPreference{
     sorted:boolean= false
     filtered:boolean = false
     sortingPreference:SortingPreference=new SortingPreference
-    filterPrereferene:FilterPreference=new FilterPreference
+    filterPreference:FilterPreference=new FilterPreference
 }
 
 export class SortingPreference{
