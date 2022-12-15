@@ -48,7 +48,7 @@ class UserDAOTest {
         String username = "lolo";
         String password = "password";
         UserCredentials userCredentialsTest = loginManager.SignInUser(username, password);
-        userCredentialsTest.setUser_id(1L);
+        userCredentialsTest.setUserID(1L);
 
         userCredentialsRepoTest.findByUsername(userCredentialsTest.getUsername());
 
