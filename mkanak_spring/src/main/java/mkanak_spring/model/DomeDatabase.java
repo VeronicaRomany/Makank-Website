@@ -1,4 +1,4 @@
-package mkanak_spring;
+package mkanak_spring.model;
 
 import java.util.HashSet;
 import java.util.Set;

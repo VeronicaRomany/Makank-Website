@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.form;
 
     this.authService.login(username, password).subscribe((data: number)=> {
-        if(data!=-1){
+        if(data > 0){
           this.tokenStorage.saveToken(username);
           this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
           console.log(this.tokenStorage.getUser())
@@ -40,9 +40,16 @@ export class LoginComponent implements OnInit {
           this.username = this.tokenStorage.getUser().username;
           this.router.navigate(['/', 'Home'])
         }
-        else {
-          this.errorMessage='Please enter valid data'
-          this.isLoginFailed = true;
+        else{
+          if(data == -1) {
+            this.errorMessage='Please enter valid username'
+            this.isLoginFailed = true;
+          }
+          if(data == -2) {
+            this.errorMessage='Please enter correct password'
+            this.isLoginFailed = true;
+          }
+          
         }
       },
   );
