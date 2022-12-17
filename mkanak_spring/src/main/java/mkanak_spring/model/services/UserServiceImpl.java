@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     PhoneNumberRepo phoneNumberRepo;
     @Override
     //@Transactional
-    public String saveUser(JSONObject user) throws ParseException {
+    public Long saveUser(JSONObject user) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(user.toString());
         JSONArray phoneNos = (JSONArray) object.get("phone_numbers");
@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
         userInstance.setEmail((String) object.get("email"));
         userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
 
-        if(userDAO.usernameExists(userInstance.getUsername())) return "Username already exists";
-        if(userDAO.emailExists(userInstance.getEmail())) return "Account with same email exists";
+        if(userDAO.usernameExists(userInstance.getUsername())) return -1L;
+       // if(userDAO.emailExists(userInstance.getEmail()) && (userInstance.getEmail().compareTo("") != 0)) return -2L;
         userDAO.saveUser(userInstance);
         List<PhoneNumber> numbers = new ArrayList<>();
         for(Object obj : phoneNos){
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         phoneNumberRepo.saveAll(numbers);
         userInstance.setPhoneNumbers(numbers);
 
-        return "Saved + " + userInstance.getUserID();
+        return userInstance.getUserID();
     }
 
     @Override

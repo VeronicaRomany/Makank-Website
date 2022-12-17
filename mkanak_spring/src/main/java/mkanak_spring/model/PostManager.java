@@ -24,8 +24,8 @@ public class PostManager {
     }
     public List<Post> getHomePage(ViewingPreference preferences){
         List<Post> homePageContent= new ArrayList<>();
-        for(int i=0;i<5;i++){
-           // homePageContent.add(getDummyPost());
+        for(int i=0;i<5;i++) {
+            // homePageContent.add(getDummyPost());
         }
         return homePageContent;
     }
@@ -51,26 +51,8 @@ public class PostManager {
         return false;
     }
 
-    public Post addPost(Property property) throws ParseException {
-        Post newPost = new Post();
-    //    int a = (int) postDetails.get("area");
-     //   System.out.println("ADD: " + a);
-      //  JSONParser parser = new JSONParser();
-      //  JSONObject post = (JSONObject) parser.parse(postDetails.toString());
-     /*   if(post.get("type") == "villa") {
-            Villa property = new Villa();
-            property = buildVilla(post);
-        }
-        else {
-            Apartment property = new Apartment();
-            property = buildApartment(post);
-        }
 
-      */
-      //  newPost.setProperty(property);
-        /**newPost.setPublishDate();*/
-        return new Post();
-    }
+
 
     public List<Property> getSavedByID(int id){
         return service.getSavedProperties(id);
@@ -78,7 +60,9 @@ public class PostManager {
 
 
 
-    public Property buildProperty(Property property, JSONObject post) {
+
+
+    public Post buildPost(Post property, JSONObject post) {
         property.setAddress((String) post.get("address"));
         property.setType((String) post.get("type"));
         property.setArea((Integer) post.get("area"));
@@ -94,7 +78,7 @@ public class PostManager {
 
     public Apartment buildApartment(JSONObject property) {
         Apartment apartment = new Apartment();
-        buildProperty(apartment, property);
+        buildPost(apartment, property);
         apartment.setLevel((Integer) property.get("level"));
         apartment.setElevator((boolean) property.get("elevator"));
         apartment.setStudentHousing((boolean) property.get("studentHousing"));
@@ -103,7 +87,7 @@ public class PostManager {
 
     public Villa buildVilla(JSONObject property) {
         Villa villa = new Villa();
-        buildProperty(villa, property);
+        buildPost(villa, property);
         villa.setNumberOfLevels((Integer) property.get("level"));
         villa.setHasGarden((boolean) property.get("hasGarden"));
         villa.setHasPool((boolean) property.get("hasPool"));

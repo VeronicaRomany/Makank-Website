@@ -5,9 +5,14 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 
 
 import {  ValidatorFn } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { User } from 'src/app/user';
+import { AuthService } from 'src/app/_services/auth.service.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { Globals } from 'src/globals';
+
 import { RegisterService } from '../service/register.service';
 
 
@@ -54,6 +59,7 @@ export class RegisterComponent implements OnInit {
   submitted = false;
 
   urllink:string="";
+
   
   file:File={
     lastModified: 0,
@@ -80,7 +86,8 @@ export class RegisterComponent implements OnInit {
   
   
 
-  constructor(private formBuilder: FormBuilder, private http:HttpClient, private readonly registerservice: RegisterService) {}
+  constructor(private formBuilder: FormBuilder, private http:HttpClient,private readonly registerservice: RegisterService,
+    private authService: AuthService, private tokenStorage: TokenStorageService,private router:Router) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -144,12 +151,27 @@ export class RegisterComponent implements OnInit {
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    this.http.post("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString),{responseType:'text'}).subscribe((data:any) =>{
+    this.http.post<number>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((data:number) =>{
+      if(data>0)
+      console.log("ana 3mlt register")
       console.log(data);
+      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((userID: number)=> {
+        console.log("ana 3mlt login")
+        console.log(userID)
+        if(userID > 0){
+          console.log("successfully login")
+          console.log(userID)
+          this.tokenStorage.saveToken(this.newAccount.username);
+          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID});
+          console.log(this.tokenStorage.getUser())
+          Globals.setUserID(userID)
+          this.router.navigate(['/', 'Home'])
+        }
       
-    })
+    },);
 
-  }
+  },);
+}
 
   onReset(): void {
     this.submitted = false;

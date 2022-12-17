@@ -30,17 +30,12 @@ public class PostController {
         System.out.println("GOT A REQUEST >> "+preference);
 
         ViewingPreference p= gson.fromJson(preference,ViewingPreference.class);
-        return app.getHomePage(p);
+//        ViewingPreference p= new ViewingPreference();
+        return postService.getAllPosts();
     }
 
     @PostMapping("/new")
     public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
-        Post post = new Post();
-     //   post = app.addPost(postDetails);
-     //   System.out.println(post.getPostID());
-     //   System.out.println(post.getPublishDate());
-     //   System.out.println(post.getProperty().getAddress());
-      //  System.out.println(post.getProperty().getArea());
         postService.savePost(postDetails);
     }
 

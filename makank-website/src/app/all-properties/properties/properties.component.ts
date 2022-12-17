@@ -31,7 +31,7 @@ export class PropertiesComponent implements OnInit {
 
   sendPostsRequests(){
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
-          
+          console.log("ana rg3t", results)
           this.posts=results
       } );
    
