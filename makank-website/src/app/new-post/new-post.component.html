@@ -38,7 +38,7 @@
       </div>
     <br>
 
-    <label for="levels">Level</label><br>
+    <label for="levels">Level/s</label><br>
     <input type="number" id ="levels" placeholder="Enter the Level" formControlName="level" min="0"  
     [ngClass]="{ 'is-invalid': submitted && f['level'].errors }">
     <div *ngIf="submitted && f['level'].errors" class="invalid-feedback">
@@ -78,6 +78,10 @@
       </div>
     <br>
 
+
+    
+     
+   
     <label for="address">address</label><br>
     <input type="text" id ="address" placeholder="Add detailed address" formControlName="address" 
     [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
@@ -118,7 +122,16 @@
             
         </select><br>
     </div>
+    <br>
    
+    <label for="photos">Insert Property Photos</label>
+    <input type="file"  id="photos" (change)="SelectFile($event)">
+    <li *ngFor="let photo of photosLinks, index as i">
+      <a href="url">{{photo}}</a>
+      <button type="button" *ngIf="photosLinks[i]" (click)="RemoveMe(i)"> remove </button>
+    </li>
+
+    <br>
 
     <br><br>
     
