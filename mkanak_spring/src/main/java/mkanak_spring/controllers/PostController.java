@@ -3,6 +3,11 @@ package mkanak_spring.controllers;
 import mkanak_spring.model.Post;
 import mkanak_spring.model.PostManager;
 import mkanak_spring.model.ViewingPreference;
+import mkanak_spring.model.services.PostService;
+import mkanak_spring.model.services.UserService;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.google.gson.Gson;
@@ -11,6 +16,9 @@ import com.google.gson.Gson;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
+    @Autowired
+    PostService postService;
+
     PostManager app = new PostManager();
     @GetMapping("/{targetUserID}")
     public List<Post> getPersonPosts(@PathVariable int targetUserID, @RequestParam ViewingPreference preferences){
@@ -25,6 +33,17 @@ public class PostController {
         ViewingPreference p= gson.fromJson(preference,ViewingPreference.class);
 //        ViewingPreference p= new ViewingPreference();
         return app.getHomePage(p);
+    }
+
+    @PostMapping("/new")
+    public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
+        Post post = new Post();
+     //   post = app.addPost(postDetails);
+     //   System.out.println(post.getPostID());
+     //   System.out.println(post.getPublishDate());
+     //   System.out.println(post.getProperty().getAddress());
+      //  System.out.println(post.getProperty().getArea());
+        postService.savePost(postDetails);
     }
 
     @GetMapping("/saved/{targetUserID}")
