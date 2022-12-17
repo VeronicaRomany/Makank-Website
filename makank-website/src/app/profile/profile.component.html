@@ -8,7 +8,36 @@
     <strong>Password:</strong>
     {{ currentUser.password }}
   </p>
-
+  <body>
+  <div class="container">
+    <div class="box">
+      <img src="https://i.imgur.com/cMy8V5j.png" alt="user" width="100">
+      <ul>
+        <li>Name</li>
+        {{ currentUser.name }}
+        <li>UserName</li>
+        {{ currentUser.username }}
+      </ul>
+    </div>
+    <div class="About">
+      <ul>
+        <h1>about</h1>
+      </ul>
+      <ul>
+        <h3>Office Address</h3>
+        {{ currentUser.address }}
+      </ul>
+      <ul>
+        <h3>Email Address</h3>
+        {{ currentUser.email }}
+      </ul>
+      <ul>
+        <h3>Phone Number(s)</h3>
+        {{ currentUser.phoneNumber }}
+      </ul>
+    </div>
+  </div>
+  </body>
 </div>
 
 <div class="container" *ngIf="notLogIn">
@@ -17,3 +46,5 @@
   </p>
 
 </div>
+
+
