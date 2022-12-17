@@ -13,7 +13,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @PostMapping(value = "users/signin")
     public Long signInUser(@RequestBody JSONObject userCredentials) {
         String username = (String) userCredentials.get("username");
@@ -22,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping(value= "/users/new")
-    public String signUpUser(@RequestBody JSONObject user) throws ParseException {
+    public Long signUpUser(@RequestBody JSONObject user) throws ParseException {
         return userService.saveUser(user);
     }
 }
