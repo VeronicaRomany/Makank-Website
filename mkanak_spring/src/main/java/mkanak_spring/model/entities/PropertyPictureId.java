@@ -1,4 +1,4 @@
-package mkanak_spring.model;
+package mkanak_spring.model.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

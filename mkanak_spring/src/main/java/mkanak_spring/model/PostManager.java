@@ -1,14 +1,14 @@
 package mkanak_spring.model;
 
 import mkanak_spring.model.dao.SavedPostsDAO;
+import mkanak_spring.model.entities.*;
+import mkanak_spring.model.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import mkanak_spring.model.dao.ApartmentRepo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 public class PostManager {
     @Autowired SavedPostsDAO dao;
+    @Autowired PostService service;
+
     public List<Post> getPersonPosts(int targetUserID, ViewingPreference preferences) {
         return null;
     }
@@ -41,6 +43,7 @@ public class PostManager {
     }
 
     public boolean addToSavedPost(int userID, int postID){
+        dao.addSavedPost((long) postID, (long) userID);
         return false;
     }
 
@@ -68,6 +71,12 @@ public class PostManager {
         /**newPost.setPublishDate();*/
         return new Post();
     }
+
+    public List<Property> getSavedByID(int id){
+        return service.getSavedProperties(id);
+    }
+
+
 
     public Property buildProperty(Property property, JSONObject post) {
         property.setAddress((String) post.get("address"));

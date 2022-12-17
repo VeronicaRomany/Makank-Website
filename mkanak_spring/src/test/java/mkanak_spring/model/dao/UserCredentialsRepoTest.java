@@ -13,9 +13,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 class UserCredentialsRepoTest {
-
-    @Autowired
-        private UserCredentialsRepo userCredentialsRepoTest;
+    @Autowired     private UserCredentialsRepo userCredentialsRepoTest;
 
     @AfterEach
     void deleteAll() {

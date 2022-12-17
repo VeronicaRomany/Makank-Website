@@ -2,7 +2,8 @@ package mkanak_spring.model.services;
 
 import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
-import org.json.simple.JSONArray;
+import mkanak_spring.model.dao.PropertyRepo;
+import mkanak_spring.model.entities.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService{
     @Autowired
     PostDAO postDAO;
+    PropertyRepo propertyRepo;
 
     @Override
     public void savePost(JSONObject post) throws ParseException {
@@ -47,4 +49,11 @@ public class PostServiceImpl implements PostService{
     public List<Post> getAllPosts() {
         return postDAO.getAll();
     }
+
+    @Override
+    public List<Property> getSavedProperties(long id) {
+        return propertyRepo.findAllSavedProperties(id);
+    }
+
+
 }

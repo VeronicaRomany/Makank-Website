@@ -1,6 +1,9 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.*;
+import mkanak_spring.model.entities.Apartment;
+import mkanak_spring.model.entities.Post;
+import mkanak_spring.model.entities.PropertyPicture;
+import mkanak_spring.model.entities.Villa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

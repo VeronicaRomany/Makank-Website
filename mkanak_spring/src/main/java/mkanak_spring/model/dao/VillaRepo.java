@@ -1,6 +1,6 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.Villa;
+import mkanak_spring.model.entities.Villa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

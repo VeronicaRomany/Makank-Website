@@ -1,10 +1,10 @@
 package mkanak_spring.controllers;
 
-import mkanak_spring.model.Post;
+import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.PostManager;
 import mkanak_spring.model.ViewingPreference;
+import mkanak_spring.model.entities.Property;
 import mkanak_spring.model.services.PostService;
-import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +45,8 @@ public class PostController {
     }
 
     @GetMapping("/saved/{targetUserID}")
-    public List<Post> getSavedPosts(@PathVariable int userID,@RequestBody ViewingPreference preferences){
-        return app.getPersonPosts(userID,preferences);
+    public List<Property> getSavedPosts(@PathVariable int userID){
+        return app.getSavedByID(userID);
     }
 
     @GetMapping("/saved/ids/{userID}")
@@ -60,9 +60,11 @@ public class PostController {
         return app.editPost(userID,post);
     }
 
-//    @PostMapping("/savePost")
-    public boolean addToSavedPost(int userID, int postID){
-        return app.addToSavedPost(userID, postID);
+    @PostMapping("/savePost")
+    public boolean addToSavedPost(@RequestBody JSONObject saveEntry){
+        int userID = (int) saveEntry.get("userID");
+        int postID = (int) saveEntry.get("postID");
+        return app.addToSavedPost(userID,postID);
     }
 
     public boolean removePostFromSaved(int userID, int postID){
