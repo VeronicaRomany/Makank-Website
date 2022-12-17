@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(username);
           this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
           console.log(this.tokenStorage.getUser())
-          console.log("brg3 mn login", data)
+          
           Globals.setUserID(data)
-          console.log("b3d el set", Globals.getUserID())
+          
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
