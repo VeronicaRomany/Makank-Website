@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
 
         if(userDAO.usernameExists(userInstance.getUsername())) return -1L;
-        if(userDAO.emailExists(userInstance.getEmail())) return -2L;
+       // if(userDAO.emailExists(userInstance.getEmail()) && (userInstance.getEmail().compareTo("") != 0)) return -2L;
         userDAO.saveUser(userInstance);
         List<PhoneNumber> numbers = new ArrayList<>();
         for(Object obj : phoneNos){

@@ -6,6 +6,7 @@ import Validation from '../registration/register/register.component';
 import { Post } from '../shared/post';
 import { NewPostService } from './service/new-post.service';
 import { Globals } from 'src/globals';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-post',
@@ -51,7 +52,7 @@ export class NewPostComponent implements OnInit {
 
   
 
-  constructor(private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient) { }
+  constructor(private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient,private router:Router) { }
 
   ngOnInit(): void {
 
@@ -130,7 +131,7 @@ export class NewPostComponent implements OnInit {
     var NewPostJsonString = JSON.stringify(this.newPost)
     console.log(NewPostJsonString)
     this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString),{responseType:'text'}).subscribe((data:any) =>{
-      console.log(data);
+      this.router.navigate(['/', 'Home'])
       
     })
 
