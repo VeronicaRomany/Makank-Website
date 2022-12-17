@@ -1,6 +1,8 @@
 
 *{
-    margin: 0;padding: 0;box-sizing: border-box;}
+    margin: auto;padding: 0;box-sizing: border-box;
+
+}
 body{
     background: #eee;font-family: sans-serif;}
 .flexone{
@@ -99,4 +101,15 @@ body{
 }
 @media screen and (max-width:560px){.groups .image-session{    float: none;    margin-right: 0;}
     .groups .image-session .image{width: 100%;}
+}
+
+
+
+.container1{
+
+    top: 14;
+    left: 0;
+    position:absolute;
+    width:100%;
+    margin-right: 0;
 }

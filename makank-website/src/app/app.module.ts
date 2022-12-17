@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/header/header.component';
 import { PropertiesComponent } from './all-properties/properties/properties.component';
+import { FilterComponent } from './filter-bar/filter/filter.component';
+import { FilterBarModule } from './filter-bar/filter-bar.module';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { PropertiesComponent } from './all-properties/properties/properties.comp
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    PropertiesComponent
+    PropertiesComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { PropertiesComponent } from './all-properties/properties/properties.comp
     FormsModule,  
     HttpClientModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
