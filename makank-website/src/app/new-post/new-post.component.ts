@@ -51,7 +51,7 @@ export class NewPostComponent implements OnInit {
 
   
 
-  constructor(private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient,public global:Globals) { }
+  constructor(private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient) { }
 
   ngOnInit(): void {
 
@@ -108,8 +108,9 @@ export class NewPostComponent implements OnInit {
     this.newPost.info=this.f['info'].value
     this.newPost.universities=this.f['universities'].value
 
-    this.newPost.sellerID=this.global.getUserID()
-    
+    this.newPost.sellerID=Globals.getUserID()
+    console.log("ana hena", Globals.getUserID())
+    console.log("el id", this.newPost.sellerID)
 
     if(this.f['RentOrBuy'].value=="rent"){
       this.newPost.rent=true
@@ -155,7 +156,7 @@ export class NewPostComponent implements OnInit {
         this.alreadyCheckedStudent=false
     }
 
-    if(this.f['type'].value=="appartment"){
+    if(this.f['type'].value=="apartment"){
       this.appartment= true
       this.villa= false
       this.alreadCheckedGarden=false

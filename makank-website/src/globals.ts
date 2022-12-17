@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+
 export class Globals{
-    userID: number=333;
-
-    setUserID(id:number){
-        this.userID=id
+    static getUserID(): any {
+      return this.userID
     }
-
-    getUserID(){
-        return this.userID;
+    static setUserID(data: number) {
+        this.userID = data;
     }
+    static userID: number=0;
 }

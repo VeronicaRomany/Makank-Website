@@ -64,14 +64,13 @@ public class PostManager {
         property.setAddress((String) post.get("address"));
         property.setType((String) post.get("type"));
         property.setArea((Integer) post.get("area"));
-        property.setRoomNumber((Integer) post.get("room"));
-        property.setBathroomNumber((Integer) post.get("bathroom"));
+        property.setRoomNumber((Integer) post.get("roomNumber"));
+        property.setBathroomNumber((Integer) post.get("bathroomNumber"));
         property.setCity((String) post.get("city"));
         property.setInfo((String) post.get("info"));
         property.setRent((boolean) post.get("rent"));
         property.setPrice((Integer) post.get("price"));
-        property.setPropertyID(1L);
-        property.setSellerID(1L);
+        property.setSellerID(((Number) post.get("sellerID")).longValue());
         return property;
     }
 
@@ -80,7 +79,7 @@ public class PostManager {
         buildProperty(apartment, property);
         apartment.setLevel((Integer) property.get("level"));
         apartment.setElevator((boolean) property.get("elevator"));
-        apartment.setStudentHousing((boolean) property.get("student_housing"));
+        apartment.setStudentHousing((boolean) property.get("studentHousing"));
         return apartment;
     }
 
@@ -88,8 +87,8 @@ public class PostManager {
         Villa villa = new Villa();
         buildProperty(villa, property);
         villa.setNumberOfLevels((Integer) property.get("level"));
-        villa.setHasGarden((boolean) property.get("has_garden"));
-        villa.setHasPool((boolean) property.get("has_pool"));
+        villa.setHasGarden((boolean) property.get("hasGarden"));
+        villa.setHasPool((boolean) property.get("hasPool"));
         return villa;
     }
 

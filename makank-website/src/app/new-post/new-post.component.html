@@ -5,7 +5,7 @@
    <label for="type">Type</label><br>
     <select formControlName="type" id="type" (change)="onChooseType()"   [ngClass]="{ 'is-invalid': submitted && f['type'].errors }">
         <option  value="villa">Villa</option>
-        <option  value="appartment">Appartment</option>
+        <option  value="apartment">Apartment</option>
     </select>
     <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
         <div *ngIf="f['type'].errors['required']">You have to choose your property type</div>
