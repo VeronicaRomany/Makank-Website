@@ -1,33 +1,47 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.entities.User;
-import org.junit.jupiter.api.AfterEach;
+import mkanak_spring.model.entities.SavedPostsEntry;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.BDDAssumptions.given;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-class UserRepoTest {
-
+class SavedPostsRepoTest {
     @Autowired
-    private UserRepo userRepoTest;
+    private SavedPostsRepo repo ;
+
+    @Test
+    void getUserSavedPostsIDs() {
+        long userID = 11111;
+        long postID = 44;
+        SavedPostsEntry ent = new SavedPostsEntry();
+        ent.setUserID(userID);
+        ent.setPostID(postID);
+        repo.save(ent);
+
+        List<Long> ids = repo.getUserSavedPostsIDs(userID);
+        assertTrue(ids.contains(postID));
+    }
+
+    @Test
+    void deleteSavedPost() {
+
+    }
+}
+
+/*
 
     @AfterEach
     void deleteAll() {
         userRepoTest.deleteAll();
     }
-    @Test
-    void checkIfUserEmailExists() {
-        // given
-        String email = "yarahossam@gmail.com";
-        User user = new User(null, "yara", "yara test",
-                email, "", "", "password", "", null);
 
         userRepoTest.save(user);
 
@@ -78,3 +92,4 @@ class UserRepoTest {
         assertThat(isPresent).isFalse();
     }
 }
+ */

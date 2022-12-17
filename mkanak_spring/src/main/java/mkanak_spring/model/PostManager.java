@@ -1,9 +1,16 @@
 package mkanak_spring.model;
 
+import mkanak_spring.model.dao.SavedPostsDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Service
 public class PostManager {
+    @Autowired SavedPostsDAO dao;
     public List<Post> getPersonPosts(int targetUserID, ViewingPreference preferences) {
         return null;
     }
@@ -19,6 +26,10 @@ public class PostManager {
         return null;
     }
 
+    public List<Long> getSavedIDs(int userID){
+        return dao.getSavedIDs((long) userID);
+    }
+
     public boolean editPost(int userID, Post post){
         return false;
     }
@@ -30,7 +41,6 @@ public class PostManager {
     public boolean removePostFromSaved(int userID, int postID){
         return false;
     }
-
 
     private Post getDummyPost(){
         Apartment x = new Apartment();

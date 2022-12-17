@@ -1,7 +1,8 @@
-package mkanak_spring.model;
+package mkanak_spring.model.entities;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import mkanak_spring.model.DomeDatabase;
 import org.hibernate.annotations.Immutable;
 
 @Entity

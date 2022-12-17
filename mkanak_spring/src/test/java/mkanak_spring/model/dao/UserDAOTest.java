@@ -1,8 +1,8 @@
 package mkanak_spring.model.dao;
 
 import mkanak_spring.model.LoginManager;
-import mkanak_spring.model.User;
-import mkanak_spring.model.UserCredentials;
+import mkanak_spring.model.entities.User;
+import mkanak_spring.model.entities.UserCredentials;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -30,15 +30,10 @@ class UserDAOTest {
         User userTest = new User(null, "yara", "username",
                 "yara@gmail.com", "", "", "password", "", null);
         userTest.setUserID(1L);
-
         userRepoTest.save(userTest);
-
         ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
-
         verify(userRepoTest).save(userArgumentCaptor.capture());
-
         User capturedUser = userArgumentCaptor.getValue();
-
         assertThat(capturedUser).isEqualTo(userTest);
     }
 

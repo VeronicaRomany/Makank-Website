@@ -1,7 +1,6 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.User;
-import mkanak_spring.model.UserCredentials;
+import mkanak_spring.model.entities.UserCredentials;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 class UserCredentialsRepoTest {

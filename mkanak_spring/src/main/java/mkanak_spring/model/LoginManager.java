@@ -1,8 +1,6 @@
 package mkanak_spring.model;
 
-import mkanak_spring.model.UserCredentials;
-import mkanak_spring.model.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import mkanak_spring.model.entities.UserCredentials;
 
 public class LoginManager {
     UserCredentials userCredentials;
