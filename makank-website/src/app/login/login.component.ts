@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   username='';
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router,public global:Globals) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -37,10 +37,12 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(username);
           this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
           console.log(this.tokenStorage.getUser())
+          console.log("brg3 mn login", data)
+          Globals.setUserID(data)
+          console.log("b3d el set", Globals.getUserID())
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
-          this.global.setUserID(data)
           this.router.navigate(['/', 'Home'])
         }
         else{

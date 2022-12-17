@@ -1,8 +1,19 @@
 package mkanak_spring.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+@Table(name = "apartment")
 public class Apartment extends Property {
+    @Column(name = "apartment_level")
     private int level;
+    @Column(name = "has_elevator")
     private boolean elevator;
+    @Column(name = "for_students")
     private boolean studentHousing;
 
     public int getLevel() {

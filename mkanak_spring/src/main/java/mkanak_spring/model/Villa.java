@@ -1,8 +1,19 @@
 package mkanak_spring.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+@Table(name = "villa")
 public class Villa extends Property {
+   @Column(name = "has_garden")
    boolean hasGarden;
+   @Column(name = "has_pool")
    boolean hasPool;
+   @Column(name = "villa_levels")
    int numberOfLevels;
 
    public boolean isHasGarden() {
@@ -28,4 +39,5 @@ public class Villa extends Property {
    public void setNumberOfLevels(int numberOfLevels) {
       this.numberOfLevels = numberOfLevels;
    }
+
 }
