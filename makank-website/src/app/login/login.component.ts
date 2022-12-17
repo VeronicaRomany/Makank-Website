@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {AuthService} from "./services/auth.service.service";
 import { TokenStorageService } from './services/token-storage.service';
+import { Globals } from 'src/globals';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ Globals ],
 })
 export class LoginComponent implements OnInit {
   form: any = {
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   username='';
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router,public global:Globals) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
+          this.global.setUserID(data)
           this.router.navigate(['/', 'Home'])
         }
         else{
