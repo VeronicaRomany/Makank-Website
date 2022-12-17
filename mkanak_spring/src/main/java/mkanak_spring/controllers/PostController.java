@@ -32,17 +32,11 @@ public class PostController {
 //
         ViewingPreference p= gson.fromJson(preference,ViewingPreference.class);
 //        ViewingPreference p= new ViewingPreference();
-        return app.getHomePage(p);
+        return postService.getAllPosts();
     }
 
     @PostMapping("/new")
     public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
-        Post post = new Post();
-     //   post = app.addPost(postDetails);
-     //   System.out.println(post.getPostID());
-     //   System.out.println(post.getPublishDate());
-     //   System.out.println(post.getProperty().getAddress());
-      //  System.out.println(post.getProperty().getArea());
         postService.savePost(postDetails);
     }
 
@@ -51,10 +45,12 @@ public class PostController {
         return app.getPersonPosts(userID,preferences);
     }
 
-//    @PutMapping("/edit")
+/*    @PutMapping("/edit")
     public boolean editPost(@RequestParam int userID, @RequestBody Post post){
         return app.editPost(userID,post);
     }
+
+ */
 
 //    @PostMapping("/savePost")
     public boolean addToSavedPost(int userID, int postID){

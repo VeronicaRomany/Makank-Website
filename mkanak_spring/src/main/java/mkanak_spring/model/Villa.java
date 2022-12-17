@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Table(name = "villa")
-public class Villa extends Property {
+public class Villa extends Post {
    @Column(name = "has_garden")
    boolean hasGarden;
    @Column(name = "has_pool")
