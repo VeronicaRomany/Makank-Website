@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/header/header.component';
 import { PropertiesComponent } from './all-properties/properties/properties.component';
+import { NewPostComponent } from './new-post/new-post.component';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { PropertiesComponent } from './all-properties/properties/properties.comp
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    PropertiesComponent
+    PropertiesComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,

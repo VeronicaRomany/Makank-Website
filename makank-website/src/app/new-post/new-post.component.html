@@ -1,0 +1,140 @@
+<h1>Enter Your Property Details</h1>
+
+<form [formGroup]="newPostForm" >
+
+   <label for="type">Type</label><br>
+    <select formControlName="type" id="type" (change)="onChooseType()"   [ngClass]="{ 'is-invalid': submitted && f['type'].errors }">
+        <option  value="villa">Villa</option>
+        <option  value="apartment">Apartment</option>
+    </select>
+    <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
+        <div *ngIf="f['type'].errors['required']">You have to choose your property type</div>
+      </div>
+    <br>
+
+    <label for="rentOBuy">Buy/Rent</label><br>
+    <select formControlName="RentOrBuy" id="rentOBuy"    [ngClass]="{ 'is-invalid': submitted && f['RentOrBuy'].errors }">
+        <option value="rent">Rent</option>
+        <option value="buy">Buy</option>
+    </select>
+    <div *ngIf="submitted && f['RentOrBuy'].errors" class="invalid-feedback">
+        <div *ngIf="f['RentOrBuy'].errors['required']">You have to select rent or buy</div>
+      </div>
+    <br>
+    
+
+    <label for="type">City</label><br>
+    <select formControlName="city" id="city"    [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+        <option value="cairo">Cairo</option>
+        <option value="alex">Alexandria</option>
+        <option value="tanta">Tanta</option>
+        <option value="asuit">Asuit</option>
+        <option value="sohag">Sohag</option>
+        <option value="luxor">Luxor</option>
+        <option value="aswan">Aswan</option>
+    </select>
+    <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+        <div *ngIf="f['city'].errors['required']">Where is your property ?!</div>
+      </div>
+    <br>
+
+    <label for="levels">Level/s</label><br>
+    <input type="number" id ="levels" placeholder="Enter the Level" formControlName="level" min="0"  
+    [ngClass]="{ 'is-invalid': submitted && f['level'].errors }">
+    <div *ngIf="submitted && f['level'].errors" class="invalid-feedback">
+        <div *ngIf="f['level'].errors['required']">Tell us about the level</div>
+      </div>
+    <br>
+
+    <label for="price">Price</label><br>
+    <input type="number" id ="price" placeholder="Enter the Price" formControlName="price" min="0"
+    [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
+    <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
+        <div *ngIf="f['price'].errors['required']">How much is the property ?</div>
+      </div>
+    <br>
+
+    <label for="area">Area</label><br>
+    <input type="number" id ="area" placeholder="Enter the Area" formControlName="area" min="0"
+    [ngClass]="{ 'is-invalid': submitted && f['area'].errors }">
+    <div *ngIf="submitted && f['area'].errors" class="invalid-feedback">
+        <div *ngIf="f['area'].errors['required']">What is the area ?</div>
+      </div>
+    <br>
+
+    <label for="rooms">Rooms</label><br>
+    <input type="number" id ="rooms" placeholder="Add Room numbers" formControlName="roomsNum" min="0"
+    [ngClass]="{ 'is-invalid': submitted && f['roomsNum'].errors }">
+    <div *ngIf="submitted && f['roomsNum'].errors" class="invalid-feedback">
+        <div *ngIf="f['roomsNum'].errors['required']">How many rooms in your property?</div>
+      </div>
+    <br>
+
+    <label for="bath">Bathrooms</label><br>
+    <input type="number" id ="bath" placeholder="Add WC numbers" formControlName="WCNum" min="0"
+    [ngClass]="{ 'is-invalid': submitted && f['WCNum'].errors }">
+    <div *ngIf="submitted && f['WCNum'].errors" class="invalid-feedback">
+        <div *ngIf="f['WCNum'].errors['required']">How many bathrooms in your property?</div>
+      </div>
+    <br>
+
+
+    
+     
+   
+    <label for="address">address</label><br>
+    <input type="text" id ="address" placeholder="Add detailed address" formControlName="address" 
+    [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
+    <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+        <div *ngIf="f['address'].errors['required']">Please Enter an address</div>
+      </div>
+    <br>
+
+    <label for="info">Info</label><br>
+    <input type="text" id ="info" placeholder="Add Info" formControlName="info" ><br>
+
+        <div  *ngIf="appartment">
+            <input type="radio" id="elev" formControlName="elevator" (click)="handleChangeElevator($event)">
+            <label for="elev">Has Elevator</label>
+        
+            <input type="radio" id="student" formControlName="studentHousing"  (click)="handleChangeStudent($event)">
+            <label for="student">Student Housing</label><br>
+         </div>
+           
+        <div *ngIf="villa">
+            <input type="radio" id="pool" formControlName="pool"    (click)="handleChangePool($event)">
+            <label for="pool">Has Pool</label>
+        
+            <input type="radio" id="garden" formControlName="garden"    (click)="handleChangeGarden($event)">
+            <label for="garden">Has Garden</label><br>
+        </div>
+        
+   
+
+
+    <div *ngIf=" alreadyCheckedStudent">
+        <label for="uni">Choose All Universities</label><br>
+        <select formControlName="universities" id="uni" multiple>
+            <option value="Faculty of Engineering, Alex university">Faculty of Engineering, Alex university</option>
+            <option value="Faculty of Medicine, Alex university">Faculty of Medicine, Alex university</option>
+            <option value="Faculty of Pharmacy, Alex university">Faculty of Pharmacy, Alex university</option>
+            <option value="Faculty of Dentistry, Alex university">Faculty of  Dentistry, Alex university</option>
+            
+        </select><br>
+    </div>
+    <br>
+   
+    <label for="photos">Insert Property Photos</label>
+    <input type="file"  id="photos" (change)="SelectFile($event)">
+    <li *ngFor="let photo of photosLinks, index as i">
+      <a href="url">{{photo}}</a>
+      <button type="button" *ngIf="photosLinks[i]" (click)="RemoveMe(i)"> remove </button>
+    </li>
+
+    <br>
+
+    <br><br>
+    
+    <button type="submit" class="button" (click)="onSubmit()" >Add Post</button>
+    <button type="button" (click)="onReset()"> Reset </button>
+</form>

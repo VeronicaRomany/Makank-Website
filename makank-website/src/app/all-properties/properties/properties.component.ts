@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/shared/post';
 import { Apartment, Property, Villa } from 'src/app/shared/property';
 import { ViewingPreference } from 'src/app/shared/viewingPreference';
@@ -13,7 +14,8 @@ export class PropertiesComponent implements OnInit {
   posts:Post[] =[]
   serv: PropertiesService 
   preference:ViewingPreference=new ViewingPreference()
-  constructor(private service:PropertiesService) { 
+  
+  constructor(private service:PropertiesService,private router:Router) { 
     this.serv= service
   }
 
@@ -61,6 +63,10 @@ export class PropertiesComponent implements OnInit {
     return p
   }
 
+  goTonewPost():void{
+    
+    this.router.navigate([ '/','NewPost'])
+  }
 
 }
 
