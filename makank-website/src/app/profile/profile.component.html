@@ -1,17 +1,8 @@
 <div class="container" *ngIf="!notLogIn">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ currentUser.username }}</strong> Profile
-    </h3>
-  </header>
-  <p>
-    <strong>Password:</strong>
-    {{ currentUser.password }}
-  </p>
   <body>
   <div class="container">
     <div class="box">
-      <img src="https://i.imgur.com/cMy8V5j.png" alt="user" width="100">
+      <img src={{currentUser.profile_pic_link}} alt="user" width="100">
       <ul>
         <li>Name</li>
         {{ currentUser.name }}
