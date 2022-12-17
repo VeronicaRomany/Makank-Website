@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {AuthService} from "./services/auth.service.service";
 import { TokenStorageService } from './services/token-storage.service';
+import { Globals } from 'src/globals';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ Globals ],
 })
 export class LoginComponent implements OnInit {
   form: any = {
@@ -35,6 +37,9 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(username);
           this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
           console.log(this.tokenStorage.getUser())
+          console.log("brg3 mn login", data)
+          Globals.setUserID(data)
+          console.log("b3d el set", Globals.getUserID())
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
