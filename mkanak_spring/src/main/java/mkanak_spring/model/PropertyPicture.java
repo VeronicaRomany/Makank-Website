@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @IdClass(PropertyPictureId.class)
 public class PropertyPicture {
     @Id
-    @Column(name = "property_id")
+    @Column(name = "post_id")
     private Long propertyID;
     @Id
     @Column(name = "pic_link")

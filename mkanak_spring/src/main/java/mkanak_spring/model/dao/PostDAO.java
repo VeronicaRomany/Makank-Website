@@ -9,21 +9,13 @@ import java.util.List;
 @Component
 public class PostDAO {
     @Autowired
-    PostRepo postRepo;
-    @Autowired
     ApartmentRepo apartmentRepo;
     @Autowired
     VillaRepo villaRepo;
     @Autowired
     PropertyPictureRepo propertyPictureRepo;
-
-    public void savePost(Post post) {
-        postRepo.save(post);
-    }
-
-    public List<Post> getAll() {
-        return postRepo.findAll();
-    }
+    @Autowired
+    PostRepo postRepo;
 
     public void saveApartment(Apartment property) {
         apartmentRepo.save(property);
@@ -35,6 +27,10 @@ public class PostDAO {
 
     public void saveAllPictures(List<PropertyPicture> propertyPictureList) {
         propertyPictureRepo.saveAll(propertyPictureList);
+    }
+
+    public List<Post> getAllPosts() {
+        return postRepo.findAll();
     }
 
 }
