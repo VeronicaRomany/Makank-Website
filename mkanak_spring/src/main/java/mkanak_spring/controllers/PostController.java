@@ -31,7 +31,7 @@ public class PostController {
 
         ViewingPreference p= gson.fromJson(preference,ViewingPreference.class);
 //        ViewingPreference p= new ViewingPreference();
-        return postService.getAllPosts();
+        return postService.getAllPosts(p);
     }
 
     @PostMapping("/new")

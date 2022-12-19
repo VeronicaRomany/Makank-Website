@@ -20,4 +20,10 @@ public interface PropertyRepo extends JpaRepository<Property, Long> {
                     "for_rent,has_pictures " +
                     "from saved_items natural join properties where user_id = :id ;", nativeQuery = true)
     List<Property> findAllSavedProperties(@Param("id") long userID);
+
+
+
+
+    // a b c d e f
+    // 2^7
 }

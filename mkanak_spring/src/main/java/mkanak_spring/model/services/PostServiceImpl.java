@@ -4,12 +4,15 @@ import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
 import mkanak_spring.model.dao.PropertyRepo;
 import mkanak_spring.model.entities.*;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.View;
 import java.util.List;
 @Service
 
@@ -44,8 +47,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Post> getAllPosts() {
-        return postDAO.getAllPosts();
+    public List<Post> getAllPosts(ViewingPreference preference) {
+        return postDAO.getAllPosts(preference);
     }
 
     @Override
