@@ -1,0 +1,97 @@
+
+   <div class="container2">
+   <div class="option">
+      <div class="selec">
+         <div >
+            <input class="search" type="text" id="searchText"/>
+     
+          </div> 
+      <select class="la" name="" id="format1">
+         <option selected disabled>Type</option>
+         <option value="Appartment">Appartment</option>
+         <option value="Villa">Villa</option>
+    
+      </select>
+      <select name="" id="format2">
+          <option selected disabled>City</option>
+          <option value="Alexandria">Alexandria</option>
+          <option value="Cairo">Cairo</option>
+          <option value="Aswan">Aswan</option>
+  
+       </select>
+       <select name="" id="format3">
+          <option selected disabled>Buy/Rent</option>
+          <option value="Buy">Buy</option>
+          <option value="Rent">Rent</option>
+  
+       </select>
+       <select name="" id="format4">
+          <option selected disabled>University</option>
+          <option value="Faculty of Engineering">Faculty of Engineering</option>
+          <option value="Computer Science">Computer Science</option>
+  
+       </select>
+      </div>
+       <div class="price" id="p1">
+         
+          <div>
+       <input type="number" min="0"  id="minPrice"/>
+       <label for="c2">min</label>
+     </div> 
+  
+     <div>
+        <input type="number" min="0" id="maxPrice"/>
+        <label for="c2">max</label>
+      </div> 
+   </div>
+   <div class="area" id="a1">
+         
+      <div>
+   <input type="number" min="0"  id="minArea"/>
+   <label for="c2">min</label>
+ </div> 
+
+ <div>
+    <input type="number" min="0"  id="maxArea"/>
+    <label for="c2">max</label>
+  </div> 
+</div>
+    <div class="checkbox">
+        <div>
+        <input type="checkbox" id="c1"/>
+        <label for="c1">With pictures</label>
+       </div>
+  
+     <div>
+       <input type="checkbox" id="c2"/>
+       <label for="c2">Student Housing</label>
+      </div>
+   </div >
+   <div class="search-btn">
+       <button (click)="getInfo()">search</button>
+      </div>
+   </div>
+
+      <div class="option2">
+      <div class="selec">
+      <select class="la" name="" id="sort">
+         <option selected disabled>Sort by</option>
+         <option value="Price">Price</option>
+         <option value="Date">Date</option>
+         <option value="Area">Area</option>
+      
+      </select>
+
+      <select  name="" id="order">
+         <option value="ascending ">Ascending </option>
+         <option value="descending">Descending</option>
+      
+      </select>
+      
+    
+
+</div>
+ 
+   
+   </div>
+</div>
