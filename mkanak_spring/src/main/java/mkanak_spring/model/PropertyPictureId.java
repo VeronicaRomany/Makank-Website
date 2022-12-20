@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PropertyPictureId implements Serializable {
-    @Column(name = "property_id")
+    @Column(name = "post_id")
     private Long propertyID;
     @Column(name = "pic_link")
     private String pictureLink;
