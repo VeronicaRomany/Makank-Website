@@ -7,7 +7,9 @@ import jakarta.persistence.criteria.Root;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 
-public class PostPropertyTypeSpecification implements PostSpecification {
+import org.springframework.data.jpa.domain.Specification;
+
+public class PostPropertyTypeSpecification implements Specification<Post> {
     private final ViewingPreference preference;
     public PostPropertyTypeSpecification(ViewingPreference v){
         super();
@@ -15,9 +17,7 @@ public class PostPropertyTypeSpecification implements PostSpecification {
     }
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        if(this.preference == null || !this.preference.isFiltered() || this.preference.getFilterPreference().getPropertyType() == null) return null;
-        if(this.preference.getFilterPreference().getPropertyType().equals("")) return null;
         String str = this.preference.getFilterPreference().getPropertyType();
-        return criteriaBuilder.like(root.get("property_type"),str);
+        return criteriaBuilder.like(root.get("type"),str);
     }
 }

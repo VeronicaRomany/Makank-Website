@@ -5,9 +5,13 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import mkanak_spring.model.ViewingPreference;
-import mkanak_spring.model.entities.Post;
 
-public class PostInfoSpecification implements PostSpecification{
+import mkanak_spring.model.entities.Post;
+import org.springframework.data.jpa.domain.Specification;
+
+import java.util.ArrayList;
+
+public class PostInfoSpecification implements Specification<Post> {
     private final ViewingPreference preference;
     public PostInfoSpecification(ViewingPreference v){
         super();
@@ -15,11 +19,8 @@ public class PostInfoSpecification implements PostSpecification{
     }
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        if(this.preference == null || !this.preference.isFiltered() || this.preference.getFilterPreference().getInfoSearchWord() == null)
-            return null;
-        if(this.preference.getFilterPreference().getInfoSearchWord().equals(""))
-            return null;
         String str = "%" + this.preference.getFilterPreference().getInfoSearchWord() + "%";
         return criteriaBuilder.like(root.get("info"),str);
+
     }
 }

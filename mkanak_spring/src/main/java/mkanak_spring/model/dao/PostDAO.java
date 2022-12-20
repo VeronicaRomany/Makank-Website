@@ -1,15 +1,9 @@
 package mkanak_spring.model.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.*;
 import mkanak_spring.model.ViewingPreference;
-import mkanak_spring.model.entities.Apartment;
-import mkanak_spring.model.entities.Post;
-import mkanak_spring.model.entities.PropertyPicture;
-import mkanak_spring.model.entities.Villa;
+import mkanak_spring.model.entities.*;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
-import org.hibernate.Session;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -31,8 +25,9 @@ public class PostDAO {
     SavedPostsRepo savedPostsRepo;
 
 
+
     public void saveApartment(Apartment property) {
-        apartmentRepo.save(property);
+//        apartmentRepo.save(property);
     }
 
     public void saveVilla(Villa property) {
@@ -51,6 +46,7 @@ public class PostDAO {
 
         PostSpecificationBuilder pb = new PostSpecificationBuilder(preference);
         Specification<Post> sps = pb.build();
+        System.out.println("before " + (sps==null));
         if(sps==null)
             return postRepo.findAll();
         else
@@ -59,12 +55,12 @@ public class PostDAO {
 
     public List<Post> getPostsByApartmentDetails(ViewingPreference preference){
         List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference);
+        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,studentHouseIDs);
         Specification<Post> sps = pb.build();
         if(sps==null)
-            return postRepo.findByPropertyIDIn(studentHouseIDs);
+            return postRepo.findAll();
         else
-            return postRepo.findByPropertyIDIn(sps,studentHouseIDs);
+            return postRepo.findAll(sps);
     }
 
 
@@ -80,12 +76,29 @@ public class PostDAO {
 
     public List<Post> getSavedPostsByUserID(ViewingPreference preference, int id){
         List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id);
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference);
+        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,postIDsSaved);
         Specification<Post> sps = pb.build();
         if(sps==null)
-            return postRepo.findByPropertyIDIn(postIDsSaved);
+            return postRepo.findAll();
         else
-            return postRepo.findByPropertyIDIn(sps,postIDsSaved);
+            return postRepo.findAll(sps);
     }
+
+    public void removeFromSavedPosts(long userID, long postID){
+        savedPostsRepo.deleteSavedPost(userID,postID);
+    }
+
+    public void addToSavedPosts(long userID, long postID){
+        SavedPostsEntry entry = new SavedPostsEntry();
+        entry.setPostID(postID);
+        entry.setUserID(userID);
+        savedPostsRepo.save(entry);
+    }
+
+    public List<Long> getSavedPostsIDs(long id){
+        return savedPostsRepo.getUserSavedPostsIDs(id);
+    }
+
+
 
 }

@@ -1,42 +1,94 @@
 package mkanak_spring.model.filters;
 
+import mkanak_spring.model.FilterPreference;
 import mkanak_spring.model.ViewingPreference;
+
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.filters.specifications.*;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PostSpecificationBuilder {
-    private ViewingPreference preference;
-    private final List<PostSpecification> possibleSpecifications;
-
+    private final List<Specification<Post>> possibleSpecifications;
+    private List<Long> postIDs;
+    private int id =-1 ;
+    private ViewingPreference v;
     public PostSpecificationBuilder(ViewingPreference v ){
-           preference=v;
-           this.possibleSpecifications=new ArrayList<>();
-           //add all possible specifications
-           this.possibleSpecifications.add(new PostAddressSpecification(preference));
-           this.possibleSpecifications.add(new PostAreaRangeSpecification(preference));
-           this.possibleSpecifications.add(new PostCitySpecification(preference));
-           this.possibleSpecifications.add(new PostHasPicturesSpecification(preference));
-           this.possibleSpecifications.add(new PostPriceRangeSpecification(preference));
-           this.possibleSpecifications.add(new PostPropertyTypeSpecification(preference));
-           this.possibleSpecifications.add(new PostPurchaseTypeSpecification(preference));
+        this.possibleSpecifications=new ArrayList<>();
+        this.v= v;
     }
 
     public PostSpecificationBuilder(ViewingPreference v, int id ){
         this(v);
-        this.possibleSpecifications.add(new PostCertainIDSpecification(v,id));
+        this.id=id;
     }
+
+    public PostSpecificationBuilder(ViewingPreference v, List<Long> ids ){
+        this(v);
+        this.postIDs=ids;
+    }
+
+
 
 
     public Specification<Post> build(){
-        Specification<Post> result = null;
-        for(Specification<Post> sp : possibleSpecifications){
-            if(sp!=null)
-                result = Specification.where(result).and(sp);
-        }
+
+        setupSpecifications(v);
+        if(possibleSpecifications==null || possibleSpecifications.isEmpty())
+            return null;
+        Specification<Post> result = possibleSpecifications.get(0);
+        for(int i=1;i<possibleSpecifications.size();i++)
+            result = Specification.where(result).and(possibleSpecifications.get(i));
         return result;
     }
+
+
+    private void setupSpecifications(ViewingPreference v){
+        if(v==null) return;
+        if(v.isFiltered())
+            this.setupFiltersSpecification(v);
+        if(v.isSorted())
+            this.setupSortingSpecification(v);
+        if(this.id !=-1)
+            this.possibleSpecifications.add(new PostCertainIDSpecification(v,id));
+        if(this.postIDs!=null)
+            this.possibleSpecifications.add(new PostBelongToIDsSpecification(v,postIDs));
+    }
+
+    private void setupFiltersSpecification(ViewingPreference v){
+        FilterPreference f = v.getFilterPreference();
+        if(f==null) return;
+        if(!f.getPurchaseChoice().equalsIgnoreCase("any")) //not both, we need to filter
+            this.possibleSpecifications.add(new PostPurchaseTypeSpecification(v));
+        if(!f.getPropertyType().equalsIgnoreCase("any"))
+            this.possibleSpecifications.add(new PostPropertyTypeSpecification(v));
+        if(f.getMinPrice()!=-1 && f.getMaxPrice()!=-1) //both numbers are set
+            this.possibleSpecifications.add(new PostPriceRangeSpecification(v));
+        if(f.getMinArea()!=-1 && f.getMaxArea()!= -1)
+            this.possibleSpecifications.add(new PostAreaRangeSpecification(v));
+        if(!Objects.equals(f.getInfoSearchWord(), "")){
+            this.possibleSpecifications.add(new PostInfoSpecification(v));
+            this.possibleSpecifications.add(new PostAddressSpecification(v));
+        }
+        if(f.isWithPictures())
+            this.possibleSpecifications.add(new PostHasPicturesSpecification(v));
+        if(!f.getCitySearchWord().equalsIgnoreCase("any"))
+            this.possibleSpecifications.add(new PostCitySpecification(v));
+    }
+    private void setupSortingSpecification(ViewingPreference v){
+        // TO DO
+    }
+
+//    //add all possible specifications
+//
+//
+//
+//
+//
+//
+//
+//
 }

@@ -1,28 +1,31 @@
 package mkanak_spring.model;
 
 public class FilterPreference {
-    private String purchaseChoice;
-    private String propertyType;
+    private String purchaseChoice="any";
+    private String propertyType="any";
     //added
-    private int minPrice;
-    private int maxPrice;
-    private int minArea;
-    private int maxArea;
-    private String university;
-    private String infoSearchWord;
+    private int minPrice=-1;
+    private int maxPrice=-1;
+    private int minArea=-1;
+    private int maxArea=-1;
+//    private String university="";
+    private String infoSearchWord="";
     //
-    private boolean withPictures;
-    private boolean studentHousing;
-    private String citySearchWord;
+    private boolean withPictures=false;
+    private boolean studentHousing=false;
+    private String citySearchWord="any";
 
 
-    public String getUniversity() {
-        return university;
-    }
 
-    public void setUniversity(String university) {
-        this.university = university;
-    }
+
+
+//    public String getUniversity() {
+//        return university;
+//    }
+//
+//    public void setUniversity(String university) {
+//        this.university = university;
+//    }
 
     public String getInfoSearchWord() {
         return infoSearchWord;

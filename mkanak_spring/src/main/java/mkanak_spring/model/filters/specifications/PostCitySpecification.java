@@ -6,8 +6,9 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
+import org.springframework.data.jpa.domain.Specification;
 
-public class PostCitySpecification implements PostSpecification{
+public class PostCitySpecification implements Specification<Post> {
     private final ViewingPreference preference;
     public PostCitySpecification(ViewingPreference v){
         super();
@@ -15,8 +16,6 @@ public class PostCitySpecification implements PostSpecification{
     }
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        if(this.preference == null || !this.preference.isFiltered()) return null;
-        if(this.preference.getFilterPreference().getCitySearchWord().equals("any")) return null;
         String str = this.preference.getFilterPreference().getCitySearchWord();
         return criteriaBuilder.like(root.get("city"),str);
     }

@@ -1,69 +1,82 @@
 package mkanak_spring.controllers;
 
-import mkanak_spring.model.entities.Post;
-import mkanak_spring.model.PostManager;
+import mkanak_spring.model.FilterPreference;
+import mkanak_spring.model.SortingPreference;
 import mkanak_spring.model.ViewingPreference;
-import mkanak_spring.model.entities.Property;
+import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import com.google.gson.Gson;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-    @Autowired private PostManager app;
     @Autowired PostService postService;
 
-    @GetMapping("/{targetUserID}")
-    public List<Post> getPersonPosts(@PathVariable int targetUserID, @RequestParam ViewingPreference preferences){
-            return app.getPersonPosts(targetUserID,preferences);
-    }
+
+
+
+    //   ################## HOME PAGE ########################
 
     @GetMapping("/homepage")
-    public List<Post> getHomePage(@RequestParam String preference){
-        Gson gson = new Gson();
-        System.out.println("GOT A REQUEST >> "+preference);
-
-        ViewingPreference p= gson.fromJson(preference,ViewingPreference.class);
-//        ViewingPreference p= new ViewingPreference();
-        return postService.getAllPosts(p);
+    public List<Post> getHomePage(JSONObject preferences){
+        return postService.getHomepagePosts(preferences);
     }
 
+
+    //    ################ Profile posts ########################
+    @GetMapping("/{targetUserID}")
+    public List<Post> getProfilePosts(@PathVariable int targetUserID, @RequestParam JSONObject preferences){
+        return postService.getProfilePosts(targetUserID,preferences);
+    }
+
+
+
+
+    //   ################ Manipulation posts ########################
     @PostMapping("/new")
     public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
         postService.savePost(postDetails);
     }
 
+    @PutMapping("/edit")
+    public boolean editPost(@RequestParam int userID, @RequestBody JSONObject post){
+        //verification steps
+        postService.editPost(post);
+        return false;
+    }
+
+    @PostMapping("/delete")
+    public boolean deletePost(@RequestBody JSONObject details){
+        postService.deletePost(details);
+        return false;
+    }
+
+
+    // ###################### Saved Posts ####################################
     @GetMapping("/saved/{targetUserID}")
-    public List<Property> getSavedPosts(@PathVariable int userID){
-        return app.getSavedByID(userID);
+    public List<Post> getSavedPosts(@PathVariable int userID){
+        return postService.getSavedPosts(userID,null);
     }
 
     @GetMapping("/saved/ids/{userID}")
     public List<Long> getSavedIDs(@PathVariable int userID){
-        return app.getSavedIDs(userID);
+        return postService.getSavedPostsIDs(userID);
     }
 
-
-//    @PutMapping("/edit")
-    public boolean editPost(@RequestParam int userID, @RequestBody Post post){
-        return app.editPost(userID,post);
-    }
 
     @PostMapping("/savePost")
-    public boolean addToSavedPost(@RequestBody JSONObject saveEntry){
-        int userID = (int) saveEntry.get("userID");
-        int postID = (int) saveEntry.get("postID");
-        return app.addToSavedPost(userID,postID);
+    public void addToSavedPost(@RequestBody JSONObject saveEntry){
+        postService.addToSavedPosts(saveEntry);
     }
 
-    public boolean removePostFromSaved(int userID, int postID){
-        return app.removePostFromSaved(userID, postID);
+    @PostMapping("/unsavePost")
+    public void removePostFromSaved(JSONObject entry){
+        postService.removeFromSaved(entry);
     }
 
 }

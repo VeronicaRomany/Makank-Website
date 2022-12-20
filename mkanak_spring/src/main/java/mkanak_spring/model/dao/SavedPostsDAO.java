@@ -8,7 +8,8 @@ import java.util.List;
 
 @Component
 public class SavedPostsDAO {
-    @Autowired private SavedPostsRepo savedPostsRepo;
+    @Autowired
+    private SavedPostsRepo savedPostsRepo;
     public void addSavedPost(Long savedPostID,Long userID){
         SavedPostsEntry entry = new SavedPostsEntry();
         entry.setPostID(savedPostID);
