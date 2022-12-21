@@ -2,6 +2,8 @@ package mkanak_spring.model.dao;
 
 import mkanak_spring.model.entities.Post;
 import org.springframework.data.jpa.domain.Specification;
+import mkanak_spring.model.entities.Post;
+import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

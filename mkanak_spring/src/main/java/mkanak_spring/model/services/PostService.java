@@ -18,4 +18,6 @@ public interface PostService {
     void deletePost(JSONObject details);
     void editPost(JSONObject post);
 
+  //  List<Post> getAllPosts();
+    JSONObject getPostDetails(long postID);
 }
