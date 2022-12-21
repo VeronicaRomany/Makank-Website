@@ -104,7 +104,7 @@ export class PropertiesComponent implements OnInit {
       maxArea.value = temp
     }
     if(textSearch.value=='' && (type.value=="Type"||type.value=="any") &&  (city.value=="City"||city.value=="any")
-    &&  (buyRent.value=="Bye/Rent"||type.value=="any")&&  Number(maxPrice.value)==0 &&Number(minPrice.value)==0&&Number(maxArea.value)==0
+    &&  (buyRent.value=="Bye/Rent"||buyRent.value=="any")&&  Number(maxPrice.value)==0 &&Number(minPrice.value)==0&&Number(maxArea.value)==0
     &&Number(minArea.value)==0 && withPictures.checked==false && studentHousing.checked == false
     ){
        this.preference.filtered=false
@@ -155,7 +155,10 @@ export class PropertiesComponent implements OnInit {
       } );
    
   
-  
+   }
+   getSavedPosts(){
+    
+
    }
 
 }

@@ -32,5 +32,13 @@ export class PropertiesService {
     
     return this.http.get<Post[]>(this.postsURL+"/homepage",{params:queryParams})
   }
+  getSavedPosts(iD:Number,preferenceIn:ViewingPreference):Observable<Post[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    return this.http.get<Post[]>(this.postsURL+"/saved/"+iD.toString(),{params:queryParams
+
+    })
+
+  }
   
 }
