@@ -2,7 +2,7 @@ package mkanak_spring.model.entities;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import mkanak_spring.model.DomeDatabase;
+
 import org.hibernate.annotations.Immutable;
 
 @Entity
@@ -20,6 +20,11 @@ public class UserCredentials {
     public UserCredentials(String userName, String password){
         this.username=userName;
         this.password=password;
+    }
+    public UserCredentials getUserData(){
+        DomeDatabase domeDatabase=new DomeDatabase();
+        DomeDatabase.Data d=domeDatabase.getData(this.username,this.password);
+        return this;
     }
 
     public Long getUserID() {

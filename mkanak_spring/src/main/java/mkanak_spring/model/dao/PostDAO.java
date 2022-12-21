@@ -101,8 +101,4 @@ public class PostDAO {
 
 
 
-    public JSONObject getPostDetails(long postID) {
-        return postRepo.getPostLargeView(postID);
-    }
-
 }

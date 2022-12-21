@@ -1,5 +1,6 @@
+package mkanak_spring.model;
 
-
+import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.dao.SavedPostsDAO;
 import mkanak_spring.model.entities.*;
 import mkanak_spring.model.services.PostService;
@@ -54,9 +55,9 @@ public class PostManager {
 
 
 
-   public List<Property> getSavedByID(int id){
-       return service.getSavedProperties(id);
-   }
+//   public List<Property> getSavedByID(int id){
+//       return service.getSavedProperties(id);
+//   }
 
 
 
@@ -107,8 +108,8 @@ public class PostManager {
        return pictureList;
    }
 
-
-    public Post buildPost(Post property, JSONObject post) {
+/*
+ public Post buildPost(Post property, JSONObject post) {
         property.setAddress((String) post.get("address"));
         property.setType((String) post.get("type"));
         property.setArea((Integer) post.get("area"));
@@ -121,6 +122,8 @@ public class PostManager {
         property.setSellerID(((Number) post.get("sellerID")).longValue());
         return property;
     }
+
+
 
     public Apartment buildApartment(JSONObject property) {
         Apartment apartment = new Apartment();
@@ -152,5 +155,8 @@ public class PostManager {
         }
         return pictureList;
     }
+
+ */
+
 
 }

@@ -2,7 +2,7 @@ package mkanak_spring.model.services;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-
+import mkanak_spring.model.entities.User;
 import java.util.List;
 
 public interface UserService {
