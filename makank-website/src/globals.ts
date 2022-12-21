@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-
+@Injectable()
 export class Globals{
-    static posts:[]
+    static posts:any[]
     static userID: number=0;
     static getUserID(): any {
       return this.userID
@@ -12,6 +12,10 @@ export class Globals{
     }
     static getPosts():any{
       return this.posts
+    }
+    static setPosts(allPosts: any[] ){
+      this.posts=allPosts
+
     }
     
 }
