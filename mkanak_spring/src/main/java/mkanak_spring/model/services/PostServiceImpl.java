@@ -47,12 +47,7 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<Post> getHomepagePosts(JSONObject preference) {
-        ViewingPreference p= new ViewingPreference();
-        p.setFilterPreference(new FilterPreference());
-        p.setSortingPreference(new SortingPreference());
-        p.setFiltered(true);
-        p.getFilterPreference().setCitySearchWord("Tanta");
-
+        ViewingPreference p = converter.parseViewingPreference(preference);
         return postDAO.getAllPosts(p);
     }
 
