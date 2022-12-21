@@ -1,6 +1,6 @@
 <div class="container1">
     <button class="savedButton">Saved Posts</button>
-
+    <button class="savedButton" (click)="goTonewPost()">Add Post</button>
 
     <div class="container2">
         <div class="option">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="meta-sission" >
                     <div class="head">
-                        <a href="#" class="catogry">{{item.city}}</a>
+                        <a  class="catogry">{{item.city}}</a>
                         <span class="flexone"></span>
                       
                     </div>
@@ -134,8 +134,9 @@
                         <ng-template #elseBlock>                      
                             <p class="type" > Full Price</p>
                         </ng-template>
+                        <h5 class="area">Area: {{item.area}} &#13217;</h5>
                         <h3 class="desc">{{item.info}}</h3>
-                       
+                        
                     </div>
                     <div class="footer">
                         <a href="#" class="button">Save</a>

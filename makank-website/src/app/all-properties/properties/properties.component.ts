@@ -44,6 +44,7 @@ export class PropertiesComponent implements OnInit {
       } );
    
   }
+ 
 
 // // getDummyPost():Post{
 //     let p = new Post()
