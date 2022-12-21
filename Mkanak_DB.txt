@@ -84,22 +84,21 @@ create or replace function post_large_view(postID int8)
 returns json as $$
 
 declare propertyType varchar(9);
-declare res JSON;
-declare temp json;
+declare result json;
  begin
         select property.property_type into propertyType
         from property
         where property.post_id = postID;
         if(propertyType = 'villa') then
-                select json_agg(json_build_object('propertyaddress', p.property_address, 'garden', v.has_garden, 'pool', v.has_pool, 'level', v.villa_levels, 'name', u.name, 'email', u.email, 'price', p.price, 'city', p.city, 'area', p.area, 'rooms', p.rooms, 'bathrooms', p.bathrooms, 'date', p.post_date, 'sellerID', p.seller_id, 'info', p.info, 'rent', p.for_rent)) as item into temp
+                select json_agg(json_build_object('propertyaddress', p.property_address, 'garden', v.has_garden, 'pool', v.has_pool, 'level', v.villa_levels, 'name', u.name, 'email', u.email, 'price', p.price, 'city', p.city, 'area', p.area, 'rooms', p.rooms, 'bathrooms', p.bathrooms, 'date', p.post_date, 'sellerID', p.seller_id, 'info', p.info, 'rent', p.for_rent, 'type', p.property_type, 'sellername', u.name, 'email', u.email, 'address', u.address, 'sellerprofilepic', u.profile_pic_link, 'sellerusername', u.username)) as temp into result
                 from property p LEFT OUTER JOIN villa v on p.post_id = v.post_id LEFT OUTER JOIN users u on p.seller_id = u.user_id
                 where p.post_id = postID;
-                return temp; 
+                return result; 
         else
-                select json_agg(json_build_object('propertyaddress', p.property_address, 'name', u.name, 'email', u.email, 'price', p.price, 'city', p.city, 'area', p.area, 'rooms', p.rooms, 'bathrooms', p.bathrooms, 'date', p.post_date, 'sellerID', p.seller_id, 'info', p.info, 'rent', p.for_rent)) as item into temp
+                select json_agg(json_build_object('propertyaddress', p.property_address, 'name', u.name, 'email', u.email, 'price', p.price, 'city', p.city, 'area', p.area, 'rooms', p.rooms, 'bathrooms', p.bathrooms, 'date', p.post_date, 'sellerID', p.seller_id, 'info', p.info, 'rent', p.for_rent, 'type', p.property_type, 'level', a.apartment_level, 'studenthousing', a.for_students, 'elevator', a.has_elevator,  'sellername', u.name, 'email', u.email, 'address', u.address, 'sellerprofilepic', u.profile_pic_link, 'sellerusername', u.username)) as temp into result
                 from property p JOIN apartment a on p.post_id = a.post_id JOIN users u on p.seller_id = u.user_id
                 where p.post_id = postID;
-                return temp;  
+                return result;  
               
         end if;
        

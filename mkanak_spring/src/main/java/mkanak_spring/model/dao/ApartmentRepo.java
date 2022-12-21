@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApartmentRepo extends JpaRepository<Apartment, Long> {
-    @Query(value = "SELECT * FROM Apartment a JOIN Property p ON a.post_id = p.post_id", nativeQuery = true)
-    JSONObject findUser();
+
 }

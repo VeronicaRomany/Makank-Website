@@ -1,5 +1,6 @@
 package mkanak_spring.controllers;
 
+import mkanak_spring.model.User;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -23,5 +24,10 @@ public class UserController {
     @PostMapping(value= "/users/new")
     public Long signUpUser(@RequestBody JSONObject user) throws ParseException {
         return userService.saveUser(user);
+    }
+
+    @GetMapping("/profile/{userID}")
+    public User getPostDetails(@PathVariable int userID){
+        return userService.findUserInfoByUseName(userID);
     }
 }

@@ -61,4 +61,8 @@ public class PostController {
         return app.removePostFromSaved(userID, postID);
     }
 
+    @GetMapping("/details/{postID}")
+    public JSONObject getPostDetails(@PathVariable int postID){
+        return postService.getPostDetails(postID);
+    }
 }
