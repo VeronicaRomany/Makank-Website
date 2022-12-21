@@ -9,6 +9,7 @@ import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.entities.PhoneNumber;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
             numbers.add(phoneNumber);
         }
         phoneNumberRepo.saveAll(numbers);
-        userInstance.setPhoneNumbers(numbers);
+       // userInstance.setPhoneNumbers(numbers);
 
         return userInstance.getUserID();
     }

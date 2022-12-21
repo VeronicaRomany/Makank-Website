@@ -27,7 +27,7 @@ public class PostDAO {
 
 
     public void saveApartment(Apartment property) {
-//        apartmentRepo.save(property);
+        apartmentRepo.save(property);
     }
 
     public void saveVilla(Villa property) {
@@ -99,6 +99,8 @@ public class PostDAO {
         return savedPostsRepo.getUserSavedPostsIDs(id);
     }
 
-
+    public JSONObject getPostDetails(long postID) {
+        return postRepo.getPostLargeView(postID);
+    }
 
 }

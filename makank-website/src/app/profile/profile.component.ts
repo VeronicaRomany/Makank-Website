@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   currentUserInfo: User = new User();
   notLogIn=true
   private userID: number | undefined;
-  private pho: any =""
+  private pho: string =""
 
   constructor(private token: TokenStorageService,private profile: ProfileService) { }
 
@@ -27,9 +27,9 @@ export class ProfileComponent implements OnInit {
     }
     this.profile.getUserInfo(this.userID).subscribe(result=>{this.currentUserInfo=result
     console.log(result)})
-    this.profile.getUserPhone(this.userID).subscribe(res=>{this.pho=res})
-    this.currentUserInfo.phone=this.pho
-    console.log(this.pho)
+    // this.profile.getUserPhone(this.userID).subscribe(res=>{this.pho=res})
+    // this.currentUserInfo.phone=this.pho
+    // console.log(this.pho)
 }
 
 
