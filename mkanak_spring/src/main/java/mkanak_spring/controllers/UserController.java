@@ -5,6 +5,7 @@ import mkanak_spring.model.Post;
 import mkanak_spring.model.User;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.dao.UserDAO;
+import mkanak_spring.model.User;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -44,4 +45,8 @@ public class UserController {
         return userDAO.findUser(u);
     }
 
+    @GetMapping("/profile/{userID}")
+    public User getPostDetails(@PathVariable int userID){
+        return userService.findUserInfoByUseName(userID);
+    }
 }

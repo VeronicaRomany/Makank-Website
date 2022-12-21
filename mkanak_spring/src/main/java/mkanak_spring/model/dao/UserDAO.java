@@ -26,6 +26,9 @@ public class UserDAO {
     public Boolean emailExists(String email) {
         return userRepo.findByEmail(email);
     }
+    public User findUserInfoByUseName(long userID) {
+        return userRepo.findUserInfoByUseName(userID);
+    }
 
     public User findUser(long userID) {
         System.out.println("test:"+userID);

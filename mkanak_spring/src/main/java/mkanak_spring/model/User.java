@@ -26,11 +26,11 @@ public class User {
     private String password;
     @Column(name = "user_description")
     private String description;
-
+/*
     @OneToMany()
-    @JoinColumn(referencedColumnName = "user_id")
+    @JoinColumn(referencedColumnName = "userID")
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
-
+*/
 
     //private List<String> savedItems = new ArrayList<>(); // to be updated
 
@@ -44,7 +44,6 @@ public class User {
         this.profilePicLink = profilePicLink;
         this.password = password;
         this.description = description;
-        this.phoneNumbers = phoneNumbers;
     }
 
     public Long getUserID() {
@@ -110,7 +109,7 @@ public class User {
     public void setDescription(String description) {
         this.description = description;
     }
-
+/*
     public List<PhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
     }
@@ -119,10 +118,12 @@ public class User {
         this.phoneNumbers = phoneNumbers;
     }
 
+ */
+
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + userID +
+                "userID=" + userID +
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
@@ -130,7 +131,6 @@ public class User {
                 ", profile_pic_link='" + profilePicLink + '\'' +
                 ", password='" + password + '\'' +
                 ", description='" + description + '\'' +
-                ", phone_numbers=" + phoneNumbers +
                 '}';
     }
 }

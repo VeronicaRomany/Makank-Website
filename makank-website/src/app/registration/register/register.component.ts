@@ -57,8 +57,11 @@ export class RegisterComponent implements OnInit {
     profilePicture: new FormControl('')
   });
   submitted = false;
-
+  phoneLen : boolean = false;
   urllink:string="";
+  phone : String=""
+  
+  
 
   
   file:File={
@@ -96,10 +99,10 @@ export class RegisterComponent implements OnInit {
         username: [
           '',
           [
-            Validators.required
+            Validators.required,Validators.pattern("^[A-Za-z][A-Za-z0-9]*$")
           ]
         ],
-        email: ['', [ Validators.email]],
+        email: ['', [ Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
         password: [
           '',
           [
@@ -128,9 +131,20 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
 
+    this.phone  = this.f['phoneNumber'].value
+    console.log(this.phone)
+    if(this.phone.length == 10){
+      console.log("e2fsh")
+      this.phoneLen=true;
+      return;
+    }
+    
     if (this.form.invalid) {
       return;
     }
+
+    
+
 
     var jsonString = JSON.stringify(this.form.value, null, 2)
     console.log(jsonString);
@@ -141,6 +155,7 @@ export class RegisterComponent implements OnInit {
     this.newAccount.password=this.f['password'].value
     this.newAccount.username = this.f['username'].value
     this.newAccount.phone_numbers[0] = this.f['phoneNumber'].value
+    
     this.newAccount.email = this.f['email'].value
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
@@ -152,9 +167,10 @@ export class RegisterComponent implements OnInit {
     this.urllink=""
 
     this.http.post<number>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((data:number) =>{
-      if(data>0)
-      console.log("ana 3mlt register")
-      console.log(data);
+      if(data>0){
+        console.log("ana 3mlt register")
+        console.log(data);
+
       this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((userID: number)=> {
         console.log("ana 3mlt login")
         console.log(userID)
@@ -166,15 +182,24 @@ export class RegisterComponent implements OnInit {
           console.log(this.tokenStorage.getUser())
           Globals.setUserID(userID)
           this.router.navigate(['/', 'Home'])
-        }
-      
-    },);
+          
+        }});
+      }else if(data ==-1){
+        console.log("taken user name")
+        window.alert("This username is already taken")
 
-  },);
+
+      }
+      
+      
+    });
 }
+
 
   onReset(): void {
     this.submitted = false;
+    this.urllink="";
+    this.phoneLen=false;
     this.form.reset();
   }
 
