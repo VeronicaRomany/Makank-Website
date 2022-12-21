@@ -21,18 +21,18 @@ public class PostController {
     //   ################## HOME PAGE ########################
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference) throws ParseException {
-        System.out.println(preference+"<<<<<<<");
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
-        //JSONObject preferences = new JSONObject(preference);
         return postService.getHomepagePosts(json);
     }
 
 
     //    ################ Profile posts ########################
     @GetMapping("/{targetUserID}")
-    public List<Post> getProfilePosts(@PathVariable int targetUserID, @RequestParam JSONObject preferences){
-        return postService.getProfilePosts(targetUserID,preferences);
+    public List<Post> getProfilePosts(@PathVariable int targetUserID, @RequestParam String preference) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(preference);
+        return postService.getProfilePosts(targetUserID,json);
     }
 
 
@@ -40,20 +40,25 @@ public class PostController {
 
     //   ################ Manipulation posts ########################
     @PostMapping("/new")
-    public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
-        postService.savePost(postDetails);
+    public void addPost(@RequestBody String postDetails) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(postDetails);
+        postService.savePost(json);
     }
 
     @PutMapping("/edit")
-    public boolean editPost(@RequestParam int userID, @RequestBody JSONObject post){
-        //verification steps
-        postService.editPost(post);
+    public boolean editPost(@RequestParam int userID, @RequestBody String post) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(post);
+        postService.editPost(json);
         return false;
     }
 
     @PostMapping("/delete")
-    public boolean deletePost(@RequestBody JSONObject details){
-        postService.deletePost(details);
+    public boolean deletePost(@RequestBody String details) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(details);
+        postService.deletePost(json);
         return false;
     }
 
@@ -71,13 +76,17 @@ public class PostController {
 
 
     @PostMapping("/savePost")
-    public void addToSavedPost(@RequestBody JSONObject saveEntry){
-        postService.addToSavedPosts(saveEntry);
+    public void addToSavedPost(@RequestBody String saveEntry) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(saveEntry);
+        postService.addToSavedPosts(json);
     }
 
     @PostMapping("/unsavePost")
-    public void removePostFromSaved(JSONObject entry){
-        postService.removeFromSaved(entry);
+    public void removePostFromSaved(@RequestBody String entry) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(entry);
+        postService.removeFromSaved(json);
     }
 
 }
