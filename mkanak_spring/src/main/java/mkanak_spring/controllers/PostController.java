@@ -18,11 +18,7 @@ import java.util.List;
 public class PostController {
     @Autowired PostService postService;
 
-
-
-
     //   ################## HOME PAGE ########################
-
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference) throws ParseException {
         System.out.println(preference+"<<<<<<<");

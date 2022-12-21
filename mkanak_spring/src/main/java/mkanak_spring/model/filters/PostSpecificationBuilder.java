@@ -70,8 +70,10 @@ public class PostSpecificationBuilder {
         if(f.getMinArea()!=-1 && f.getMaxArea()!= -1)
             this.possibleSpecifications.add(new PostAreaRangeSpecification(v));
         if(!Objects.equals(f.getInfoSearchWord(), "")){
-            this.possibleSpecifications.add(new PostInfoSpecification(v));
-            this.possibleSpecifications.add(new PostAddressSpecification(v));
+            Specification<Post> s1 = new PostInfoSpecification(v);
+            Specification<Post> s2 = new PostAddressSpecification(v);
+            Specification<Post> orSpec =  Specification.where(s1).or(s2);
+            this.possibleSpecifications.add(orSpec);
         }
         if(f.isWithPictures())
             this.possibleSpecifications.add(new PostHasPicturesSpecification(v));
@@ -82,13 +84,4 @@ public class PostSpecificationBuilder {
         // TO DO
     }
 
-//    //add all possible specifications
-//
-//
-//
-//
-//
-//
-//
-//
 }
