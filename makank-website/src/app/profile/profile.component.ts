@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   currentUserInfo: User = new User();
   notLogIn=true
   private userID: number | undefined;
-  private pho: any =""
+  private pho: string =""
 
   constructor(private token: TokenStorageService,private profile: ProfileService) { }
 
