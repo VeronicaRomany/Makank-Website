@@ -1,8 +1,6 @@
 package mkanak_spring.model.dao;
 
 import mkanak_spring.model.entities.User;
-import mkanak_spring.model.User;
-import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,6 +14,4 @@ public interface UserRepo extends JpaRepository<User, Long> {
     Boolean findByEmail(String email);
 
 
-    @Query("FROM User u WHERE u.userID = ?1")
-    User findUserInfoByUseName(long userID);
 }

@@ -128,8 +128,4 @@ public class PostServiceImpl implements PostService{
 
 
 
-    @Override
-    public JSONObject getPostDetails(long postID) {
-        return postDAO.getPostDetails(postID);
-    }
 }
