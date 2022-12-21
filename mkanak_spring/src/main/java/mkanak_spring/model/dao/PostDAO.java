@@ -1,6 +1,7 @@
 package mkanak_spring.model.dao;
 
 import mkanak_spring.model.*;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,10 @@ public class PostDAO {
 
     public List<Post> getAllPosts() {
         return postRepo.findAll();
+    }
+
+    public JSONObject getPostDetails(long postID) {
+        return postRepo.getPostLargeView(postID);
     }
 
 }

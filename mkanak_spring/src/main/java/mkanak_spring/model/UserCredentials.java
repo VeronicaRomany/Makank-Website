@@ -20,11 +20,6 @@ public class UserCredentials {
         this.username=userName;
         this.password=password;
     }
-    public UserCredentials getUserData(){
-        DomeDatabase domeDatabase=new DomeDatabase();
-        DomeDatabase.Data d=domeDatabase.getData(this.username,this.password);
-        return this;
-    }
 
     public Long getUserID() {
         return userID;

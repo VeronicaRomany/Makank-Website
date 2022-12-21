@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostService {
     void savePost(JSONObject post) throws ParseException;
     List<Post> getAllPosts();
+    JSONObject getPostDetails(long postID);
 }
