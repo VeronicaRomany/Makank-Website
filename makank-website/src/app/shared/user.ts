@@ -5,11 +5,11 @@ export class User {
   name:string=""
   username:string=""
   password:string=""
-  phone_numbers:string[]=[]
+  phone:any=""
 
 
   email:string=""
-  profile_pic_link:string=""
+  profilePicLink:string=""
   address:string=""
   description:string=""
 

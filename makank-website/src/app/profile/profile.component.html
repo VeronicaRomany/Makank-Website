@@ -2,7 +2,7 @@
   <body>
   <div class="container">
     <div class="box">
-      <img src={{currentUserInfo.profile_pic_link}} alt="user" width="100">
+      <img src={{currentUserInfo.profilePicLink}} alt="user" width="100">
       <ul>
         <li>Name</li>
         {{ currentUserInfo.name }}
@@ -24,7 +24,7 @@
       </ul>
       <ul>
         <h3>Phone Number(s)</h3>
-        {{ currentUserInfo.phoneNumber }}
+        {{ currentUserInfo.phone}}
       </ul>
     </div>
   </div>
@@ -32,10 +32,9 @@
 </div>
 
 <div class="container" *ngIf="notLogIn">
-  <p>
-    <strong>please login</strong>
-  </p>
-
+  <ul>
+    <h3>please login</h3>
+  </ul>
 </div>
 
 
