@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(username);
           this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
           console.log(this.tokenStorage.getUser())
-          
+
           Globals.setUserID(data)
-          
+          console.log(Globals.getUserID())
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
             this.errorMessage='Please enter correct password'
             this.isLoginFailed = true;
           }
-          
+
         }
       },
   );

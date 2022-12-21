@@ -6,6 +6,8 @@ import org.json.simple.parser.ParseException;
 public interface UserService {
     Long saveUser(JSONObject user) throws ParseException;
     Long logInUser(String username, String password);
+    User findUserInfoByUseId(long userID);
+    String findUserPhoneByUseId(long userID);
     // edit user
     // get user
 }

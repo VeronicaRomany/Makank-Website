@@ -62,4 +62,12 @@ public class UserServiceImpl implements UserService {
         if(!userCredentials.getPassword().equals(password)) return -2L;
         return userCredentials.getUserID();
     }
+    @Override
+    public User findUserInfoByUseId(long userID) {
+        return userDAO.findUserInfoByUseId(userID);
+    }
+    @Override
+    public String findUserPhoneByUseId(long userID) {
+        return userDAO.findUserPhoneByUseId(userID);
+    }
 }
