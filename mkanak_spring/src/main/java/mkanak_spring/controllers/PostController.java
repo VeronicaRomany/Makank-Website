@@ -17,11 +17,7 @@ import java.util.List;
 public class PostController {
     @Autowired PostService postService;
 
-
-
-
     //   ################## HOME PAGE ########################
-
     @GetMapping("/homepage")
     public List<Post> getHomePage(JSONObject preferences){
         return postService.getHomepagePosts(preferences);
