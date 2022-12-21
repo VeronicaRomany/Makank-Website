@@ -1,6 +1,6 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.UserCredentials;
+import mkanak_spring.model.entities.UserCredentials;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -22,8 +22,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/header/header.component';
 import { PropertiesComponent } from './all-properties/properties/properties.component';
+import { FilterComponent } from './filter-bar/filter/filter.component';
+import { FilterBarModule } from './filter-bar/filter-bar.module';
 import { NewPostComponent } from './new-post/new-post.component';
-
 
 
 @NgModule({
@@ -33,7 +34,10 @@ import { NewPostComponent } from './new-post/new-post.component';
     ProfileComponent,
     RegisterComponent,
     PropertiesComponent,
-    NewPostComponent
+    FilterComponent,
+    NewPostComponent,
+    
+
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { NewPostComponent } from './new-post/new-post.component';
     FormsModule,  
     HttpClientModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

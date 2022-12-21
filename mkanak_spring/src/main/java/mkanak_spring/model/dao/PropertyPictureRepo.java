@@ -1,7 +1,7 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.PropertyPicture;
-import mkanak_spring.model.PropertyPictureId;
+import mkanak_spring.model.entities.PropertyPicture;
+import mkanak_spring.model.entities.PropertyPictureId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

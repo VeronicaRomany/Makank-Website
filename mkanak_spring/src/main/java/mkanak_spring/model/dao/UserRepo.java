@@ -1,5 +1,6 @@
 package mkanak_spring.model.dao;
 
+import mkanak_spring.model.entities.User;
 import mkanak_spring.model.User;
 import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ public interface UserRepo extends JpaRepository<User, Long> {
     Boolean findByUsername(String username);
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END FROM User u WHERE u.email = ?1")
     Boolean findByEmail(String email);
+
+
     @Query("FROM User u WHERE u.userID = ?1")
     User findUserInfoByUseName(long userID);
 }

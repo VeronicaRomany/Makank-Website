@@ -2,8 +2,8 @@ package mkanak_spring.model.services;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import mkanak_spring.model.LoginManager;
-import mkanak_spring.model.User;
-import mkanak_spring.model.UserCredentials;
+import mkanak_spring.model.entities.User;
+import mkanak_spring.model.entities.UserCredentials;
 import mkanak_spring.model.dao.UserCredentialsRepo;
 import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.dao.UserRepo;

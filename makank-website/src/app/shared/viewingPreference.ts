@@ -7,16 +7,21 @@ export class ViewingPreference{
 
 export class SortingPreference{
     ascending:boolean = false
-    sortingCriteria: string = "price" //enum later
+    sortingCriteria: string = "any" //enum later
 }
 
 export class FilterPreference{
-    purchaseChoice:string = "rent"
-    propertyType:string = "villa"
-    withPictures:boolean = true
-    studentHousing:boolean = true
+    purchaseChoice:string = "any"
+    propertyType:string = "any"
+    withPictures:boolean = false
+    studentHousing:boolean = false
+    minPrice:Number=-1
+    maxPrice:Number=-1
+    minArea:Number=-1;
+    maxArea:Number=-1;
     //student housing search word
-    addressSearchWord:string=""
-    citySearchWord:string=""
+    infoSearchWord:string=""
+    citySearchWord:string="any"
 
 }
+
