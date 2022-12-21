@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../login/services/token-storage.service';
+import { ProfileService } from '../profile/services/profile.service';
+import {Globals} from "../../globals";
 
 @Component({
   selector: 'app-profile',
@@ -8,18 +10,22 @@ import { TokenStorageService } from '../login/services/token-storage.service';
 })
 export class ProfileComponent implements OnInit {
   currentUser: any;
+  currentUserInfo: any;
   notLogIn=true
+  private userID: number | undefined;
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService,private profile: ProfileService) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-
+    this.userID = this.token.getUser().userId;
     if(this.currentUser.username!=undefined){
       this.notLogIn=false
       console.log("ii")
     }
-
-    console.log(this.currentUser.username)
+    this.profile.getUserInfo(this.userID).subscribe(result=>{this.currentUserInfo=result
+    console.log(result)})
+    console.log(this.currentUserInfo.username)
   }
+
 }

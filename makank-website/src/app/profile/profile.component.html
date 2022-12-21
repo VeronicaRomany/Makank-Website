@@ -2,12 +2,12 @@
   <body>
   <div class="container">
     <div class="box">
-      <img src={{currentUser.profile_pic_link}} alt="user" width="100">
+      <img src={{currentUserInfo.profile_pic_link}} alt="user" width="100">
       <ul>
         <li>Name</li>
-        {{ currentUser.name }}
+        {{ currentUserInfo.name }}
         <li>UserName</li>
-        {{ currentUser.username }}
+        {{ currentUserInfo.username }}
       </ul>
     </div>
     <div class="About">
@@ -16,15 +16,15 @@
       </ul>
       <ul>
         <h3>Office Address</h3>
-        {{ currentUser.address }}
+        {{ currentUserInfo.address }}
       </ul>
       <ul>
         <h3>Email Address</h3>
-        {{ currentUser.email }}
+        {{ currentUserInfo.email }}
       </ul>
       <ul>
         <h3>Phone Number(s)</h3>
-        {{ currentUser.phoneNumber }}
+        {{ currentUserInfo.phoneNumber }}
       </ul>
     </div>
   </div>

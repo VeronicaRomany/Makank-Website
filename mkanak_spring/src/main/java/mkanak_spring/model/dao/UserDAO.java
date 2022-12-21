@@ -27,4 +27,7 @@ public class UserDAO {
         return userRepo.findByEmail(email);
     }
 
+    public User findUser(long userID) {
+        System.out.println("test:"+userID);
+        return userRepo.findUserInfoByUseName(userID);}
 }
