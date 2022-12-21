@@ -1,11 +1,11 @@
 package mkanak_spring.controllers;
 
 import com.google.gson.Gson;
-import mkanak_spring.model.Post;
-import mkanak_spring.model.User;
+import mkanak_spring.model.entities.Post;
+import mkanak_spring.model.entities.User;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.dao.UserDAO;
-import mkanak_spring.model.User;
+import mkanak_spring.model.entities.User;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;

@@ -1,5 +1,6 @@
 package mkanak_spring.model;
-
+import mkanak_spring.model.entities.PhoneNumber;
+import mkanak_spring.model.entities.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
