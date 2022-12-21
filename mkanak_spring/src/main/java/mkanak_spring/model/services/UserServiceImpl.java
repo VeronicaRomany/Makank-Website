@@ -43,7 +43,11 @@ public class UserServiceImpl implements UserService {
         return userCredentials.getUserID();
     }
     @Override
-    public User findUserInfoByUseName(long userID) {
-        return userDAO.findUserInfoByUseName(userID);
+    public User findUserInfoByUseId(long userID) {
+        return userDAO.findUserInfoByUseId(userID);
+    }
+    @Override
+    public String findUserPhoneByUseId(long userID) {
+        return userDAO.findUserPhoneByUseId(userID);
     }
 }

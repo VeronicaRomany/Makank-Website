@@ -1,19 +1,40 @@
 <div class="container" *ngIf="!notLogIn">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ currentUser.username }}</strong> Profile
-    </h3>
-  </header>
-  <p>
-    <strong>Password:</strong>
-    {{ currentUser.password }}
-  </p>
-
+  <body>
+  <div class="container">
+    <div class="box">
+      <img src={{currentUserInfo.profilePicLink}} alt="user" width="100">
+      <ul>
+        <li>Name</li>
+        {{ currentUserInfo.name }}
+        <li>UserName</li>
+        {{ currentUserInfo.username }}
+      </ul>
+    </div>
+    <div class="About">
+      <ul>
+        <h1>about</h1>
+      </ul>
+      <ul>
+        <h3>Office Address</h3>
+        {{ currentUserInfo.address }}
+      </ul>
+      <ul>
+        <h3>Email Address</h3>
+        {{ currentUserInfo.email }}
+      </ul>
+      <ul>
+        <h3>Phone Number(s)</h3>
+        {{ currentUserInfo.phone}}
+      </ul>
+    </div>
+  </div>
+  </body>
 </div>
 
 <div class="container" *ngIf="notLogIn">
-  <p>
-    <strong>please login</strong>
-  </p>
-
+  <ul>
+    <h3>please login</h3>
+  </ul>
 </div>
+
+
