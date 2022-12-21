@@ -1,5 +1,9 @@
-{
+{ 
+
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -65,6 +69,12 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "sslKey": "C:\\Users\\Free BYTES\\OneDrive\\Documents\\GitHub\\Makank-Website\\makank-website\\localhost.key",
+            "sslCert": "C:\\Users\\Free BYTES\\OneDrive\\Documents\\GitHub\\Makank-Website\\makank-website\\localhost.crt",
+            "ssl": true
+
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
