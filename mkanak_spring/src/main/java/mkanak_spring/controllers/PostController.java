@@ -22,6 +22,8 @@ public class PostController {
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference) throws ParseException {
         JSONParser parser = new JSONParser();
+
+//        System.out.println("request received <<<<<< "+preference);
         JSONObject json = (JSONObject) parser.parse(preference);
         return postService.getHomepagePosts(json);
     }
@@ -65,8 +67,10 @@ public class PostController {
 
     // ###################### Saved Posts ####################################
     @GetMapping("/saved/{targetUserID}")
-    public List<Post> getSavedPosts(@PathVariable int userID){
-        return postService.getSavedPosts(userID,null);
+    public List<Post> getSavedPosts(@PathVariable int userID,@RequestParam String preference) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(preference);
+        return postService.getSavedPosts(userID,json);
     }
 
     @GetMapping("/saved/ids/{userID}")

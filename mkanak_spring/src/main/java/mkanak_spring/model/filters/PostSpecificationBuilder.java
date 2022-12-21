@@ -60,6 +60,7 @@ public class PostSpecificationBuilder {
 
     private void setupFiltersSpecification(ViewingPreference v){
         FilterPreference f = v.getFilterPreference();
+        System.out.println("HEEERE");
         if(f==null) return;
         if(!f.getPurchaseChoice().equalsIgnoreCase("any")) //not both, we need to filter
             this.possibleSpecifications.add(new PostPurchaseTypeSpecification(v));

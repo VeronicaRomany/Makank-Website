@@ -59,7 +59,10 @@ class SavedPostsRepoTest {
         assertFalse(savedPostsRepo.existsById(id));
     }
 
+    @Test
+    void testRetreivingSavedPostsIDsContain(){
 
+    }
 
 }
 
