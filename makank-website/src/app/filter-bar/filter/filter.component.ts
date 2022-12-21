@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class FilterComponent implements OnInit {
    url ="http://localhost:8080/users/posts/homepage"
    searchData={
+    filterd:false,
     sorted:false,
     sortingDetails:
     {

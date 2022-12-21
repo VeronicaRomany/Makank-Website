@@ -1,29 +1,30 @@
 <div class="container1">
+    <button class="savedButton">Saved Posts</button>
 <app-filter></app-filter>
 
 <div class="article-contener"  >
     <ul class="groups" *ngFor="let item of posts"  >
         <li>
             <div class="card"  >
-                <div class="image-session">
-                    <span class="image" style="background-image: url({{item.property.pictures}});"></span>
+                <div class="image-session " >
+                    <span class="image" style="background-image: url({{item.pictures}});"></span>
                 </div>
                 <div class="meta-sission" >
                     <div class="head">
-                        <a href="#" class="catogry">{{item.property.city}}</a>
+                        <a href="#" class="catogry">{{item.city}}</a>
                         <span class="flexone"></span>
                       
                     </div>
                     <div class="body">
 
-                        <h2 class="price">{{item.property.price}} LE</h2>
-                        <div *ngIf="item.property.rent; else elseBlock">
+                        <h2 class="price">{{item.price}} LE</h2>
+                        <div *ngIf="item.rent; else elseBlock">
                             <p class="type">Per Month</p>
                         </div>
                         <ng-template #elseBlock>                      
                             <p class="type" > Full Price</p>
                         </ng-template>
-                        <h3 class="desc">{{item.property.info}}</h3>
+                        <h3 class="desc">{{item.info}}</h3>
                        
                     </div>
                     <div class="footer">

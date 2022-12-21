@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Post } from 'src/app/shared/post';
-import { Apartment, Property, Villa } from 'src/app/shared/property';
-import { ViewingPreference } from 'src/app/shared/viewingPreference';
+
+
+import { Post } from '../../shared/post';
+import { Property, Villa } from '../../shared/property';
+import { ViewingPreference } from '../../shared/viewingPreference';
+
 import { PropertiesService } from '../services/properties.service';
 @Component({
   selector: 'app-properties',
@@ -30,6 +33,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   sendPostsRequests(){
+    console.log(this.preference)
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
           console.log("ana rg3t", results)
           this.posts=results
@@ -37,31 +41,31 @@ export class PropertiesComponent implements OnInit {
    
   }
 
- getDummyPost():Post{
-    let p = new Post()
-    let v = new Villa()
-    v.hasGarden=false
-    v.hasPool=true 
-    v.numberOfLevels=3
-    p.property=v
-    p.postID=5
-    p.publishDate=new Date()
-    p.property=new Property()
-    p.property.pictures=['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsleUSqV4jrTGyQ-LfR3V5bkobZGtG0hyXf5ObJEy7&s']
-    p.property.area=25
-    p.property.city='ka3 el hamoor'
-    p.property.info='pinapple 3 levels very good neighborhood\n neighbors are jazz playning squid and a pink starfish'
-    p.property.bathroomNumber=1
-    p.property.rent=false
-    p.property.roomNumber=4
-    p.property.sellerID=145
-    p.property.price=50000000000
+// // getDummyPost():Post{
+//     let p = new Post()
+//     let v = new Villa()
+//     v.hasGarden=false
+//     v.hasPool=true 
+//     v.numberOfLevels=3
+//     p.property=v
+//     p.postID=5
+//     p.publishDate=new Date()
+//     p.property=new Property()
+//     p.property.pictures=['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsleUSqV4jrTGyQ-LfR3V5bkobZGtG0hyXf5ObJEy7&s']
+//     p.property.area=25
+//     p.property.city='ka3 el hamoor'
+//     p.property.info='pinapple 3 levels very good neighborhood\n neighbors are jazz playning squid and a pink starfish'
+//     p.property.bathroomNumber=1
+//     p.property.rent=false
+//     p.property.roomNumber=4
+//     p.property.sellerID=145
+//     p.property.price=50000000000
 
-    let x = (p.property as Villa).hasGarden
-    console.log(x)
-    console.log(p.property instanceof Villa)
-    return p
-  }
+//     let x = (p.property as Villa).hasGarden
+//     console.log(x)
+//     console.log(p.property instanceof Villa)
+//     return p
+//   //}
 
   goTonewPost():void{
     

@@ -1,7 +1,6 @@
 import { Apartment, Property, Villa } from "./property"
 export class Post{
     postID: number = 0
-    property!: Property | Villa | Apartment 
     publishDate: Date = new Date()
     type:string=""
     sellerID: number = 0
@@ -20,6 +19,6 @@ export class Post{
     hasGarden:boolean=false
     hasPool:boolean=false
     universities:string[]=[]
-
+    hasPictures:boolean=false
     
   }

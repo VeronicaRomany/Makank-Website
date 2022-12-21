@@ -1,9 +1,12 @@
+import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Post } from 'src/app/shared/post';
-import { ViewingPreference } from 'src/app/shared/viewingPreference';
+
+
+import { Post } from '../../shared/post';
+import { ViewingPreference } from '../../shared/viewingPreference';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +18,12 @@ export class PropertiesService {
   
 
 
-  getPostsHomePage(preference:ViewingPreference):Observable<Post[]>{
-    console.log(preference)
-    return this.http.get<Post[]>(this.postsURL+"/homepage",{params:{
-      preference:JSON.stringify(preference)
-    }})
+  getPostsHomePage(preferenceIn:ViewingPreference):Observable<Post[]>{
+    console.log(preferenceIn)
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    
+    return this.http.get<Post[]>(this.postsURL+"/homepage",{params:queryParams})
   }
 
   

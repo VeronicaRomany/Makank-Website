@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     let s:SortingPreference = new SortingPreference()
 
     f.withPictures=false
-    f.addressSearchWord= "45"
+    f.infoSearchWord= "45"
     f.propertyType="Villa"
     f.purchaseChoice="buy"
     f.studentHousing=false

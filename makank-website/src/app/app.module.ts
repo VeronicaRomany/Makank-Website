@@ -24,6 +24,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { PropertiesComponent } from './all-properties/properties/properties.component';
 import { FilterComponent } from './filter-bar/filter/filter.component';
 import { FilterBarModule } from './filter-bar/filter-bar.module';
+import { NewPostComponent } from './new-post/new-post.component';
 
 
 @NgModule({
@@ -33,7 +34,10 @@ import { FilterBarModule } from './filter-bar/filter-bar.module';
     ProfileComponent,
     RegisterComponent,
     PropertiesComponent,
-    FilterComponent
+    FilterComponent,
+    NewPostComponent,
+    
+
   ],
   imports: [
     BrowserModule,
