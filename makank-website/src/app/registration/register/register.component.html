@@ -20,10 +20,8 @@
           [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
         />
         <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-          <div *ngIf="f['username'].errors['required'] ">Username is required</div>
-          <div *ngIf="f['username'].errors['pattern'] ">Username shouldn't have spaces</div>
+          <div *ngIf="f['username'].errors['required']">Username is required</div>
         </div>
-        
       </div>
 
 
@@ -97,17 +95,12 @@
         <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
           <div *ngIf="f['phoneNumber'].errors['required']">Phone Number is required</div>
           <div *ngIf="f['phoneNumber'].errors['minlength']">
-            Phone Number should be 9 or 11 digits
+            Phone Number should be from 9 to 11 digits
           </div>
           <div *ngIf="f['phoneNumber'].errors['maxlength']">
-            Phone Number should be 9 or 11 digits
+            Phone Number should be from 9 to 11 digits
           </div>
-          
         </div>
-        <div *ngIf="phoneLen">
-          Phone Number should be 9 or 11 digits
-        </div>
-       
       </div>
       
 
@@ -144,7 +137,7 @@
           [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
         />
         <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-          <div *ngIf="f['email'].errors['email'] || f['email'].errors['pattern']">Email is invalid</div>
+          <div *ngIf="f['email'].errors['email']">Email is invalid</div>
         </div>
       </div>
   

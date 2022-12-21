@@ -1,16 +1,20 @@
 package mkanak_spring.model.services;
 
-import mkanak_spring.model.*;
+import mkanak_spring.model.LoginManager;
+import mkanak_spring.model.entities.PhoneNumber;
+import mkanak_spring.model.entities.User;
+import mkanak_spring.model.entities.UserCredentials;
 import mkanak_spring.model.dao.PhoneNumberRepo;
 import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.entities.PhoneNumber;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,19 +23,34 @@ public class UserServiceImpl implements UserService {
     UserDAO userDAO;
     @Autowired
     PhoneNumberRepo phoneNumberRepo;
-
-
     @Override
     //@Transactional
     public Long saveUser(JSONObject user) throws ParseException {
-        SignupManager signupManager = new SignupManager();
-        User userInstance = signupManager.signUpUser(user);
-        if(userDAO.usernameExists(userInstance.getUsername())) return -1L;
+        JSONParser parser = new JSONParser();
+        JSONObject object = (JSONObject) parser.parse(user.toString());
+        JSONArray phoneNos = (JSONArray) object.get("phone_numbers");
+        Long id = (Long) object.get("user_id");
+        User userInstance = new User();
+        userInstance.setUserID(id);
+        userInstance.setAddress((String) object.get("address"));
+        userInstance.setUsername((String) object.get("username"));
+        userInstance.setName((String) object.get("name"));
+        userInstance.setDescription((String) object.get("description"));
+        userInstance.setPassword((String) object.get("password"));
+        userInstance.setEmail((String) object.get("email"));
+        userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
 
+        if(userDAO.usernameExists(userInstance.getUsername())) return -1L;
+       // if(userDAO.emailExists(userInstance.getEmail()) && (userInstance.getEmail().compareTo("") != 0)) return -2L;
         userDAO.saveUser(userInstance);
-        List<PhoneNumber> numbers = signupManager.addPhoneNumbers(userInstance, user);
+        List<PhoneNumber> numbers = new ArrayList<>();
+        for(Object obj : phoneNos){
+            String message = (String) obj;
+            PhoneNumber phoneNumber = new PhoneNumber(userInstance.getUserID(), message);
+            numbers.add(phoneNumber);
+        }
         phoneNumberRepo.saveAll(numbers);
-     //   userInstance.setPhoneNumbers(numbers);
+        userInstance.setPhoneNumbers(numbers);
 
         return userInstance.getUserID();
     }
