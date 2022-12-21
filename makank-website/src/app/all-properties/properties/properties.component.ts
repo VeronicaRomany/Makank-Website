@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
 
 
@@ -20,7 +21,7 @@ export class PropertiesComponent implements OnInit {
   serv: PropertiesService 
   preference:ViewingPreference=new ViewingPreference()
   
-  constructor(private service:PropertiesService,private router:Router,public globals: Globals) { 
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService) { 
     this.serv= service
   
   }
@@ -44,7 +45,13 @@ export class PropertiesComponent implements OnInit {
       } );
    
   }
- 
+  getSavedPost(){
+    let userID = this.token.getUser().userId;
+    this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
+      console.log("saveeed", results)
+      this.posts=results
+    })
+  }
 
 // // getDummyPost():Post{
 //     let p = new Post()
