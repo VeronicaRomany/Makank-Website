@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     Long saveUser(JSONObject user) throws ParseException;
     Long logInUser(String username, String password);
-    List<String> getNumber(long user_id);
+    User findUserInfoByUseName(long userID);
     // edit user
     // get user
 }
