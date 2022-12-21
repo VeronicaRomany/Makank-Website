@@ -6,6 +6,7 @@ import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,12 @@ public class PostController {
     //   ################## HOME PAGE ########################
 
     @GetMapping("/homepage")
-    public List<Post> getHomePage(JSONObject preferences){
-        return postService.getHomepagePosts(preferences);
+    public List<Post> getHomePage(@RequestParam String preference) throws ParseException {
+        System.out.println(preference+"<<<<<<<");
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(preference);
+        //JSONObject preferences = new JSONObject(preference);
+        return postService.getHomepagePosts(json);
     }
 
 
