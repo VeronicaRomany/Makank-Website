@@ -1,6 +1,7 @@
 package mkanak_spring.model.dao;
 
 import mkanak_spring.model.User;
+import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     Boolean findByUsername(String username);
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END FROM User u WHERE u.email = ?1")
     Boolean findByEmail(String email);
+    @Query("SELECT row_to_json(User) FROM User")
+    JSONObject findUser();
+
 }

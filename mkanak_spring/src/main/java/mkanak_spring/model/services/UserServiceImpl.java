@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
     UserDAO userDAO;
     @Autowired
     PhoneNumberRepo phoneNumberRepo;
+
+    @Override
+    public List<String> getNumber(long user_id) {
+        return phoneNumberRepo.getPhoneNumbers(user_id);
+    }
     @Override
     //@Transactional
     public Long saveUser(JSONObject user) throws ParseException {
@@ -62,4 +67,5 @@ public class UserServiceImpl implements UserService {
         if(!userCredentials.getPassword().equals(password)) return -2L;
         return userCredentials.getUserID();
     }
+
 }
