@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -24,13 +25,9 @@ class SavedPostsRepoTest {
     @Autowired
     PostRepo postRepo;
 
-    @Test
-    void verifyUsedPost() {
+    @BeforeEach
+    void verifyUserPost() {
         assertTrue(postRepo.existsById(1L));
-    }
-
-    @Test
-    void verifyUsedUser() {
         assertTrue(userRepo.existsById(1L));
     }
 
@@ -45,10 +42,22 @@ class SavedPostsRepoTest {
         id.setUserID(1L);
         savedPostsRepo.save(entry);
         assertTrue(savedPostsRepo.existsById(id));
+        savedPostsRepo.deleteSavedPost(1L,1L);
     }
-//
-//    @AfterEach
-//    void re
+
+    @Test
+    void removeAddedSavedEntry(){
+        SavedPostsEntry entry = new SavedPostsEntry();
+        entry.setUserID(1L);
+        entry.setPostID(1L);
+
+        SavedPostsEntryID id = new SavedPostsEntryID();
+        id.setPostID(1L);
+        id.setUserID(1L);
+        savedPostsRepo.save(entry);
+        savedPostsRepo.deleteSavedPost(1L,1L);
+        assertFalse(savedPostsRepo.existsById(id));
+    }
 
 
 
