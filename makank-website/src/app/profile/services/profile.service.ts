@@ -15,10 +15,10 @@ export class ProfileService {
     console.log(userID)
     return this.http.get<User>(this.userURL+"/profile/"+userID)
   }
-  getUserPhone(userIdPhone: number | undefined):Observable<any>{
-    console.log(userIdPhone)
-    return this.http.get<any>(this.userURL+"/profile/phone/"+userIdPhone)
-  }
+  // getUserPhone(userIdPhone: number | undefined):Observable<string>{
+  //   console.log(userIdPhone)
+  //   return this.http.get<string>(this.userURL+"/profile/phone/"+userIdPhone)
+  // }
 
 
 }
