@@ -42,10 +42,8 @@ public class PostController {
 
     //   ################ Manipulation posts ########################
     @PostMapping("/new")
-    public void addPost(@RequestBody String postDetails) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(postDetails);
-        postService.savePost(json);
+    public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
+        postService.savePost(postDetails);
     }
 
     @PutMapping("/edit")
@@ -66,7 +64,7 @@ public class PostController {
 
 
     // ###################### Saved Posts ####################################
-    @GetMapping("/saved/{targetUserID}")
+    @GetMapping("/saved/{userID}")
     public List<Post> getSavedPosts(@PathVariable int userID,@RequestParam String preference) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);

@@ -23,13 +23,14 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void savePost(JSONObject post) throws ParseException {
+        PostManager postManager = new PostManager();
         System.out.println("Type: " + post.get("type"));
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(post.toString());
         JSONArray pictures = (JSONArray) object.get("pictures");
         if(post.get("type").toString().compareTo("villa") == 0) {
             Villa property = new Villa();
-            property = converter.buildVilla(post);
+            property = postManager.buildVilla(post);
             property.setHasPictures(pictures.size() != 0);
             postDAO.saveVilla(property);
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
