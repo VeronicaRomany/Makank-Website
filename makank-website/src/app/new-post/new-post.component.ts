@@ -7,6 +7,7 @@ import { Post } from '../shared/post';
 import { NewPostService } from './service/new-post.service';
 import { Globals } from 'src/globals';
 import { Router } from '@angular/router';
+import { TokenStorageService } from '../login/services/token-storage.service';
 
 @Component({
   selector: 'app-new-post',
@@ -52,7 +53,7 @@ export class NewPostComponent implements OnInit {
 
   
 
-  constructor(private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient,private router:Router) { }
+  constructor(private token: TokenStorageService, private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient,private router:Router) { }
 
   ngOnInit(): void {
 
@@ -109,7 +110,7 @@ export class NewPostComponent implements OnInit {
     this.newPost.info=this.f['info'].value
     this.newPost.universities=this.f['universities'].value
 
-    this.newPost.sellerID=Globals.getUserID()
+    this.newPost.sellerID=this.token.getUser().userId;
     console.log("ana hena", Globals.getUserID())
     console.log("el id", this.newPost.sellerID)
 

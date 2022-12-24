@@ -25,7 +25,6 @@ public class PostDAO {
     SavedPostsRepo savedPostsRepo;
 
 
-
     public void saveApartment(Apartment property) {
         apartmentRepo.save(property);
     }

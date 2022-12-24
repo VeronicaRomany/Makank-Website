@@ -26,6 +26,7 @@ public class SignupManager {
         userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
         return userInstance;
     }
+
     public List<PhoneNumber> addPhoneNumbers(User userInstance, JSONObject user) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(user.toString());

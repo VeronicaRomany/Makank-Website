@@ -33,15 +33,15 @@ public class PostServiceImpl implements PostService{
             property = postManager.buildVilla(post);
             property.setHasPictures(pictures.size() != 0);
             postDAO.saveVilla(property);
-            List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
+            List<PropertyPicture> pictureList = postManager.buildPropertyPictures(post, property.getPropertyID());
             postDAO.saveAllPictures(pictureList);
         }
         else {
             Apartment property = new Apartment();
-            property = converter.buildApartment(post);
+            property = postManager.buildApartment(post);
             property.setHasPictures(pictures.size() != 0);
             postDAO.saveApartment(property);
-            List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
+            List<PropertyPicture> pictureList = postManager.buildPropertyPictures(post, property.getPropertyID());
             postDAO.saveAllPictures(pictureList);
         }
     }
