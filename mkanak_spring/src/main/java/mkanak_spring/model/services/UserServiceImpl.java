@@ -5,7 +5,7 @@ import mkanak_spring.model.SignupManager;
 import mkanak_spring.model.entities.PhoneNumber;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
-import mkanak_spring.model.dao.PhoneNumberRepo;
+import mkanak_spring.model.repositories.PhoneNumberRepo;
 import mkanak_spring.model.dao.UserDAO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;

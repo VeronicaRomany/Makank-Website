@@ -1,4 +1,4 @@
-package mkanak_spring.model.dao;
+package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.entities.Post;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,10 +15,13 @@ import java.util.List;
 
 @Repository
 public interface PostRepo extends JpaRepository<Post, Long> , JpaSpecificationExecutor<Post> {
-    Post findByAddress(String address);
+
     long deleteByAddressAllIgnoreCase(String address);
+
     boolean existsByAddress(String address);
+
     long countByAddress(String address);
+
     @Query(value = "select distinct post_id from property where property_address like :add ;",nativeQuery = true)
     List<Long> getDistinctPostIDsByAddress(@Param("add") String address);
 

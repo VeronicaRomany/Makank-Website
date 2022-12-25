@@ -2,7 +2,6 @@ package mkanak_spring.model.services;
 
 import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
-import mkanak_spring.model.dao.PostRepo;
 import mkanak_spring.model.entities.*;
 
 import org.json.simple.JSONArray;
@@ -47,19 +46,19 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Post> getHomepagePosts(JSONObject preference) {
+    public List<Post> getHomepagePosts(JSONObject preference,int pageNum,int pageSize) {
         ViewingPreference p = converter.parseViewingPreference(preference);
         return postDAO.getAllPosts(p);
     }
 
     @Override
-    public List<Post> getSavedPosts(int id, JSONObject preference) {
+    public List<Post> getSavedPosts(int id, JSONObject preference,int pageNum,int pageSize) {
         ViewingPreference v = converter.parseViewingPreference(preference);
         return postDAO.getSavedPostsByUserID(v,id);
     }
 
     @Override
-    public List<Post> getProfilePosts(int targetUserID, JSONObject preferences) {
+    public List<Post> getProfilePosts(int targetUserID, JSONObject preferences,int pageNum,int pageSize) {
         ViewingPreference v = converter.parseViewingPreference(preferences);
         return postDAO.getPostsByUser(v,targetUserID);
     }
@@ -106,11 +105,6 @@ public class PostServiceImpl implements PostService{
         }
         return dummyContent;
     }
-
-
-
-
-
 
     private Post getDummyPost(){
         Apartment x = new Apartment();

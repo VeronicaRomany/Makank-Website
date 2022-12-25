@@ -1,6 +1,7 @@
 package mkanak_spring.model.dao;
 
 import mkanak_spring.model.entities.SavedPostsEntry;
+import mkanak_spring.model.repositories.SavedPostsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

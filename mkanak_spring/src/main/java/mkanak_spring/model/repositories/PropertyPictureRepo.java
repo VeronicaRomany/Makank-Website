@@ -1,4 +1,4 @@
-package mkanak_spring.model.dao;
+package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.entities.PropertyPicture;
 import mkanak_spring.model.entities.PropertyPictureId;

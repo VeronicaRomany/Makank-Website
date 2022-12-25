@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface PostService {
     void savePost(JSONObject post) throws ParseException;
-    List<Post> getHomepagePosts(JSONObject preference) ;
-    List<Post> getSavedPosts(int id, JSONObject preference);
-    List<Post> getProfilePosts(int targetUserID, JSONObject preferences);
+    List<Post> getHomepagePosts(JSONObject preference,int pageNum,int pageSize) ;
+    List<Post> getSavedPosts(int id, JSONObject preference,int pageNum,int pageSize);
+    List<Post> getProfilePosts(int targetUserID, JSONObject preferences, int pageNum,int pageSize);
     List<Long> getSavedPostsIDs(int userID);
     void addToSavedPosts(JSONObject entry);
     void removeFromSaved(JSONObject entry);

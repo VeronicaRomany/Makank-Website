@@ -3,14 +3,21 @@ package mkanak_spring.model.dao;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.*;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
+import mkanak_spring.model.repositories.*;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ *  This Class is for retrieval
+ */
 @Component
 public class PostDAO {
     @Autowired
@@ -38,29 +45,30 @@ public class PostDAO {
     }
 
     public List<Post> getAllPosts(ViewingPreference preference) {
+        PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
-                && preference.getFilterPreference().isStudentHousing()) // need to filter by student housing
-            return this.getPostsByApartmentDetails(preference);
-
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference);
+            && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
+            && preference.getFilterPreference().isStudentHousing()) {
+            // need to filter by student housing part
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
+            pb = new PostSpecificationBuilder(preference,studentHouseIDs);
+        } else {
+            pb = new PostSpecificationBuilder(preference);
+        }
         Specification<Post> sps = pb.build();
-        System.out.println("before " + (sps==null));
-        if(sps==null)
+        Sort s = pb.getSort();
+        Pageable p =null ;
+        if(sps==null && s == null)
             return postRepo.findAll();
-        else
+        else if(s==null)
             return postRepo.findAll(sps);
+        else if(sps==null)
+            return postRepo.findAll(s);
+        else
+            return postRepo.findAll(sps,s);
     }
 
-    public List<Post> getPostsByApartmentDetails(ViewingPreference preference){
-        List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,studentHouseIDs);
-        Specification<Post> sps = pb.build();
-        if(sps==null)
-            return postRepo.findAll();
-        else
-            return postRepo.findAll(sps);
-    }
+
 
 
     public List<Post> getPostsByUser(ViewingPreference preference, int id){

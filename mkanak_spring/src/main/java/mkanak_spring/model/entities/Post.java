@@ -42,6 +42,7 @@ public class Post {
     private boolean hasPictures;
 
 
+
     public long getPropertyID() {
         return propertyID;
     }
