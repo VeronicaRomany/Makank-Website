@@ -17,9 +17,7 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<Post, Long> , JpaSpecificationExecutor<Post> {
 
     long deleteByAddressAllIgnoreCase(String address);
-
     boolean existsByAddress(String address);
-
     long countByAddress(String address);
 
     @Query(value = "select distinct post_id from property where property_address like :add ;",nativeQuery = true)

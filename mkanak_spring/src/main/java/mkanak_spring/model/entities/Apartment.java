@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Table(name = "apartment")
-public class Apartment extends Post {
+public class Apartment extends Property {
     @Column(name = "apartment_level")
     private int level;
     @Column(name = "has_elevator")

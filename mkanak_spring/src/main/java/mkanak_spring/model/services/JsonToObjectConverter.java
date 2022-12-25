@@ -3,10 +3,7 @@ package mkanak_spring.model.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mkanak_spring.model.ViewingPreference;
-import mkanak_spring.model.entities.Apartment;
-import mkanak_spring.model.entities.Post;
-import mkanak_spring.model.entities.PropertyPicture;
-import mkanak_spring.model.entities.Villa;
+import mkanak_spring.model.entities.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,7 +28,7 @@ public class JsonToObjectConverter {
 
 
 
-    public void buildPost(Post property, JSONObject post) {
+    public void buildPost(Property property, JSONObject post) {
         property.setAddress((String) post.get("address"));
         property.setType((String) post.get("type"));
         property.setArea((Integer) post.get("area"));

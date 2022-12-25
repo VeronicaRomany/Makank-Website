@@ -2,6 +2,7 @@ package mkanak_spring.model.dao;
 
 import mkanak_spring.model.repositories.*;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //
@@ -9,28 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 //@DataJpaTest
 class PostDAOTest {
 
-    @Autowired
+    @Mock
     ApartmentRepo apartmentRepo;
-    @Autowired
+    @Mock
     VillaRepo villaRepo;
-    @Autowired
+    @Mock
     PropertyPictureRepo propertyPictureRepo;
-    @Autowired
+    @Mock
     PostRepo postRepo;
-    @Autowired
+    @Mock
     SavedPostsRepo savedPostsRepo;
     @Autowired
     PostDAO dao;
-//
-//
-//    @BeforeEach
-//    Void setup(){
-//
-//    }
 
 
     @Test
     void saveApartment() {
+
+
     }
 
     @Test

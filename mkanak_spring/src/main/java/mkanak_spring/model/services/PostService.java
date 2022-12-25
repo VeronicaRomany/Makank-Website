@@ -17,7 +17,5 @@ public interface PostService {
     void removeFromSaved(JSONObject entry);
     void deletePost(JSONObject details);
     void editPost(JSONObject post);
-
-  //  List<Post> getAllPosts();
     JSONObject getPostDetails(long postID);
 }
