@@ -20,7 +20,10 @@ export class PropertiesComponent implements OnInit {
   posts:Post[] = []
   serv: PropertiesService 
   preference:ViewingPreference=new ViewingPreference()
-  
+  userID:number=0
+  condition:boolean=false
+  goToEdit:boolean=false
+  editedID:number=0
   constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService) { 
     this.serv= service
   
@@ -37,6 +40,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   sendPostsRequests(){
+    this.userID = this.token.getUser().userId;
     console.log(this.preference)
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
           console.log("ana rg3t", results)
@@ -46,12 +50,31 @@ export class PropertiesComponent implements OnInit {
    
   }
   getSavedPost(){
-    let userID = this.token.getUser().userId;
-    this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
+    this.userID = this.token.getUser().userId;
+    this.serv.getSavedPosts(this.userID,this.preference).subscribe(results => {
       console.log("saveeed", results)
       this.posts=results
     })
   }
+
+
+  editMypost(postID:number){
+      console.log(postID)
+      this.editedID=postID
+      this.goToEdit=true
+
+      this.router.navigate([ '/','NewPost'],{queryParams:{data:postID}})
+  }
+
+  deleteMypost(postID:number){
+    console.log(postID)
+    this.serv.deletePost(postID).subscribe(results => {
+      console.log("deleted", results)
+      this.posts=results
+    })
+}
+
+
 
 // // getDummyPost():Post{
 //     let p = new Post()

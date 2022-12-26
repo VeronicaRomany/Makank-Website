@@ -105,7 +105,7 @@
             <input type="radio" id="pool" formControlName="pool"    (click)="handleChangePool($event)">
             <label for="pool">Has Pool</label>
         
-            <input type="radio" id="garden" formControlName="garden"    (click)="handleChangeGarden($event)">
+            <input type="radio" id="garden" formControlName="garden"  (click)="handleChangeGarden($event)">
             <label for="garden">Has Garden</label><br>
         </div>
         
@@ -134,7 +134,7 @@
     <br>
 
     <br><br>
-    
-    <button type="submit" class="button" (click)="onSubmit()" >Add Post</button>
+    <button *ngIf="editing" type="submit" class="button" (click)="onEdit()" >Edit</button>
+    <button *ngIf="!editing" type="submit" class="button" (click)="onSubmit()" >Add Post</button>
     <button type="button" (click)="onReset()"> Reset </button>
 </form>

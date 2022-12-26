@@ -6,8 +6,11 @@ import Validation from '../registration/register/register.component';
 import { Post } from '../shared/post';
 import { NewPostService } from './service/new-post.service';
 import { Globals } from 'src/globals';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../login/services/token-storage.service';
+import { ThrowStmt } from '@angular/compiler';
+
+
 
 @Component({
   selector: 'app-new-post',
@@ -48,12 +51,17 @@ export class NewPostComponent implements OnInit {
   index =0;
   file: any;
 
-  newPost : Post= new Post()
+  editing=false
+  event:any
 
+  newPost : Post= new Post()
+  editPost : Post=new Post()
 
   
 
-  constructor(private token: TokenStorageService, private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient,private router:Router) { }
+  constructor(private token: TokenStorageService, private fb: FormBuilder,
+     private readonly newpostservice : NewPostService, private http:HttpClient,
+     private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
 
@@ -76,6 +84,85 @@ export class NewPostComponent implements OnInit {
         universities :[ '', '']
       },
     );
+
+
+    this.route.queryParams.subscribe((params:any) =>{
+      console.log(params.data)
+
+      if(params.data!=null){
+            this.editing=true
+            console.log("edit post with id = ",params.data);
+            this. editPost.postID=params.data
+            
+            // get post by id
+      
+          
+            //dummy data
+            this. editPost.type = "villa"
+            this. editPost.city = "alex"
+            this. editPost.price= 10000
+            this. editPost.area= 150
+            this. editPost.address="El3asfraaaa"
+            this .editPost.level=12
+            this. editPost.roomNumber=12
+            this. editPost.bathroomNumber=12
+            this. editPost.elevator=false
+            this. editPost.studentHousing=false
+            this. editPost.hasGarden=true
+            this. editPost.hasPool=true
+            this. editPost.info=""
+            this. editPost.universities=[]
+            this.editPost.rent=true
+            this.editPost.pictures=[]
+      
+            if(this.editPost.rent){
+              this. newPostForm.controls["RentOrBuy"].setValue("rent")
+            }else{
+              this. newPostForm.controls["RentOrBuy"].setValue("buy")
+            }
+      
+            if(this.editPost.studentHousing){
+              this.alreadyCheckedStudent=true
+            }
+      
+            if(this.editPost.elevator){
+              this.alreadyCheckedElevator=true
+            }
+      
+            if(this.editPost.hasGarden){
+              this.alreadCheckedGarden=true;
+            }
+      
+            if(this.editPost.hasPool){
+              this.alreadyCheckedPool=true
+            }
+      
+      
+            if(this.editPost.hasPictures){
+              for (let i = 0; i < this.editPost.pictures.length; i++) {
+                this.photosLinks[i]=this.editPost.pictures[i]
+            }
+          }
+      
+      
+        
+            this. newPostForm.controls["type"].setValue(this.editPost.type)
+            this.onChooseType()
+            this. newPostForm.controls["city"].setValue(this.editPost.city)
+            this. newPostForm.controls["level"].setValue(this.editPost.level)
+            this. newPostForm.controls["price"].setValue(this.editPost.price)
+            this. newPostForm.controls["area"].setValue(this.editPost.area)
+            this. newPostForm.controls["roomsNum"].setValue(this.editPost.roomNumber)
+            this. newPostForm.controls["WCNum"].setValue(this.editPost.bathroomNumber)
+            this. newPostForm.controls["address"].setValue(this.editPost.address)
+            this. newPostForm.controls["info"].setValue(this.editPost.info)
+            this. newPostForm.controls["universities"].setValue(this.editPost.universities)
+            
+      
+
+      }
+     
+    })
   }
 
 
@@ -91,6 +178,8 @@ export class NewPostComponent implements OnInit {
     if (this.newPostForm.invalid) {
       return;
     }
+
+  
 
     console.log("veroooooooooooo creates new Post")
 
@@ -109,10 +198,8 @@ export class NewPostComponent implements OnInit {
     this.newPost.hasPool=this.alreadyCheckedPool
     this.newPost.info=this.f['info'].value
     this.newPost.universities=this.f['universities'].value
-
     this.newPost.sellerID=this.token.getUser().userId;
-    console.log("ana hena", Globals.getUserID())
-    console.log("el id", this.newPost.sellerID)
+ 
 
     if(this.f['RentOrBuy'].value=="rent"){
       this.newPost.rent=true
@@ -135,18 +222,14 @@ export class NewPostComponent implements OnInit {
       this.router.navigate(['/', 'Home'])
       
     })
+  }
 
 
-    
+  onEdit():void{
 
-   
-    
-    
-    
-    
-   
-    
-    
+    this.newPost.postID=this.editPost.postID
+    console.log( this.newPost.postID)
+    this.onSubmit()
   }
 
   onChooseType(): void{
@@ -181,6 +264,7 @@ export class NewPostComponent implements OnInit {
     this.newPostForm.reset();
   }
 
+  
   RemoveMe(index:number){
     console.log(index)
      this.photosLinks.splice(index,1)
@@ -247,6 +331,8 @@ export class NewPostComponent implements OnInit {
       console.log("Checked")
     }
   }
+
+  
 
 
   SelectFile(event:any){
