@@ -1,5 +1,5 @@
-<h1>Enter Your Property Details</h1>
-
+<h1 *ngIf="!editing">Enter Your Property Details</h1>
+<h1 *ngIf="editing">Edit Your Property Details</h1>
 <form [formGroup]="newPostForm" >
 
    <label for="type">Type</label><br>
@@ -94,34 +94,26 @@
     <input type="text" id ="info" placeholder="Add Info" formControlName="info" ><br>
 
         <div  *ngIf="appartment">
-            <input type="radio" id="elev" formControlName="elevator" (click)="handleChangeElevator($event)">
+          
+           <input type="checkbox" id="elev"  [checked]="editPost.elevator">
             <label for="elev">Has Elevator</label>
         
-            <input type="radio" id="student" formControlName="studentHousing"  (click)="handleChangeStudent($event)">
+            <input type="checkbox" id="student"  [checked]="editPost.studentHousing" >
             <label for="student">Student Housing</label><br>
          </div>
            
         <div *ngIf="villa">
-            <input type="radio" id="pool" formControlName="pool"    (click)="handleChangePool($event)">
-            <label for="pool">Has Pool</label>
+             <input type="checkbox" id="pool" [checked]="editPost.hasPool" >
+             <label for="pool">Has Pool</label>
         
-            <input type="radio" id="garden" formControlName="garden"  (click)="handleChangeGarden($event)">
+             <input type="checkbox" id="garden" [checked]="editPost.hasGarden" >
             <label for="garden">Has Garden</label><br>
         </div>
         
    
 
 
-    <div *ngIf=" alreadyCheckedStudent">
-        <label for="uni">Choose All Universities</label><br>
-        <select formControlName="universities" id="uni" multiple>
-            <option value="Faculty of Engineering, Alex university">Faculty of Engineering, Alex university</option>
-            <option value="Faculty of Medicine, Alex university">Faculty of Medicine, Alex university</option>
-            <option value="Faculty of Pharmacy, Alex university">Faculty of Pharmacy, Alex university</option>
-            <option value="Faculty of Dentistry, Alex university">Faculty of  Dentistry, Alex university</option>
-            
-        </select><br>
-    </div>
+   
     <br>
    
     <label for="photos">Insert Property Photos</label>
@@ -138,3 +130,6 @@
     <button *ngIf="!editing" type="submit" class="button" (click)="onSubmit()" >Add Post</button>
     <button type="button" (click)="onReset()"> Reset </button>
 </form>
+
+
+
