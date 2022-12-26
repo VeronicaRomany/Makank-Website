@@ -1,100 +1,172 @@
-<h1 *ngIf="!editing">Enter Your Property Details</h1>
-<h1 *ngIf="editing">Edit Your Property Details</h1>
-<form [formGroup]="newPostForm" >
 
-   <label for="type">Type</label><br>
-    <select formControlName="type" id="type" (change)="onChooseType()"   [ngClass]="{ 'is-invalid': submitted && f['type'].errors }">
+
+
+<form [formGroup]="newPostForm" class="container" >
+  <h1 *ngIf="!editing">Enter Your Property Details</h1>
+  <h1 *ngIf="editing">Edit Your Property Details</h1>
+  <br><br>
+  <h1 class="header">Enter Your Property Details</h1>
+
+  <br>
+  <br>
+  <div>
+    <label class="preFirst1" for="type">Type</label>
+    <label class="preFirst2" for="levels">Level/s</label>
+    <label class="preFirst3" for="rooms">Rooms</label>
+    <label class="preFirst4" for="bath">Bathrooms</label>
+  </div>
+
+  <div class="firstLine">
+    
+    <div>
+      <select  class="firstLine1" formControlName="type" id="type"   (change)="onChooseType()"   
+         [ngClass]="{ 'is-invalid': submitted && f['type'].errors }">
         <option  value="villa">Villa</option>
         <option  value="apartment">Apartment</option>
-    </select>
-    <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
-        <div *ngIf="f['type'].errors['required']">You have to choose your property type</div>
+       </select>
+       <br>
+      <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
+        <div style="margin-left:50px ;"  *ngIf="f['type'].errors['required']" >required</div>
       </div>
-    <br>
+    </div>
+    
+    <div>
+      <input class="firstLine2" type="number" id ="levels" placeholder="Enter the Level" formControlName="level" min="0"  
+      [ngClass]="{ 'is-invalid': submitted && f['level'].errors }">
+      <div *ngIf="submitted && f['level'].errors" class="invalid-feedback">
+        <div style="margin-left:35px ;" *ngIf="f['level'].errors['required']">required</div>
+      </div>
+    </div>
+  
+  
 
-    <label for="rentOBuy">Buy/Rent</label><br>
-    <select formControlName="RentOrBuy" id="rentOBuy"    [ngClass]="{ 'is-invalid': submitted && f['RentOrBuy'].errors }">
-        <option value="rent">Rent</option>
-        <option value="buy">Buy</option>
-    </select>
-    <div *ngIf="submitted && f['RentOrBuy'].errors" class="invalid-feedback">
-        <div *ngIf="f['RentOrBuy'].errors['required']">You have to select rent or buy</div>
+    <div>
+      <input class="firstLine3" type="number" id ="rooms" placeholder="Add Room numbers" formControlName="roomsNum" min="0"
+      [ngClass]="{ 'is-invalid': submitted && f['roomsNum'].errors }">
+      <div *ngIf="submitted && f['roomsNum'].errors" class="invalid-feedback">
+        <div style="margin-left:65px ;" *ngIf="f['roomsNum'].errors['required']">required</div>
       </div>
-    <br>
+    </div>
+   
+    
     
 
-    <label for="type">City</label><br>
-    <select formControlName="city" id="city"    [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
-        <option value="cairo">Cairo</option>
-        <option value="alex">Alexandria</option>
-        <option value="tanta">Tanta</option>
-        <option value="asuit">Asuit</option>
-        <option value="sohag">Sohag</option>
-        <option value="luxor">Luxor</option>
-        <option value="aswan">Aswan</option>
-    </select>
-    <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
-        <div *ngIf="f['city'].errors['required']">Where is your property ?!</div>
+    <div>
+      <input  class="firstLine4" type="number" id ="bath" placeholder="Add WC numbers" formControlName="WCNum" min="0"
+        [ngClass]="{ 'is-invalid': submitted && f['WCNum'].errors }">
+      <div *ngIf="submitted && f['WCNum'].errors" class="invalid-feedback">
+        <div style="margin-left:70px ;" *ngIf="f['WCNum'].errors['required']">required</div>
       </div>
-    <br>
+    </div>
+  </div>
 
-    <label for="levels">Level/s</label><br>
-    <input type="number" id ="levels" placeholder="Enter the Level" formControlName="level" min="0"  
-    [ngClass]="{ 'is-invalid': submitted && f['level'].errors }">
-    <div *ngIf="submitted && f['level'].errors" class="invalid-feedback">
-        <div *ngIf="f['level'].errors['required']">Tell us about the level</div>
-      </div>
-    <br>
+  <br>
+  
+  <div>
+    <label class="preSecond1" for="rentOBuy">Buy/Rent</label>
+    <label class="preSecond2" for="price">Price</label>
+    <label class="preSecond3" for="info">Info</label><br>
+  </div>
 
-    <label for="price">Price</label><br>
-    <input type="number" id ="price" placeholder="Enter the Price" formControlName="price" min="0"
-    [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
-    <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
-        <div *ngIf="f['price'].errors['required']">How much is the property ?</div>
-      </div>
-    <br>
+   
+  <div class="secondLine">
 
-    <label for="area">Area</label><br>
-    <input type="number" id ="area" placeholder="Enter the Area" formControlName="area" min="0"
-    [ngClass]="{ 'is-invalid': submitted && f['area'].errors }">
-    <div *ngIf="submitted && f['area'].errors" class="invalid-feedback">
-        <div *ngIf="f['area'].errors['required']">What is the area ?</div>
+    
+        <div>
+          <select class="secondLine1" formControlName="RentOrBuy" id="rentOBuy"    
+              [ngClass]="{ 'is-invalid': submitted && f['RentOrBuy'].errors }">
+                <option value="rent">Rent</option>
+                <option value="buy">Buy</option>
+              </select>
+              <br>
+              <div *ngIf="submitted && f['RentOrBuy'].errors" class="invalid-feedback">
+                <div  style="margin-left:50px ;" *ngIf="f['RentOrBuy'].errors['required']">required</div>
+              </div>
+        </div>
+      
+    
+        <div>
+            <input class="secondLine2" type="number" id ="price" placeholder="Enter the Price" formControlName="price" min="0"
+            [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
+            <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
+                <div style="margin-left:80px ;" *ngIf="f['price'].errors['required']">required</div>
+              </div>
+        </div>
+  
+      <div class="secpndPart">
+        <input class="secondLine3"  type="text" id ="info" placeholder="Add Info" formControlName="info" ><br>
       </div>
-    <br>
 
-    <label for="rooms">Rooms</label><br>
-    <input type="number" id ="rooms" placeholder="Add Room numbers" formControlName="roomsNum" min="0"
-    [ngClass]="{ 'is-invalid': submitted && f['roomsNum'].errors }">
-    <div *ngIf="submitted && f['roomsNum'].errors" class="invalid-feedback">
-        <div *ngIf="f['roomsNum'].errors['required']">How many rooms in your property?</div>
-      </div>
-    <br>
+  </div>
 
-    <label for="bath">Bathrooms</label><br>
-    <input type="number" id ="bath" placeholder="Add WC numbers" formControlName="WCNum" min="0"
-    [ngClass]="{ 'is-invalid': submitted && f['WCNum'].errors }">
-    <div *ngIf="submitted && f['WCNum'].errors" class="invalid-feedback">
-        <div *ngIf="f['WCNum'].errors['required']">How many bathrooms in your property?</div>
-      </div>
-    <br>
+  <br>
+  <br>
+
+  <div>
+    <label class="preThird1" for="city">City</label>
+    <label class="preThird2" for="area">Area</label>
+    <label  class="preThird3" for="address">address</label><br>
+  </div>
+
+
+  <div class="ThirdLine">
+
+    <div>
+
+          <select class="ThirdLine1" formControlName="city" id="city"    [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+              <option value="cairo">Cairo</option>
+              <option value="alex">Alexandria</option>
+              <option value="tanta">Tanta</option>
+              <option value="asuit">Asuit</option>
+              <option value="sohag">Sohag</option>
+              <option value="luxor">Luxor</option>
+              <option value="aswan">Aswan</option>
+          </select>
+          
+          <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+              <div style="margin-left:50px ;" *ngIf="f['city'].errors['required']">required</div>
+          </div>
+
+    </div>
+
+
+
+    <div>
+      <input  class="ThirdLine2"type="number" id ="area" placeholder="Enter the Area" formControlName="area" min="0"
+      [ngClass]="{ 'is-invalid': submitted && f['area'].errors }">
+      <div *ngIf="submitted && f['area'].errors" class="invalid-feedback">
+          <div style="margin-left:40px ;" *ngIf="f['area'].errors['required']">required</div>
+        </div>
+    </div>
+
+  
+
+
+
+    <div>
+      <input class="ThirdLine3" type="text" id ="address" placeholder="Add detailed address" formControlName="address" 
+        [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
+       <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+        <div style="margin-left:65px ;" *ngIf="f['address'].errors['required']">required</div>
+        </div>
+    </div>
+   
 
 
     
+    
+  </div>
+
+    <br>
+    <br>
      
    
-    <label for="address">address</label><br>
-    <input type="text" id ="address" placeholder="Add detailed address" formControlName="address" 
-    [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
-    <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
-        <div *ngIf="f['address'].errors['required']">Please Enter an address</div>
-      </div>
-    <br>
-
-    <label for="info">Info</label><br>
-    <input type="text" id ="info" placeholder="Add Info" formControlName="info" ><br>
+    
+   
+    
+    
 
         <div  *ngIf="appartment">
-          
            <input type="checkbox" id="elev"  [checked]="editPost.elevator">
             <label for="elev">Has Elevator</label>
         
@@ -109,27 +181,38 @@
              <input type="checkbox" id="garden" [checked]="editPost.hasGarden" >
             <label for="garden">Has Garden</label><br>
         </div>
+        <br>
         
    
 
+ 
 
    
     <br>
    
-    <label for="photos">Insert Property Photos</label>
-    <input type="file"  id="photos" (change)="SelectFile($event)">
-    <li *ngFor="let photo of photosLinks, index as i">
-      <a href="url">{{photo}}</a>
-      <button type="button" *ngIf="photosLinks[i]" (click)="RemoveMe(i)"> remove </button>
-    </li>
-
-    <br>
+   
 
     <br><br>
-    <button *ngIf="editing" type="submit" class="button" (click)="onEdit()" >Edit</button>
-    <button *ngIf="!editing" type="submit" class="button" (click)="onSubmit()" >Add Post</button>
-    <button type="button" (click)="onReset()"> Reset </button>
-</form>
+    
+   
+   
+    <label class="prelastLine" for="photos">Insert Property Photos</label>
+    <button class="addButton" type="button" (click)="fileInput.click()">+</button>
+    <input style="display: none" type="file"  id="photos" (change)="SelectFile($event)" #fileInput>
 
+    <br>
+    <li *ngFor="let photo of photosLinks, index as i" style="display: inline-block;">
+     <!--<a href="url">{{photo}}</a>--> 
+     <div *ngIf="photosLinks[i]" >
+      <img  src={{photo}}  class="photo" ><br>
+      <button  class="removeButton" type="button" *ngIf="photosLinks[i]" (click)="RemoveMe(i)"> - </button>
+     </div>
+    </li>
+
+    <br><br><br>
+    <button *ngIf="editing" type="submit" class="button button1" (click)="onEdit()" >Edit</button>
+    <button *ngIf="!editing" type="submit" class="button button1" (click)="onSubmit()" >Add Post</button>
+    <button type="button" (click)="onReset()"  class="button button2"> Reset </button>
+</form>
 
 
