@@ -180,9 +180,14 @@
     border-radius: 5px;
     background-color: rgb(221, 235, 228);
     margin-left: 50px;
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
+.addButton{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color:rgb(221, 235, 228)
+}
 
 
 

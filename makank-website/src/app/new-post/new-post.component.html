@@ -157,11 +157,17 @@
    
     <br>
    
-    <label class="prelastLine" for="photos">Insert Property Photos</label><br>
-    <input type="file"  id="photos" (change)="SelectFile($event)">
-    <li *ngFor="let photo of photosLinks, index as i">
-      <a href="url">{{photo}}</a>
-      <button type="button" *ngIf="photosLinks[i]" (click)="RemoveMe(i)"> remove </button>
+    <label class="prelastLine" for="photos">Insert Property Photos</label>
+    <button class="addButton" type="button" (click)="fileInput.click()">+</button>
+    <input style="display: none" type="file"  id="photos" (change)="SelectFile($event)" #fileInput>
+
+    <br>
+    <li *ngFor="let photo of photosLinks, index as i" style="display: inline-block;">
+     <!--<a href="url">{{photo}}</a>--> 
+     <div *ngIf="photosLinks[i]">
+      <img  src={{photo}} width="100" height="100"><br>
+      <button class="addButton" type="button" *ngIf="photosLinks[i]" (click)="RemoveMe(i)"> - </button>
+     </div>
     </li>
 
     <br>
