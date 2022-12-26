@@ -8,17 +8,17 @@ import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 import org.springframework.data.jpa.domain.Specification;
 
-public class PostAreaRangeSpecification implements Specification<Post> {
+public class PostMinPriceSpecification implements Specification<Post> {
+
     private final ViewingPreference preference;
-    public PostAreaRangeSpecification(ViewingPreference v){
+    public PostMinPriceSpecification(ViewingPreference v){
         super();
         this.preference = v;
     }
 
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        int min = this.preference.getFilterPreference().getMinArea();
-        int max = this.preference.getFilterPreference().getMaxArea();
-        return criteriaBuilder.between(root.get("area"),min,max);
+        int min = this.preference.getFilterPreference().getMinPrice();
+        return criteriaBuilder.greaterThanOrEqualTo(root.get("price"),min);
     }
 }

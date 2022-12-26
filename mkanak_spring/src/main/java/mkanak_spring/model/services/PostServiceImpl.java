@@ -2,7 +2,6 @@ package mkanak_spring.model.services;
 
 import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
-import mkanak_spring.model.dao.PostRepo;
 import mkanak_spring.model.entities.*;
 
 import org.json.simple.JSONArray;
@@ -23,45 +22,45 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void savePost(JSONObject post) throws ParseException {
-        PostManager postManager = new PostManager();
+        JsonToObjectConverter converter = new JsonToObjectConverter();
         System.out.println("Type: " + post.get("type"));
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(post.toString());
         JSONArray pictures = (JSONArray) object.get("pictures");
         if(post.get("type").toString().compareTo("villa") == 0) {
             Villa property = new Villa();
-            property = postManager.buildVilla(post);
+            property = converter.buildVilla(post);
             property.setHasPictures(pictures.size() != 0);
             postDAO.saveVilla(property);
-            List<PropertyPicture> pictureList = postManager.buildPropertyPictures(post, property.getPropertyID());
+            List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
             postDAO.saveAllPictures(pictureList);
         }
         else {
             Apartment property = new Apartment();
-            property = postManager.buildApartment(post);
+            property = converter.buildApartment(post);
             property.setHasPictures(pictures.size() != 0);
             postDAO.saveApartment(property);
-            List<PropertyPicture> pictureList = postManager.buildPropertyPictures(post, property.getPropertyID());
+            List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
             postDAO.saveAllPictures(pictureList);
         }
     }
 
     @Override
-    public List<Post> getHomepagePosts(JSONObject preference) {
+    public List<Post> getHomepagePosts(JSONObject preference,int pageNum,int pageSize) {
         ViewingPreference p = converter.parseViewingPreference(preference);
-        return postDAO.getAllPosts(p);
+        return postDAO.getAllPosts(p,pageNum,pageSize);
     }
 
     @Override
-    public List<Post> getSavedPosts(int id, JSONObject preference) {
+    public List<Post> getSavedPosts(int id, JSONObject preference,int pageNum,int pageSize) {
         ViewingPreference v = converter.parseViewingPreference(preference);
-        return postDAO.getSavedPostsByUserID(v,id);
+        return postDAO.getSavedPostsByUserID(id,v,pageNum,pageSize);
     }
 
     @Override
-    public List<Post> getProfilePosts(int targetUserID, JSONObject preferences) {
+    public List<Post> getProfilePosts(int targetUserID, JSONObject preferences,int pageNum,int pageSize) {
         ViewingPreference v = converter.parseViewingPreference(preferences);
-        return postDAO.getPostsByUser(v,targetUserID);
+        return postDAO.getPostsByUser(targetUserID,v,pageNum,pageSize);
     }
 
     @Override
@@ -85,12 +84,12 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void deletePost(JSONObject details) {
-
+        //TODO
     }
 
     @Override
     public void editPost(JSONObject post) {
-
+        //TODO
     }
 
     @Override
@@ -99,20 +98,7 @@ public class PostServiceImpl implements PostService{
     }
 
 
-    private List<Post> getDummyPosts(ViewingPreference preference){
-        List<Post> dummyContent= new ArrayList<>();
-        for(int i=0;i<5;i++) {
-             dummyContent.add(getDummyPost());
-        }
-        return dummyContent;
-    }
-
-
-
-
-
-
-    private Post getDummyPost(){
+    private Property getDummyPost(){
         Apartment x = new Apartment();
         x.setSellerID(5);
         x.setAddress("22nd 45street");

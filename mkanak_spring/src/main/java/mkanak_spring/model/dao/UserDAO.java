@@ -2,6 +2,8 @@ package mkanak_spring.model.dao;
 
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
+import mkanak_spring.model.repositories.UserCredentialsRepo;
+import mkanak_spring.model.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

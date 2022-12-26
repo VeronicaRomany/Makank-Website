@@ -3,14 +3,22 @@ package mkanak_spring.model.dao;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.*;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
+import mkanak_spring.model.repositories.*;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ *  This Class is for retrieval
+ */
 @Component
 public class PostDAO {
     @Autowired
@@ -37,53 +45,58 @@ public class PostDAO {
         propertyPictureRepo.saveAll(propertyPictureList);
     }
 
-    public List<Post> getAllPosts(ViewingPreference preference) {
+
+
+    public List<Post> getAllPosts(ViewingPreference preference, int pageNum, int pageSize) {
+        PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
-                && preference.getFilterPreference().isStudentHousing()) // need to filter by student housing
-            return this.getPostsByApartmentDetails(preference);
+            && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
+            && preference.getFilterPreference().isStudentHousing()) {
 
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference);
-        Specification<Post> sps = pb.build();
-        System.out.println("before " + (sps==null));
-        if(sps==null)
-            return postRepo.findAll();
-        else
-            return postRepo.findAll(sps);
-    }
-
-    public List<Post> getPostsByApartmentDetails(ViewingPreference preference){
-        List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,studentHouseIDs);
-        Specification<Post> sps = pb.build();
-        if(sps==null)
-            return postRepo.findAll();
-        else
-            return postRepo.findAll(sps);
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
+            pb = new PostSpecificationBuilder(preference,studentHouseIDs);
+        } else {
+            pb = new PostSpecificationBuilder(preference);
+        }
+        return buildAndReturn(pb,pageNum,pageSize);
     }
 
 
-    public List<Post> getPostsByUser(ViewingPreference preference, int id){
+    private List<Post> buildAndReturn(PostSpecificationBuilder pb,int pageNum,int pageSize){
+        Specification<Post> sps = pb.build();
+        Sort s = pb.getSort();
+        if(sps==null && s == null) {
+            Pageable page = PageRequest.of(pageNum, pageSize);
+            return postRepo.findAll(page).toList();
+        }
+        else if(s==null) {
+            Pageable page = PageRequest.of(pageNum, pageSize);
+            return postRepo.findAll(sps,page).toList();
+        }
+        else if(sps==null) {
+            Pageable page = PageRequest.of(pageNum, pageSize,s);
+            return postRepo.findAll(page).toList();
+        }
+        else {
+            Pageable page = PageRequest.of(pageNum, pageSize,s);
+            return postRepo.findAll(sps, page).toList();
+        }
+    }
+
+    public List<Post> getPostsByUser(int id,ViewingPreference preference, int pageNum,int pageSize){
         PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,id);
-        Specification<Post> sps = pb.build();
-        if(sps==null)
-            return postRepo.findAll();
-        else
-            return postRepo.findAll(sps);
+        return buildAndReturn(pb,pageNum,pageSize);
     }
 
 
-    public List<Post> getSavedPostsByUserID(ViewingPreference preference, int id){
+    public List<Post> getSavedPostsByUserID(int id,ViewingPreference preference, int pageNum,int pageSize){
         List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id);
         PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,postIDsSaved);
-        Specification<Post> sps = pb.build();
-        if(sps==null)
-            return postRepo.findAll();
-        else
-            return postRepo.findAll(sps);
+        return buildAndReturn(pb,pageNum,pageSize);
     }
 
     public void removeFromSavedPosts(long userID, long postID){
+        // TODO
         savedPostsRepo.deleteSavedPost(userID,postID);
     }
 

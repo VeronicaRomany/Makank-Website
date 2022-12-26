@@ -1,12 +1,12 @@
-package mkanak_spring.model.dao;
+package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.FilterPreference;
+import mkanak_spring.model.SortingPreference;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
+import mkanak_spring.model.repositories.PostRepo;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 class PostRepoTest {
-    // post repo class is concerned with property table in database
     @Autowired
     PostRepo postRepoTest;
 
@@ -107,10 +106,43 @@ class PostRepoTest {
     }
 
 
+
+
+
+
+
+
+
+
+
+
     @AfterEach
     void tearDown() {
-        postRepoTest.deleteByAddressAllIgnoreCase("testAddress");
+        postRepoTest.deleteAll();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private Post getTestPost(int i){
@@ -136,7 +168,7 @@ class PostRepoTest {
         ViewingPreference v = new ViewingPreference();
         v.setFiltered(true);
         v.setFilterPreference(new FilterPreference());
-        v.setSortingPreference(null);
+        v.setSortingPreference(new SortingPreference());
         v.setSorted(false);
 
         v.getFilterPreference().setInfoSearchWord("testAddress");

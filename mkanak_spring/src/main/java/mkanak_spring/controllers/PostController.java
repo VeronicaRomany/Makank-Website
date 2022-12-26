@@ -20,21 +20,26 @@ public class PostController {
 
     //   ################## HOME PAGE ########################
     @GetMapping("/homepage")
-    public List<Post> getHomePage(@RequestParam String preference) throws ParseException {
+    public List<Post> getHomePage(@RequestParam String preference,
+                                  @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
+                                  @RequestParam(name = "pageSize",defaultValue = "20") int pageSize)
+            throws ParseException {
         JSONParser parser = new JSONParser();
-
-//        System.out.println("request received <<<<<< "+preference);
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getHomepagePosts(json);
+        return postService.getHomepagePosts(json,pageNum,pageSize);
     }
 
 
     //    ################ Profile posts ########################
     @GetMapping("/{targetUserID}")
-    public List<Post> getProfilePosts(@PathVariable int targetUserID, @RequestParam String preference) throws ParseException {
+    public List<Post> getProfilePosts(@PathVariable int targetUserID,
+                                      @RequestParam String preference,
+                                      @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
+                                      @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                      ) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getProfilePosts(targetUserID,json);
+        return postService.getProfilePosts(targetUserID,json,pageNum,pageSize);
     }
 
 
@@ -48,7 +53,10 @@ public class PostController {
     }
 
     @PutMapping("/edit")
-    public boolean editPost(@RequestParam int userID, @RequestBody String post) throws ParseException {
+    public boolean editPost(@RequestParam int userID,
+                            @RequestBody String post)
+            throws ParseException {
+
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(post);
         postService.editPost(json);
@@ -66,10 +74,14 @@ public class PostController {
 
     // ###################### Saved Posts ####################################
     @GetMapping("/saved/{userID}")
-    public List<Post> getSavedPosts(@PathVariable int userID,@RequestParam String preference) throws ParseException {
+    public List<Post> getSavedPosts(@PathVariable int userID,
+                                    @RequestParam String preference,
+                                    @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
+                                    @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                    ) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getSavedPosts(userID,json);
+        return postService.getSavedPosts(userID,json,pageNum,pageSize);
     }
 
     @GetMapping("/saved/ids/{userID}")
