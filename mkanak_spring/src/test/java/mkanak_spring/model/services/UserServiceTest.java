@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
 import mkanak_spring.model.repositories.UserCredentialsRepo;
-import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.repositories.UserRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,8 +23,6 @@ class UserServiceTest {
     @Mock
     private UserCredentialsRepo userCredentialsRepoTest;
 
-    @Mock
-    private UserDAO userDAO;
     @InjectMocks
     private UserServiceImpl userServiceTest;
 
@@ -37,11 +34,10 @@ class UserServiceTest {
         UserCredentials userCredentialsTest = loginManager.SignInUser(username, password);
         userCredentialsTest.setUserID(1L);
 
-
-        userDAO.logInUser(userCredentialsTest);
+        userServiceTest.logInUser(userCredentialsTest);
         ArgumentCaptor<UserCredentials> userCredentialsArgumentCaptor = ArgumentCaptor.forClass(UserCredentials.class);
 
-        verify(userDAO).logInUser(userCredentialsArgumentCaptor.capture());
+        verify(userServiceTest).logInUser(userCredentialsArgumentCaptor.capture());
 
         UserCredentials capturedCredentials = userCredentialsArgumentCaptor.getValue();
 
@@ -55,10 +51,10 @@ class UserServiceTest {
 
         userTest.setUserID(1L);
 
-        userDAO.saveUser(userTest);
+        userServiceTest.saveUser(userTest);
         ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
 
-        verify(userDAO).saveUser(userArgumentCaptor.capture());
+        verify(userServiceTest).saveUser(userArgumentCaptor.capture());
 
         User capturedUser = userArgumentCaptor.getValue();
 
