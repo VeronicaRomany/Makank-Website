@@ -1,7 +1,6 @@
 package mkanak_spring.model.services;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mkanak_spring.model.LoginManager;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
 import mkanak_spring.model.repositories.UserCredentialsRepo;
@@ -32,7 +31,7 @@ class UserServiceTest {
 
     @Test
     void onLoginInvokeWithCorrectUserCredentials() {
-        LoginManager loginManager = new LoginManager();
+        JsonToObject loginManager = new JsonToObject();
         String username = "lolo";
         String password = "password";
         UserCredentials userCredentialsTest = loginManager.SignInUser(username, password);

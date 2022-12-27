@@ -1,9 +1,9 @@
 package mkanak_spring.model.services;
 
-import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
 import mkanak_spring.model.entities.*;
 
+import mkanak_spring.model.preferences.ViewingPreference;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,18 +11,17 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class PostServiceImpl implements PostService{
     @Autowired
     PostDAO postDAO;
     @Autowired
-    JsonToObjectConverter converter;
+    JsonToObject converter;
 
     @Override
-    public void savePost(JSONObject post) throws ParseException {
-        JsonToObjectConverter converter = new JsonToObjectConverter();
+    public void createPost(JSONObject post) throws ParseException {
+        JsonToObject converter = new JsonToObject();
         System.out.println("Type: " + post.get("type"));
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(post.toString());

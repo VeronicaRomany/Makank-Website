@@ -1,11 +1,10 @@
 package mkanak_spring.model.repositories;
 
-import mkanak_spring.model.FilterPreference;
-import mkanak_spring.model.SortingPreference;
-import mkanak_spring.model.ViewingPreference;
+import mkanak_spring.model.preferences.FilterPreference;
+import mkanak_spring.model.preferences.SortingPreference;
+import mkanak_spring.model.preferences.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
-import mkanak_spring.model.repositories.PostRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -105,6 +104,22 @@ class PostRepoTest {
         assertEquals(postsByIDs.size(),5);
     }
 
+
+    @Test
+    void testInsertionThenEdit(){
+        Post p = this.getTestPost(0);
+        Long id = p.getPropertyID();
+        postRepoTest.save(p);
+
+        p.setPrice(90);
+        postRepoTest.save(p);
+
+        assertEquals(1,postRepoTest.count());
+
+        Post inDB = postRepoTest.getReferenceById(id);
+        assertEquals(90, inDB.getPrice());
+
+    }
 
 
 

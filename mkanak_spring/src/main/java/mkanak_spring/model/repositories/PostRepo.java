@@ -1,8 +1,6 @@
 package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.entities.Post;
-import org.springframework.data.jpa.domain.Specification;
-import mkanak_spring.model.entities.Post;
 import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -16,7 +14,7 @@ import java.util.List;
 @Repository
 public interface PostRepo extends JpaRepository<Post, Long> , JpaSpecificationExecutor<Post> {
 
-    long deleteByAddressAllIgnoreCase(String address);
+    void deleteByAddressAllIgnoreCase(String address);
     boolean existsByAddress(String address);
     long countByAddress(String address);
 

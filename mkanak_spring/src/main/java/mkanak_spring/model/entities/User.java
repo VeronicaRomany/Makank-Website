@@ -2,7 +2,7 @@ package mkanak_spring.model.entities;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import mkanak_spring.model.entities.PhoneNumber;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +27,10 @@ public class User {
     private String password;
     @Column(name = "user_description")
     private String description;
-/*
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "user_id")
-    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
-*/
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-    //private List<String> savedItems = new ArrayList<>(); // to be updated
-
-
-    public User(Long userID, String name, String username, String email, String address, String profilePicLink, String password, String description, List<PhoneNumber> phoneNumbers) {
+    public User(Long userID, String name, String username, String email, String address, String profilePicLink, String password, String description, String phoneNumber) {
         this.userID = userID;
         this.name = name;
         this.username = username;
@@ -45,7 +39,7 @@ public class User {
         this.profilePicLink = profilePicLink;
         this.password = password;
         this.description = description;
-     //   this.phoneNumbers = phoneNumbers;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getUserID() {
@@ -88,6 +82,14 @@ public class User {
         this.address = address;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getProfilePicLink() {
         return profilePicLink;
     }
@@ -111,15 +113,7 @@ public class User {
     public void setDescription(String description) {
         this.description = description;
     }
-/*
-   public List<PhoneNumber> getPhoneNumbers() {
-        return phoneNumbers;
-    }
 
-    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
-*/
     @Override
     public String toString() {
         return "User{" +
@@ -131,7 +125,7 @@ public class User {
                 ", profile_pic_link='" + profilePicLink + '\'' +
                 ", password='" + password + '\'' +
                 ", description='" + description + '\'' +
-           //     ", phone_numbers=" + phoneNumbers +
+                ", phone_number=" + phoneNumber +
                 '}';
     }
 }

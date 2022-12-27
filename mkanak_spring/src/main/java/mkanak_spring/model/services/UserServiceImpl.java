@@ -1,11 +1,7 @@
 package mkanak_spring.model.services;
 
-import mkanak_spring.model.LoginManager;
-import mkanak_spring.model.SignupManager;
-import mkanak_spring.model.entities.PhoneNumber;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
-import mkanak_spring.model.repositories.PhoneNumberRepo;
 import mkanak_spring.model.dao.UserDAO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -17,27 +13,21 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDAO userDAO;
-    @Autowired
-    PhoneNumberRepo phoneNumberRepo;
 
     @Override
     //@Transactional
-    public Long saveUser(JSONObject user) throws ParseException {
-        SignupManager signupManager = new SignupManager();
-        User userInstance = signupManager.signUpUser(user);
+    public Long createUser(JSONObject user) throws ParseException {
+        JsonToObject converter = new JsonToObject();
+        User userInstance = converter.getUserFromJson(user);
         if(userDAO.usernameExists(userInstance.getUsername())) return -1L;
-
         userDAO.saveUser(userInstance);
-        List<PhoneNumber> numbers = signupManager.addPhoneNumbers(userInstance, user);
-        phoneNumberRepo.saveAll(numbers);
-        //   userInstance.setPhoneNumbers(numbers);
         return userInstance.getUserID();
     }
 
 
     @Override
     public Long logInUser(String username, String password) {
-        LoginManager loginManager = new LoginManager();
+        JsonToObject loginManager = new JsonToObject();
         UserCredentials userCredentials = loginManager.SignInUser(username, password);
         userCredentials = userDAO.logInUser(userCredentials);
         if(userCredentials == null) return -1L;
@@ -48,8 +38,23 @@ public class UserServiceImpl implements UserService {
     public User findUserInfoByUseId(long userID) {
         return userDAO.findUserInfoByUseId(userID);
     }
+//    @Override
+//    public String findUserPhoneByUseId(long userID) {
+//        return userDAO.findUserPhoneByUseId(userID);
+//    }
+
     @Override
-    public String findUserPhoneByUseId(long userID) {
-        return userDAO.findUserPhoneByUseId(userID);
+    public boolean editUser(JSONObject userJson)  {
+        // TODO validate user
+
+        JsonToObject converter = new JsonToObject();
+        User user = null;
+        try {
+            user = converter.getUserFromJson(userJson);
+        } catch (ParseException e) {
+            return false;
+        }
+        userDAO.saveUser(user);
+        return true;
     }
 }

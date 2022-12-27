@@ -1,4 +1,4 @@
-package mkanak_spring.model;
+package mkanak_spring.model.preferences;
 
 public class SortingPreference {
     private boolean ascending;

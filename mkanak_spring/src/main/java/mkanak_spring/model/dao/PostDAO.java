@@ -1,6 +1,6 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.ViewingPreference;
+import mkanak_spring.model.preferences.ViewingPreference;
 import mkanak_spring.model.entities.*;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
 import mkanak_spring.model.repositories.*;

@@ -1,8 +1,6 @@
 package mkanak_spring.controllers;
 
-import mkanak_spring.model.FilterPreference;
-import mkanak_spring.model.SortingPreference;
-import mkanak_spring.model.ViewingPreference;
+import com.auth0.jwt.algorithms.Algorithm;
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
@@ -17,6 +15,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
     @Autowired PostService postService;
+    private final SecurityGuard securityGuard = new SecurityGuard();
 
     //   ################## HOME PAGE ########################
     @GetMapping("/homepage")
@@ -49,13 +48,14 @@ public class PostController {
     @PostMapping("/new")
     public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
         System.out.println("details: " + postDetails);
-        postService.savePost(postDetails);
+        postService.createPost(postDetails);
     }
 
     @PutMapping("/edit")
     public boolean editPost(@RequestParam int userID,
                             @RequestBody String post)
             throws ParseException {
+
 
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(post);

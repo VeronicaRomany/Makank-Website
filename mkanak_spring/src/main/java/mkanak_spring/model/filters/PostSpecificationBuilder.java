@@ -1,13 +1,12 @@
 package mkanak_spring.model.filters;
 
-import mkanak_spring.model.FilterPreference;
-import mkanak_spring.model.SortingPreference;
-import mkanak_spring.model.ViewingPreference;
+import mkanak_spring.model.preferences.FilterPreference;
+import mkanak_spring.model.preferences.SortingPreference;
+import mkanak_spring.model.preferences.ViewingPreference;
 
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.filters.specifications.*;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
@@ -104,18 +103,18 @@ public class PostSpecificationBuilder {
         if(!f.getCitySearchWord().equalsIgnoreCase("any"))
             this.possibleSpecifications.add(new PostCitySpecification(v));
     }
+
     private void setupSortingSpecification(ViewingPreference v){
         if(v==null) return;
         SortingPreference s = v.getSortingPreference();
         if(s==null) return;
-        if(!Objects.equals(s.getSortingCriteria(), "price") && !Objects.equals(s.getSortingCriteria(),"area")) return;
+        if(!Objects.equals(s.getSortingCriteria(), "price")
+                && !Objects.equals(s.getSortingCriteria(),"area")
+                && !Objects.equals(s.getSortingCriteria(),"publishDate"))
+            return;
         if(s.isAscending())
             sort = Sort.by(s.getSortingCriteria()).ascending();
         else
             sort = Sort.by(s.getSortingCriteria()).descending();
     }
-
-
-
-
 }
