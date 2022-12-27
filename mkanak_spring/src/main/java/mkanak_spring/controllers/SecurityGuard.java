@@ -16,11 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.security.*;
-import java.security.interfaces.RSAKey;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.EncodedKeySpec;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
 
 @Service
@@ -52,7 +47,35 @@ public class SecurityGuard {
         return signedJWT.serialize();
     }
 
-    public boolean verifyJWT(String s){
+
+
+
+    public boolean verifyJWTtoken(int idJson,String bearerToken) throws ParseException {
+
+        String jwt;
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            jwt = bearerToken.substring(7);
+        }else {
+            System.out.println("Token not properly defined");
+            return false;
+        }
+
+        if(!this.verifyJWT(jwt)) {
+            System.out.println("Token defined, but invalid");
+            return false;
+        }
+        int id = Math.toIntExact(this.extractIdFromJWT(jwt));
+        if(id!=idJson){
+            System.out.println("IDs doesn't match");
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+    private boolean verifyJWT(String s){
         SignedJWT signedJWT;
         try {
              signedJWT = SignedJWT.parse(s);
@@ -75,6 +98,19 @@ public class SecurityGuard {
         signedJWT = SignedJWT.parse(s);
         return (Long) signedJWT.getJWTClaimsSet().getClaims().get("id");
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

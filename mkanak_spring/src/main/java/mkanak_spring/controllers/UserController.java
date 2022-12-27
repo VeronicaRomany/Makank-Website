@@ -65,6 +65,29 @@ public class UserController {
         return userService.findUserInfoByUseId(u);
     }
 
+
+
+    @PostMapping(value = "/profile/edit")
+    public boolean editUser(@RequestHeader("Authorization") String bearerToken,
+                            @RequestBody JSONObject jsonObject) throws Exception {
+        int idJson = (int) jsonObject.get("user_id");
+        if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
+            throw new Exception("error");
+        return userService.editUser(jsonObject);
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
 //    @GetMapping("/profile/phone/{userIdPhone}")
 //    public String getUserPhone(@PathVariable long userIdPhone){
 //        Gson gson = new Gson();
@@ -74,29 +97,3 @@ public class UserController {
 //        System.out.println(test);
 //        return test;
 //    }
-
-
-    @PostMapping(value = "/profile/edit")
-    public boolean editUser(@RequestHeader("Authentication") String bearerToken,
-                            @RequestBody JSONObject jsonObject) throws Exception {
-        String jwt;
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            jwt = bearerToken.substring(7);
-        }else throw new Exception("Token not properly defined");
-
-        if(!securityGuard.verifyJWT(jwt))
-            throw new Exception("Token defined, but invalid");
-
-        int id = Math.toIntExact(securityGuard.extractIdFromJWT(jwt));
-        int idJson = (int) jsonObject.get("user_id");
-        if(id!=idJson){
-            System.out.println("IDs doesn't match");
-            throw new Exception("Token defined, valid, id doesn't match");
-        }
-
-        return userService.editUser(jsonObject);
-    }
-
-
-
-}
