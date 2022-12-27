@@ -120,14 +120,15 @@
 <div class="article-contener"  >
     <ul class="groups" *ngFor="let item of posts"  >
       
-        <div *ngIf="(item.sellerID == userID)">
-           
-            <button (click)="editMypost(item.propertyID)">edit</button>
-            
-            <button (click)="deleteMypost(item.propertyID)">delete</button>
-        </div>
+     
         
         <li>
+
+            <div  *ngIf="(item.sellerID == userID)">
+                <button  class="edit" (click)="editMypost(item.propertyID)">edit</button>
+                <button  class="delete" (click)="deleteMypost(item.propertyID)">delete</button>
+            </div>
+
             <div class="card"  >
                 <div class="image-session " >
                     <span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.pictures}});"></span>
