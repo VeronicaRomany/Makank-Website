@@ -1,5 +1,6 @@
 package mkanak_spring.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,7 @@ public class User {
     private String address;
     @Column(name = "profile_pic_link")
     private String profilePicLink;
+    @JsonIgnore
     @Column(name = "user_password")
     private String password;
     @Column(name = "user_description")
