@@ -9,6 +9,8 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
@@ -75,7 +77,8 @@ public class UserController {
 
 
     @PostMapping(value = "/profile/edit")
-    public boolean editUser(@RequestHeader("Authentication") String bearerToken,@RequestBody JSONObject jsonObject) throws Exception {
+    public boolean editUser(@RequestHeader("Authentication") String bearerToken,
+                            @RequestBody JSONObject jsonObject) throws Exception {
         String jwt;
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             jwt = bearerToken.substring(7);
@@ -84,8 +87,9 @@ public class UserController {
         if(!securityGuard.verifyJWT(jwt))
             throw new Exception("Token defined, but invalid");
 
-        Long id = securityGuard.extractIdFromJWT(jwt);
-        if(id != jsonObject.get("user_id")){
+        int id = Math.toIntExact(securityGuard.extractIdFromJWT(jwt));
+        int idJson = (int) jsonObject.get("user_id");
+        if(id!=idJson){
             System.out.println("IDs doesn't match");
             throw new Exception("Token defined, valid, id doesn't match");
         }
