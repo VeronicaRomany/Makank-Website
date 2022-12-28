@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="38b3a299-b85b-4d93-a439-1079a98963e7" name="mkanak_spring" url="jdbc:postgresql://localhost/mkanak_spring" driverClass="org.postgresql.Driver" />
+    </data-sources>
+  </component>
+</project>

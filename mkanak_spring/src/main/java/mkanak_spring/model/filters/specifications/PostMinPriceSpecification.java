@@ -8,15 +8,17 @@ import mkanak_spring.model.preferences.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 import org.springframework.data.jpa.domain.Specification;
 
-public class PostAddressSpecification implements Specification<Post> {
+public class PostMinPriceSpecification implements Specification<Post> {
+
     private final ViewingPreference preference;
-    public PostAddressSpecification(ViewingPreference v){
+    public PostMinPriceSpecification(ViewingPreference v){
         super();
         this.preference = v;
     }
+
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        String str = "%" + this.preference.getFilterPreference().getInfoSearchWord() + "%";
-        return criteriaBuilder.like(root.get("address"),str);
+        int min = this.preference.getFilterPreference().getMinPrice();
+        return criteriaBuilder.greaterThanOrEqualTo(root.get("price"),min);
     }
 }

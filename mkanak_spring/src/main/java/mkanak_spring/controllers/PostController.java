@@ -1,8 +1,6 @@
 package mkanak_spring.controllers;
 
-import mkanak_spring.model.FilterPreference;
-import mkanak_spring.model.SortingPreference;
-import mkanak_spring.model.ViewingPreference;
+import com.auth0.jwt.algorithms.Algorithm;
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
@@ -17,78 +15,123 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
     @Autowired PostService postService;
+    private final SecurityGuard securityGuard = new SecurityGuard();
 
     //   ################## HOME PAGE ########################
     @GetMapping("/homepage")
-    public List<Post> getHomePage(@RequestParam String preference) throws ParseException {
+    public List<Post> getHomePage(@RequestParam String preference,
+                                  @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
+                                  @RequestParam(name = "pageSize",defaultValue = "20") int pageSize)
+            throws ParseException {
         JSONParser parser = new JSONParser();
-
-//        System.out.println("request received <<<<<< "+preference);
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getHomepagePosts(json);
+        return postService.getHomepagePosts(json,pageNum,pageSize);
     }
 
 
     //    ################ Profile posts ########################
     @GetMapping("/{targetUserID}")
-    public List<Post> getProfilePosts(@PathVariable int targetUserID, @RequestParam String preference) throws ParseException {
+    public List<Post> getProfilePosts(@PathVariable int targetUserID,
+                                      @RequestParam String preference,
+                                      @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
+                                      @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                      ) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getProfilePosts(targetUserID,json);
+        return postService.getProfilePosts(targetUserID,json,pageNum,pageSize);
     }
 
 
-
+    //TODO check if the json objects contains the id named (seller_id)
 
     //   ################ Manipulation posts ########################
     @PostMapping("/new")
-    public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
-        System.out.println("details: " + postDetails);
-        postService.savePost(postDetails);
+    public void addPost(@RequestHeader("Authorization") String bearerToken,
+                        @RequestBody JSONObject jsonObject) throws Exception {
+        int idJson = (int) jsonObject.get("seller_id");
+        if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
+            throw new Exception("error");
+        postService.createPost(jsonObject);
     }
 
-    @PutMapping("/edit")
-    public boolean editPost(@RequestParam int userID, @RequestBody String post) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(post);
-        postService.editPost(json);
+    @PostMapping("/edit")
+    public boolean editPost(@RequestHeader("Authorization") String bearerToken,
+                            @RequestBody JSONObject jsonObject)
+            throws Exception {
+        //TODO check the recieved body of the request if valid
+        int idJson = (int) jsonObject.get("seller_id");
+        if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
+            throw new Exception("error");
+
+//        JSONParser parser = new JSONParser();
+//        JSONObject jsonObject = (JSONObject) parser.parse(jsonObject);
+        postService.editPost(jsonObject);
         return false;
     }
 
     @PostMapping("/delete")
-    public boolean deletePost(@RequestBody String details) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(details);
-        postService.deletePost(json);
+    public boolean deletePost(@RequestHeader("Authorization") String bearerToken,
+                              @RequestBody JSONObject jsonObject) throws Exception {
+        //TODO check if post deletion is with the ids
+
+        int idJson = (int) jsonObject.get("seller_id");
+        if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
+            throw new Exception("error");
+
+//        JSONParser parser = new JSONParser();
+//        JSONObject json = (JSONObject) parser.parse(details);
+
+        postService.deletePost(jsonObject);
         return false;
     }
 
 
     // ###################### Saved Posts ####################################
     @GetMapping("/saved/{userID}")
-    public List<Post> getSavedPosts(@PathVariable int userID,@RequestParam String preference) throws ParseException {
+    public List<Post> getSavedPosts(@RequestHeader("Authorization") String bearerToken,
+                                    @PathVariable int userID,
+                                    @RequestParam String preference,
+                                    @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
+                                    @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                    ) throws Exception {
+        if(!securityGuard.verifyJWTtoken(userID,bearerToken))
+            throw new Exception("error");
+
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getSavedPosts(userID,json);
+        return postService.getSavedPosts(userID,json,pageNum,pageSize);
     }
 
     @GetMapping("/saved/ids/{userID}")
-    public List<Long> getSavedIDs(@PathVariable int userID){
+    public List<Long> getSavedIDs(@RequestHeader("Authorization") String bearerToken,
+                                  @PathVariable int userID){
         return postService.getSavedPostsIDs(userID);
     }
 
 
     @PostMapping("/savePost")
-    public void addToSavedPost(@RequestBody String saveEntry) throws ParseException {
+    public void addToSavedPost(@RequestHeader("Authorization") String bearerToken,
+                               @RequestBody String saveEntry) throws Exception {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(saveEntry);
+
+        int userID= (int) json.get("userID");
+        if(!securityGuard.verifyJWTtoken(userID,bearerToken))
+            throw new Exception("error");
+
         postService.addToSavedPosts(json);
     }
 
     @PostMapping("/unsavePost")
-    public void removePostFromSaved(@RequestBody String entry) throws ParseException {
+    public void removePostFromSaved(@RequestHeader("Authorization") String bearerToken,
+                                    @RequestBody String entry) throws Exception {
+
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(entry);
+
+        int userID= (int) json.get("userID");
+        if(!securityGuard.verifyJWTtoken(userID,bearerToken))
+            throw new Exception("error");
         postService.removeFromSaved(json);
     }
 
