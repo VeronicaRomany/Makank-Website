@@ -13,6 +13,7 @@ export class LargeViewService {
 
   getLargePost(postId:number):Observable<PostLargeView>{
     return this.http.get<PostLargeView>(this.postsURL+"/details/"+postId.toString())
-
+            
+  
   }
 }
