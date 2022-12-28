@@ -8,12 +8,19 @@ import { User } from 'src/app/shared/user';
 })
 export class ProfileService {
 
+  currentUserInfo:User = new User
   constructor(private http:HttpClient) { }
   userURL:string = "http://localhost:8080/user"
 
   getUserInfo(userID: number | undefined):Observable<User>{
     console.log(userID)
     return this.http.get<User>(this.userURL+"/profile/"+userID)
+  }
+  setUser(user:User){
+    this.currentUserInfo=user
+  }
+  getUser(){
+    return this.currentUserInfo
   }
   // getUserPhone(userIdPhone: number | undefined):Observable<string>{
   //   console.log(userIdPhone)

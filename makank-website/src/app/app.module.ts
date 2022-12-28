@@ -25,8 +25,12 @@ import { PropertiesComponent } from './all-properties/properties/properties.comp
 import { FilterComponent } from './filter-bar/filter/filter.component';
 import { FilterBarModule } from './filter-bar/filter-bar.module';
 import { NewPostComponent } from './new-post/new-post.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { Injectable } from '@angular/core';
 
-
+@Injectable({
+  providedIn:ProfileComponent
+})
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +40,7 @@ import { NewPostComponent } from './new-post/new-post.component';
     PropertiesComponent,
     FilterComponent,
     NewPostComponent,
+    EditProfileComponent,
     
 
   ],
@@ -48,7 +53,7 @@ import { NewPostComponent } from './new-post/new-post.component';
     ReactiveFormsModule,
     
   ],
-  providers: [],
+  providers: [ProfileComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

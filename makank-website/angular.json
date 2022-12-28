@@ -70,8 +70,8 @@
         },
         "serve": {
           "options": {
-            "sslKey": "D:\\Term 5\\Software Engineering\\Project\\Makank-Website\\makank-website\\localhost.key",
-            "sslCert": "D:\\Term 5\\Software Engineering\\Project\\Makank-Website\\makank-website\\localhost.crt",
+            "sslKey": "C:\\Users\\Free BYTES\\OneDrive\\Documents\\GitHub\\Makank-Website\\makank-website\\localhost.key",
+            "sslCert": "C:\\Users\\Free BYTES\\OneDrive\\Documents\\GitHub\\Makank-Website\\makank-website\\localhost.crt",
             "ssl": true
 
           },
