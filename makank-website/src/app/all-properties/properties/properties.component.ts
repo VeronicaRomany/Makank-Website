@@ -78,7 +78,7 @@ export class PropertiesComponent implements OnInit {
         }
         var unsavedPostJsonString = JSON.stringify(ob)
       
-        console.log(unsavedPostJsonString)
+        console.log("unsaving post " + unsavedPostJsonString);
         this.http.post("http://localhost:8080/posts/unsavePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
       }
       else{
@@ -89,7 +89,8 @@ export class PropertiesComponent implements OnInit {
           postID:id
         }
         var savedPostJsonString = JSON.stringify(ob)
- 
+        console.log("saving post " + savedPostJsonString);
+        
         this.http.post("http://localhost:8080/posts/savePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
       }
     
