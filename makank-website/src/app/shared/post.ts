@@ -1,7 +1,9 @@
 import { Apartment, Property, Villa } from "./property"
 export class Post{
+
     postID: number = 0
     propertyID:number=0
+
     publishDate: Date = new Date()
     type:string=""
     sellerID: number = 0
