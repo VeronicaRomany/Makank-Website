@@ -122,10 +122,7 @@
         
         <li>
 
-            <div  *ngIf="(item.sellerID == userID)">
-                <button  class="edit" (click)="editMypost(item.propertyID)">edit</button>
-                <button  class="delete" (click)="deleteMypost(item.propertyID)">delete</button>
-            </div>
+           
 
             <div class="card"  >
                 <div class="image-session " >
@@ -162,8 +159,8 @@
                         <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                         <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
                         <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
-                        <img class="delete"  src="assets/delete.png" alt="">
-                        <img class="settings"  src="assets/settings.png" alt="">
+                        <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/delete.png" alt="">
+                        <img class="settings" (click)="editMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/settings.png" alt="">
                     </div>
                     
                 </div>
