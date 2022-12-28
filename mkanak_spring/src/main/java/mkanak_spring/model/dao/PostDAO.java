@@ -31,7 +31,8 @@ public class PostDAO {
     PostRepo postRepo;
     @Autowired
     SavedPostsRepo savedPostsRepo;
-
+    @Autowired
+    PropertyRepo propertyRepo;
 
     public void saveApartment(Apartment property) {
         apartmentRepo.save(property);
@@ -112,6 +113,6 @@ public class PostDAO {
     }
 
     public void deletePost(long postID) {
-        postRepo.deleteById(postID);
+        propertyRepo.deleteById(postID);
     }
 }

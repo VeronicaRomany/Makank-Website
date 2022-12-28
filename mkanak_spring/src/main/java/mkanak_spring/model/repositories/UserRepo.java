@@ -18,6 +18,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("FROM User u WHERE u.userID = ?1")
     User findUserInfoByUseId(long userID);
-    @Query("select P.phoneNumber FROM PhoneNumber P WHERE P.userID = ?1")
-    String findUserPhoneByUseId(long userID);
+  /*  @Query("select P.phoneNumber FROM PhoneNumber P WHERE P.userID = ?1")
+    String findUserPhoneByUseId(long userID);*/
 }

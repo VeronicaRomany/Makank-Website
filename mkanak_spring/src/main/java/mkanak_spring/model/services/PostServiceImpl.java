@@ -5,6 +5,7 @@ import mkanak_spring.model.dao.PostDAO;
 import mkanak_spring.model.entities.*;
 
 import mkanak_spring.model.repositories.ApartmentRepo;
+import mkanak_spring.model.repositories.PropertyRepo;
 import mkanak_spring.model.repositories.VillaRepo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PostServiceImpl implements PostService{
     @Autowired
@@ -24,6 +27,8 @@ public class PostServiceImpl implements PostService{
     ApartmentRepo apartmentRepo;
     @Autowired
     VillaRepo villaRepo;
+    @Autowired
+    PropertyRepo propertyRepo;
     @Override
     public void savePost(JSONObject post) throws ParseException {
         JsonToObjectConverter converter = new JsonToObjectConverter();
@@ -87,8 +92,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public void deletePost(JSONObject details) {
-        long postID = (Integer) details.get("postID");
+    public void deletePost(long postID) {
+       // long postID = (Integer) details.get("postID");
         postDAO.deletePost(postID);
     }
 
@@ -103,32 +108,9 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Property getProperty(long propertyID) {
+    public Optional<Property> getProperty(long propertyID) {
 
-        return new Apartment();
+        return propertyRepo.findById(propertyID);
     }
-
-
-    private Property getDummyPost(){
-        Apartment x = new Apartment();
-        x.setSellerID(5);
-        x.setAddress("22nd 45street");
-        String[] pics = new String[5];
-        pics[0] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYI7wP8BBfh928fLg3Ui5Slj7ROZW_zc3rag&usqp=CAU";
-        x.setHasPictures(true);
-        x.setArea(250);
-        x.setInfo("for sale owner is moving to Banha");
-        x.setType("villa");
-        x.setRoomNumber(3);
-        x.setBathroomNumber(4);
-        x.setCity("Alexandria, Egypt");
-        x.setRent(false);
-        x.setElevator(true);
-        return x;
-    }
-
-
-
-
 
 }

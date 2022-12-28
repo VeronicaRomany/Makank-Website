@@ -2,10 +2,8 @@ package mkanak_spring.model.services;
 
 import mkanak_spring.model.LoginManager;
 import mkanak_spring.model.SignupManager;
-import mkanak_spring.model.entities.PhoneNumber;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
-import mkanak_spring.model.repositories.PhoneNumberRepo;
 import mkanak_spring.model.dao.UserDAO;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -17,8 +15,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDAO userDAO;
-    @Autowired
-    PhoneNumberRepo phoneNumberRepo;
 
     @Override
     //@Transactional
@@ -28,8 +24,8 @@ public class UserServiceImpl implements UserService {
         if(userDAO.usernameExists(userInstance.getUsername())) return -1L;
 
         userDAO.saveUser(userInstance);
-        List<PhoneNumber> numbers = signupManager.addPhoneNumbers(userInstance, user);
-        phoneNumberRepo.saveAll(numbers);
+   //     List<PhoneNumber> numbers = signupManager.addPhoneNumbers(userInstance, user);
+    //    phoneNumberRepo.saveAll(numbers);
         //   userInstance.setPhoneNumbers(numbers);
         return userInstance.getUserID();
     }
@@ -48,8 +44,10 @@ public class UserServiceImpl implements UserService {
     public User findUserInfoByUseId(long userID) {
         return userDAO.findUserInfoByUseId(userID);
     }
-    @Override
+   /* @Override
     public String findUserPhoneByUseId(long userID) {
         return userDAO.findUserPhoneByUseId(userID);
     }
+
+    */
 }

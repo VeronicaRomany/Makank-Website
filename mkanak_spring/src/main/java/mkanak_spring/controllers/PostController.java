@@ -1,8 +1,5 @@
 package mkanak_spring.controllers;
 
-import mkanak_spring.model.FilterPreference;
-import mkanak_spring.model.SortingPreference;
-import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 import mkanak_spring.model.entities.Property;
 import mkanak_spring.model.services.PostService;
@@ -12,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -64,11 +62,9 @@ public class PostController {
         return false;
     }
 
-    @DeleteMapping("/delete")
-    public boolean deletePost(@RequestBody String details) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(details);
-        postService.deletePost(json);
+    @DeleteMapping("/delete/{postID}")
+    public boolean deletePost(@PathVariable long postID) throws ParseException {
+        postService.deletePost(postID);
         return false;
     }
 
@@ -111,7 +107,7 @@ public class PostController {
     }
     // 8yary el endpoint
     @GetMapping("/info/{propertyID}")
-    public Property getProperty(@PathVariable int propertyID){
+    public Optional<Property> getProperty(@PathVariable int propertyID){
         return postService.getProperty(propertyID);
     }
 
