@@ -45,7 +45,7 @@ export class PropertiesService {
   deletePost(iD:number):Observable<Post[]>{
     let queryParams=new HttpParams();
     queryParams = queryParams.append("postID",iD);
-    return this.http.get<Post[]>(this.postsURL+"/delete",{params:queryParams})
+    return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString())
   }
 
   

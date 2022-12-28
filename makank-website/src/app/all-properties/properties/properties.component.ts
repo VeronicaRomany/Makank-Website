@@ -68,9 +68,8 @@ export class PropertiesComponent implements OnInit {
 
   deleteMypost(postID:number){
     console.log(postID)
-    this.serv.deletePost(postID).subscribe(results => {
-      console.log("deleted", results)
-      this.posts=results
+    this.serv.deletePost(postID).subscribe(results=> {
+          this.sendPostsRequests()
     })
 }
 
