@@ -148,10 +148,7 @@ openLargeView(postID:number ,propertyType:string){
 
 
 
-openLargeView(postID:number ,propertyType:string){
- 
- this.dialog.open(LargeViewComponent,{data:{postId:postID ,type:propertyType}});
-}
+
 // // getDummyPost():Post{
 //     let p = new Post()
 //     let v = new Villa()
