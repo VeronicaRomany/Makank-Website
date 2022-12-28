@@ -74,24 +74,25 @@ public class PostController {
 
     @GetMapping("/saved/ids/{userID}")
     public List<Long> getSavedIDs(@PathVariable int userID){
+        System.out.println(">>>>>>> Got Request of the saved posts ids <<<<<<");
         return postService.getSavedPostsIDs(userID);
     }
 
 
     @PostMapping("/savePost")
-    public void addToSavedPost(@RequestBody String saveEntry) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(saveEntry);
-        System.out.println(json);
-        postService.addToSavedPosts(json);
+    public void addToSavedPost(@RequestBody JSONObject jsonObject) throws ParseException {
+//        JSONParser parser = new JSONParser();
+//        JSONObject json = (JSONObject) parser.parse(saveEntry);
+//        System.out.println(json);
+        postService.addToSavedPosts(jsonObject);
     }
 
     @PostMapping("/unsavePost")
-    public void removePostFromSaved(@RequestBody String entry) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(entry);
+    public void removePostFromSaved(@RequestBody JSONObject jsonObject) throws ParseException {
+//        JSONParser parser = new JSONParser();
+//        JSONObject json = (JSONObject) parser.parse(entry);
 
-        postService.removeFromSaved(json);
+        postService.removeFromSaved(jsonObject);
     }
 
     @GetMapping("/details/{postID}")

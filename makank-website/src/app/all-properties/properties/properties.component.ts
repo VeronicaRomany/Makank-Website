@@ -79,7 +79,7 @@ export class PropertiesComponent implements OnInit {
         var unsavedPostJsonString = JSON.stringify(ob)
       
         console.log(unsavedPostJsonString)
-        this.http.post("http://localhost:8080/posts/unsavePost",unsavedPostJsonString,{responseType:'text'}).subscribe((data:any) =>{ })
+        this.http.post("http://localhost:8080/posts/unsavePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
       }
       else{
         btn!.style.color = "orange";
@@ -90,7 +90,7 @@ export class PropertiesComponent implements OnInit {
         }
         var savedPostJsonString = JSON.stringify(ob)
  
-        this.http.post("http://localhost:8080/posts/savePost",savedPostJsonString,{responseType:'text'}).subscribe((data:any) =>{ })
+        this.http.post("http://localhost:8080/posts/savePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
       }
     
   }

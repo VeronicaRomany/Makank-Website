@@ -71,6 +71,8 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void addToSavedPosts(JSONObject saveEntry) {
+
+
         int userID = (int) saveEntry.get("userID");
         int postID = (int) saveEntry.get("postID");
         postDAO.addToSavedPosts(userID,postID);
