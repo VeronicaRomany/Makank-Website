@@ -48,6 +48,7 @@ export class PropertiesComponent implements OnInit {
    
   }
   getSavedPostsIds(){
+    
     let userID = this.token.getUser().userId;
  this.serv.getIds(userID).subscribe(results =>{
   console.log("idsssss ", results)
@@ -80,6 +81,8 @@ export class PropertiesComponent implements OnInit {
       
         console.log("unsaving post " + unsavedPostJsonString);
         this.http.post("http://localhost:8080/posts/unsavePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
+       
+        
       }
       else{
         btn!.style.color = "orange";
@@ -96,6 +99,7 @@ export class PropertiesComponent implements OnInit {
     
   }
   getSavedPost(){
+    this.getSavedPostsIds();
     let userID = this.token.getUser().userId;
     this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
       console.log("saveeed", results)
@@ -209,6 +213,7 @@ openLargeView(postID:number ,propertyType:string){
   
 
     console.log(this.preference)
+    this.getSavedPostsIds();
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
           console.log("filteeeeer ", results)
           this.posts=results
