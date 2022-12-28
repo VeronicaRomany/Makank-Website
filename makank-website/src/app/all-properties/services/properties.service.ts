@@ -51,5 +51,11 @@ export class PropertiesService {
   
 
 
+
+  getIds(postId:number):Observable<number[]>{
+    console.log("user id passed: "+ postId)
+    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString())
+
+  }
   
 }

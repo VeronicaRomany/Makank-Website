@@ -110,29 +110,19 @@ public class PostController {
 
 
     @PostMapping("/savePost")
-    public void addToSavedPost(@RequestHeader("Authorization") String bearerToken,
-                               @RequestBody String saveEntry) throws Exception {
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(saveEntry);
-
-        int userID= (int) json.get("userID");
-        if(!securityGuard.verifyJWTtoken(userID,bearerToken))
-            throw new Exception("error");
-
-        postService.addToSavedPosts(json);
+    public void addToSavedPost(@RequestBody JSONObject jsonObject) throws ParseException {
+//        JSONParser parser = new JSONParser();
+//        JSONObject json = (JSONObject) parser.parse(saveEntry);
+//        System.out.println(json);
+        postService.addToSavedPosts(jsonObject);
     }
 
     @PostMapping("/unsavePost")
-    public void removePostFromSaved(@RequestHeader("Authorization") String bearerToken,
-                                    @RequestBody String entry) throws Exception {
+    public void removePostFromSaved(@RequestBody JSONObject jsonObject) throws ParseException {
+//        JSONParser parser = new JSONParser();
+//        JSONObject json = (JSONObject) parser.parse(entry);
 
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(entry);
-
-        int userID= (int) json.get("userID");
-        if(!securityGuard.verifyJWTtoken(userID,bearerToken))
-            throw new Exception("error");
-        postService.removeFromSaved(json);
+        postService.removeFromSaved(jsonObject);
     }
 
     @GetMapping("/details/{postID}")
