@@ -31,8 +31,6 @@ public class UserDAO {
     public User findUserInfoByUseId(long userID) {
         return userRepo.findUserInfoByUseId(userID);
     }
-    public String findUserPhoneByUseId(long userID) {
-        return userRepo.findUserPhoneByUseId(userID);
-    }
+
 
 }

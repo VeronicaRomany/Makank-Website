@@ -1,10 +1,9 @@
 package mkanak_spring.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import mkanak_spring.model.entities.PhoneNumber;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,23 +19,21 @@ public class User {
     private String username;
     @Column(unique = true)
     private String email;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
     private String address;
     @Column(name = "profile_pic_link")
     private String profilePicLink;
+    @JsonIgnore
     @Column(name = "user_password")
     private String password;
     @Column(name = "user_description")
     private String description;
-/*
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "user_id")
-    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
-*/
 
     //private List<String> savedItems = new ArrayList<>(); // to be updated
 
 
-    public User(Long userID, String name, String username, String email, String address, String profilePicLink, String password, String description, List<PhoneNumber> phoneNumbers) {
+    public User(Long userID, String name, String username, String email, String address, String profilePicLink, String password, String description, String phoneNumber) {
         this.userID = userID;
         this.name = name;
         this.username = username;
@@ -45,7 +42,7 @@ public class User {
         this.profilePicLink = profilePicLink;
         this.password = password;
         this.description = description;
-     //   this.phoneNumbers = phoneNumbers;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getUserID() {
@@ -111,15 +108,15 @@ public class User {
     public void setDescription(String description) {
         this.description = description;
     }
-/*
-   public List<PhoneNumber> getPhoneNumbers() {
-        return phoneNumbers;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-*/
+
     @Override
     public String toString() {
         return "User{" +
@@ -131,7 +128,7 @@ public class User {
                 ", profile_pic_link='" + profilePicLink + '\'' +
                 ", password='" + password + '\'' +
                 ", description='" + description + '\'' +
-           //     ", phone_numbers=" + phoneNumbers +
+                ", phone_number=" + phoneNumber +
                 '}';
     }
 }

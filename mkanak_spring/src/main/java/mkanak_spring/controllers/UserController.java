@@ -43,7 +43,7 @@ public class UserController {
         long u= gson.fromJson(String.valueOf(userID),long.class);
         return userService.findUserInfoByUseId(u);
     }
-
+/*
     @GetMapping("/user/profile/phone/{userIdPhone}")
     public String getUserPhone(@PathVariable long userIdPhone){
         Gson gson = new Gson();
@@ -53,5 +53,5 @@ public class UserController {
         System.out.println(test);
         return test;
     }
-
+*/
 }

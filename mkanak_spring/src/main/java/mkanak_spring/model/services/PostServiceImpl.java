@@ -4,6 +4,8 @@ import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
 import mkanak_spring.model.entities.*;
 
+import mkanak_spring.model.repositories.ApartmentRepo;
+import mkanak_spring.model.repositories.VillaRepo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,7 +13,6 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class PostServiceImpl implements PostService{
@@ -19,7 +20,10 @@ public class PostServiceImpl implements PostService{
     PostDAO postDAO;
     @Autowired
     JsonToObjectConverter converter;
-
+    @Autowired
+    ApartmentRepo apartmentRepo;
+    @Autowired
+    VillaRepo villaRepo;
     @Override
     public void savePost(JSONObject post) throws ParseException {
         JsonToObjectConverter converter = new JsonToObjectConverter();
@@ -84,7 +88,8 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void deletePost(JSONObject details) {
-        //TODO
+        long postID = (Integer) details.get("postID");
+        postDAO.deletePost(postID);
     }
 
     @Override
@@ -95,6 +100,12 @@ public class PostServiceImpl implements PostService{
     @Override
     public JSONObject getPostDetails(long postID) {
         return postDAO.getPostDetails(postID);
+    }
+
+    @Override
+    public Property getProperty(long propertyID) {
+
+        return new Apartment();
     }
 
 

@@ -2,6 +2,7 @@ package mkanak_spring.model.services;
 
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
+import mkanak_spring.model.entities.Property;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -18,4 +19,5 @@ public interface PostService {
     void deletePost(JSONObject details);
     void editPost(JSONObject post);
     JSONObject getPostDetails(long postID);
+    Property getProperty(long propertyID);
 }

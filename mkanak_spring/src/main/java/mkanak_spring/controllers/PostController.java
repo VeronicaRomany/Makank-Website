@@ -4,6 +4,7 @@ import mkanak_spring.model.FilterPreference;
 import mkanak_spring.model.SortingPreference;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
+import mkanak_spring.model.entities.Property;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -63,7 +64,7 @@ public class PostController {
         return false;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public boolean deletePost(@RequestBody String details) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(details);
@@ -107,6 +108,11 @@ public class PostController {
     @GetMapping("/details/{postID}")
     public JSONObject getPostDetails(@PathVariable int postID){
         return postService.getPostDetails(postID);
+    }
+    // 8yary el endpoint
+    @GetMapping("/info/{propertyID}")
+    public Property getProperty(@PathVariable int propertyID){
+        return postService.getProperty(propertyID);
     }
 
 }

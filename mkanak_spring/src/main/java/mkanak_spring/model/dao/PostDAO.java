@@ -45,8 +45,6 @@ public class PostDAO {
         propertyPictureRepo.saveAll(propertyPictureList);
     }
 
-
-
     public List<Post> getAllPosts(ViewingPreference preference, int pageNum, int pageSize) {
         PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
@@ -60,7 +58,6 @@ public class PostDAO {
         }
         return buildAndReturn(pb,pageNum,pageSize);
     }
-
 
     private List<Post> buildAndReturn(PostSpecificationBuilder pb,int pageNum,int pageSize){
         Specification<Post> sps = pb.build();
@@ -88,7 +85,6 @@ public class PostDAO {
         return buildAndReturn(pb,pageNum,pageSize);
     }
 
-
     public List<Post> getSavedPostsByUserID(int id,ViewingPreference preference, int pageNum,int pageSize){
         List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id);
         PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,postIDsSaved);
@@ -115,4 +111,7 @@ public class PostDAO {
         return postRepo.getPostLargeView(postID);
     }
 
+    public void deletePost(long postID) {
+        postRepo.deleteById(postID);
+    }
 }
