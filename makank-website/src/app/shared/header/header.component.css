@@ -36,3 +36,10 @@ nav{
      
 
 }
+.spacer{
+    flex: 1 1 auto;
+}
+.log{
+
+    margin-left: 500px
+}

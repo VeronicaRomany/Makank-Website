@@ -30,7 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { LargeViewComponent } from './large-view/large-view.component';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { LargeViewComponent } from './large-view/large-view.component';
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
+    MatToolbarModule
   
     
   ],

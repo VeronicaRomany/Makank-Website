@@ -22,6 +22,7 @@ export class PropertiesComponent implements OnInit {
   serv: PropertiesService 
   preference:ViewingPreference=new ViewingPreference()
   saved:number[]=[]
+  loggedIn:boolean=false
   constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) { 
     this.serv= service
   
@@ -33,7 +34,10 @@ export class PropertiesComponent implements OnInit {
     // this.posts.push(p)
     // this.posts.push(p2)
     // console.log(this.posts)
+    this.loggedIn = !!this.token.getToken();
+    if(this.loggedIn){
     this.getSavedPostsIds();
+  }
     this.sendPostsRequests();
      
   }
@@ -65,8 +69,8 @@ export class PropertiesComponent implements OnInit {
      }
      return false;
   }
-  toggle(id:number,post:Post){
-   
+  toggle(id:number){
+   if(this.loggedIn){
     console.log(id);
     let userID = this.token.getUser().userId;
     var st : string = String(id);
@@ -96,15 +100,21 @@ export class PropertiesComponent implements OnInit {
         
         this.http.post("http://localhost:8080/posts/savePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
       }
-    
+   }else{
+    alert("Login or Register !");
+   }
   }
   getSavedPost(){
+    if(this.loggedIn){
     this.getSavedPostsIds();
     let userID = this.token.getUser().userId;
     this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
       console.log("saveeed", results)
       this.posts=results
     })
+     }else{
+      alert("Login or Register !");
+     }
   }
 openLargeView(postID:number ,propertyType:string){
  

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterPreference, SortingPreference, ViewingPreference } from '../viewingPreference';
 import { TokenStorageService } from 'src/app/login/services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
   username?: string;
   password?:string;
   isLoggedIn=false;
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private router:Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -23,7 +24,9 @@ export class HeaderComponent implements OnInit {
       console.log(this.username)
     }
   }
-
+ navigateHome(){
+  this.router.navigate(['/', 'Home'])
+ }
 
   temp(){
     let v:ViewingPreference = new ViewingPreference()
