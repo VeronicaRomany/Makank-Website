@@ -82,6 +82,7 @@ public class PostController {
     public void addToSavedPost(@RequestBody String saveEntry) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(saveEntry);
+        System.out.println(json);
         postService.addToSavedPosts(json);
     }
 
@@ -89,6 +90,7 @@ public class PostController {
     public void removePostFromSaved(@RequestBody String entry) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(entry);
+
         postService.removeFromSaved(json);
     }
 

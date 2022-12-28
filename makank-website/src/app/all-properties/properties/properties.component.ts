@@ -3,13 +3,14 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
-
+import { MatDialog } from '@angular/material/dialog';
 
 import { Post } from '../../shared/post';
 import { Property, Villa } from '../../shared/property';
 import { ViewingPreference } from '../../shared/viewingPreference';
 
 import { PropertiesService } from '../services/properties.service';
+import { LargeViewComponent } from 'src/app/large-view/large-view.component';
 @Component({
   selector: 'app-properties',
   templateUrl: './properties.component.html',
@@ -20,8 +21,8 @@ export class PropertiesComponent implements OnInit {
   posts:Post[] = []
   serv: PropertiesService 
   preference:ViewingPreference=new ViewingPreference()
-  
-  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService) { 
+  saved:number[]=[]
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) { 
     this.serv= service
   
   }
@@ -32,7 +33,8 @@ export class PropertiesComponent implements OnInit {
     // this.posts.push(p)
     // this.posts.push(p2)
     // console.log(this.posts)
-    this.sendPostsRequests()
+    this.getSavedPostsIds();
+    this.sendPostsRequests();
      
   }
 
@@ -45,6 +47,53 @@ export class PropertiesComponent implements OnInit {
       } );
    
   }
+  getSavedPostsIds(){
+    let userID = this.token.getUser().userId;
+ this.serv.getIds(userID).subscribe(results =>{
+  console.log("idsssss ", results)
+   this.saved=results
+ })
+  }
+  checkSaved(id:number){
+    
+    
+     for(let i =0 ; i< this.saved.length;i++){
+      if(this.saved[i]==id){
+        return true;
+      }
+     }
+     return false;
+  }
+  toggle(id:number,post:Post){
+   
+    console.log(id);
+    let userID = this.token.getUser().userId;
+    var st : string = String(id);
+      var btn= document.getElementById(st) ;
+      if (btn?.style.color=="orange"){
+        btn.style.color = "grey";
+        var ob={
+          userID:userID ,
+          postID:id
+        }
+        var unsavedPostJsonString = JSON.stringify(ob)
+      
+        console.log(unsavedPostJsonString)
+        this.http.post("http://localhost:8080/posts/unsavePost",unsavedPostJsonString,{responseType:'text'}).subscribe((data:any) =>{ })
+      }
+      else{
+        btn!.style.color = "orange";
+        
+        var ob={
+          userID:userID ,
+          postID:id
+        }
+        var savedPostJsonString = JSON.stringify(ob)
+ 
+        this.http.post("http://localhost:8080/posts/savePost",savedPostJsonString,{responseType:'text'}).subscribe((data:any) =>{ })
+      }
+    
+  }
   getSavedPost(){
     let userID = this.token.getUser().userId;
     this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
@@ -52,7 +101,10 @@ export class PropertiesComponent implements OnInit {
       this.posts=results
     })
   }
-
+openLargeView(postID:number ,propertyType:string){
+ 
+ this.dialog.open(LargeViewComponent,{data:{postId:postID ,type:propertyType}});
+}
 // // getDummyPost():Post{
 //     let p = new Post()
 //     let v = new Villa()

@@ -40,5 +40,12 @@ export class PropertiesService {
     })
 
   }
+
+
+
+  getIds(postId:number):Observable<number[]>{
+    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString())
+
+  }
   
 }

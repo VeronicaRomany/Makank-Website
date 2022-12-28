@@ -4,3 +4,6 @@
     font-family: "Poppins";
     src: local("Poppins"), url(./assets/fonts/Poppins-Regular.ttf) format("truetype");
 } */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
