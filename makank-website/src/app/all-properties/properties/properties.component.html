@@ -1,5 +1,6 @@
 <div class="container1">
-    <button class="savedButton">Saved Posts</button>
+    <button class="savedButton" (click)="getSavedPost()" >Saved Posts</button>
+
     <button class="savedButton" (click)="goTonewPost()">Add Post</button>
 
     <div class="container2">
@@ -134,6 +135,8 @@
                         <ng-template #elseBlock>                      
                             <p class="type" > Full Price</p>
                         </ng-template>
+                        <h4 class="t">{{item.type}}</h4>
+                        <h4 class="address">{{item.address}}</h4>
                         <h5 class="area">Area: {{item.area}} &#13217;</h5>
                         <h3 class="desc">{{item.info}}</h3>
                         

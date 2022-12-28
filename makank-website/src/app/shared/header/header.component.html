@@ -4,8 +4,9 @@
                 <li>
                     <a href="/Home" >Home</a>
                 </li>
+                
                 <li>
-                    <a href="/Profile" >Profile</a>
+                    <a href="/Profile" *ngIf="!isLoggedIn" >Profile</a>
                 </li>
                 <ul *ngIf="!isLoggedIn">
                 <li>
