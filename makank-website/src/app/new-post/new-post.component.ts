@@ -86,7 +86,9 @@ export class NewPostComponent implements OnInit {
             
             // get post by id   >> request lma a3mlo ams7 al dummy data de
       
-          
+            // this.http.get("http://localhost:8080/posts/new",{responseType:'text'}).subscribe((data:any) =>{
+            //   this.router.navigate(['/', 'Home'])
+            // })
             //dummy data
             this. editPost.type = "villa"
             this. editPost.city = "alex"
@@ -195,9 +197,25 @@ export class NewPostComponent implements OnInit {
 
     var NewPostJsonString = JSON.stringify(this.newPost)
     console.log(NewPostJsonString)
-    this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString),{responseType:'text'}).subscribe((data:any) =>{
-      this.router.navigate(['/', 'Home'])
-    })
+
+    if(this.editing){
+
+      this.http.put("http://localhost:8080/posts/edit",this.newPost.postID,JSON.parse(NewPostJsonString)).subscribe((data:any) =>{
+        window.alert("Your post has be eddited")
+        this.router.navigate(['/', 'Home'])
+      })
+
+
+    }else{
+
+      this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString)).subscribe((data:any) =>{
+        this.router.navigate(['/', 'Home'])
+      })
+     
+    }
+
+   
+    
   }
 
 
