@@ -1,4 +1,4 @@
-package mkanak_spring.model.dao;
+package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.entities.User;
 
@@ -18,6 +18,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("FROM User u WHERE u.userID = ?1")
     User findUserInfoByUseId(long userID);
-    @Query("select P.phoneNumber FROM PhoneNumber P WHERE P.userID = ?1")
-    String findUserPhoneByUseId(long userID);
+
 }

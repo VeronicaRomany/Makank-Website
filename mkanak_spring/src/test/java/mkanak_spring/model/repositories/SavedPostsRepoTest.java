@@ -1,9 +1,10 @@
-package mkanak_spring.model.dao;
+package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.entities.SavedPostsEntry;
 import mkanak_spring.model.entities.SavedPostsEntryID;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import mkanak_spring.model.repositories.PostRepo;
+import mkanak_spring.model.repositories.SavedPostsRepo;
+import mkanak_spring.model.repositories.UserRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

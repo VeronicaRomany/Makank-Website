@@ -5,6 +5,8 @@
 
     <button class="savedButton" (click)="goTonewPost()">Add Post</button>
 
+    
+
     <div class="container2">
         <div class="option">
            <div class="selec">
@@ -90,6 +92,9 @@
               <option value="descending">Descending</option>
            
            </select>
+
+
+           
            
          
      
@@ -112,7 +117,16 @@
     
 <div class="article-contener"  >
     <ul class="groups" *ngFor="let item of posts"  >
+      
+     
+        
         <li>
+
+            <div  *ngIf="(item.sellerID == userID)">
+                <button  class="edit" (click)="editMypost(item.propertyID)">edit</button>
+                <button  class="delete" (click)="deleteMypost(item.propertyID)">delete</button>
+            </div>
+
             <div class="card"  >
                 <div class="image-session " >
                     <span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.pictures}});"></span>
@@ -139,6 +153,7 @@
                         <h4 class="address">{{item.address}}</h4>
                         <h5 class="area">Area: {{item.area}} &#13217;</h5>
                         <h3 class="desc">{{item.info}}</h3>
+
                       
                    
                         
@@ -152,6 +167,7 @@
                         <img class="settings"  src="assets/settings.png" alt="">
                     </div>
                     
+
                 </div>
             </div>
         </li>

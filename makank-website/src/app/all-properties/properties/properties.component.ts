@@ -21,9 +21,15 @@ export class PropertiesComponent implements OnInit {
   posts:Post[] = []
   serv: PropertiesService 
   preference:ViewingPreference=new ViewingPreference()
+
   saved:number[]=[]
   loggedIn:boolean=false
+    userID:number=0
+  condition:boolean=false
+  goToEdit:boolean=false
+  editedID:number=0
   constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) { 
+
     this.serv= service
   
   }
@@ -43,6 +49,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   sendPostsRequests(){
+    this.userID = this.token.getUser().userId;
     console.log(this.preference)
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
           console.log("ana rg3t", results)
@@ -105,10 +112,13 @@ export class PropertiesComponent implements OnInit {
    }
   }
   getSavedPost(){
+
     if(this.loggedIn){
     this.getSavedPostsIds();
     let userID = this.token.getUser().userId;
     this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
+
+
       console.log("saveeed", results)
       this.posts=results
     })
@@ -116,10 +126,32 @@ export class PropertiesComponent implements OnInit {
       alert("Login or Register !");
      }
   }
+
 openLargeView(postID:number ,propertyType:string){
  
  this.dialog.open(LargeViewComponent,{data:{postId:postID ,type:propertyType}});
 }
+
+
+
+  editMypost(postID:number){
+      console.log(postID)
+      this.editedID=postID
+      this.goToEdit=true
+
+      this.router.navigate([ '/','NewPost'],{queryParams:{data:postID}})
+  }
+
+  deleteMypost(postID:number){
+    console.log(postID)
+    this.serv.deletePost(postID).subscribe(results=> {
+          this.sendPostsRequests()
+    })
+}
+
+
+
+
 // // getDummyPost():Post{
 //     let p = new Post()
 //     let v = new Villa()

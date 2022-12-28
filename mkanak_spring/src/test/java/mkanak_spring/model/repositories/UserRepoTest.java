@@ -1,6 +1,7 @@
-package mkanak_spring.model.dao;
+package mkanak_spring.model.repositories;
 
 import mkanak_spring.model.entities.User;
+import mkanak_spring.model.repositories.UserRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

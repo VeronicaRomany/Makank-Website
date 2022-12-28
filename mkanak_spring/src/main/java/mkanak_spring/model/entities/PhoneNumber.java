@@ -1,3 +1,4 @@
+/*
 package mkanak_spring.model.entities;
 
 import jakarta.persistence.*;
@@ -38,3 +39,4 @@ public class PhoneNumber {
 }
 
 
+*/
