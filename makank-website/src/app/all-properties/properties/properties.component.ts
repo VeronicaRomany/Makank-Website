@@ -114,6 +114,8 @@ export class PropertiesComponent implements OnInit {
     this.getSavedPostsIds();
     let userID = this.token.getUser().userId;
     this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
+
+
       console.log("saveeed", results)
       this.posts=results
     })
@@ -121,6 +123,12 @@ export class PropertiesComponent implements OnInit {
       alert("Login or Register !");
      }
   }
+
+openLargeView(postID:number ,propertyType:string){
+ 
+ this.dialog.open(LargeViewComponent,{data:{postId:postID ,type:propertyType}});
+}
+
 
 
   editMypost(postID:number){
