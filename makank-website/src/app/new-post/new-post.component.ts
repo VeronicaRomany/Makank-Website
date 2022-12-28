@@ -86,9 +86,10 @@ export class NewPostComponent implements OnInit {
             
             // get post by id   >> request lma a3mlo ams7 al dummy data de
       
-            // this.http.get("http://localhost:8080/posts/new",{responseType:'text'}).subscribe((data:any) =>{
-            //   this.router.navigate(['/', 'Home'])
+            // this.http.get<Post>("http://localhost:8080/posts/info/params.data").subscribe((data:any) =>{
+            //   this.editPost=data
             // })
+            
             //dummy data
             this. editPost.type = "villa"
             this. editPost.city = "alex"
