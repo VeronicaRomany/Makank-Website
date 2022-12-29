@@ -178,7 +178,7 @@ export class EditProfileComponent implements OnInit {
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    var headers=new HttpHeaders().append("Authorization","Bearer "+this.tokenStorage.getUser())
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.tokenStorage.getUser().token)
     this.http.post<boolean>("http://localhost:8080/users/profile/edit",JSON.parse(NewAccountJsonString),{headers: headers}).subscribe((data:boolean) =>{
       if(data)
       prompt("Your edit saved")
