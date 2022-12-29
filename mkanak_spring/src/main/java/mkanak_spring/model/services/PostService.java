@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
-    void savePost(JSONObject post) throws ParseException;
+    void savePost(Long propertyID, JSONObject post) throws ParseException;
     List<Post> getHomepagePosts(JSONObject preference,int pageNum,int pageSize) ;
     List<Post> getSavedPosts(int id, JSONObject preference,int pageNum,int pageSize);
     List<Post> getProfilePosts(int targetUserID, JSONObject preferences, int pageNum,int pageSize);
@@ -17,7 +17,7 @@ public interface PostService {
     void addToSavedPosts(JSONObject entry);
     void removeFromSaved(JSONObject entry);
     void deletePost(long postID);
-    void editPost(JSONObject post);
+    void editPost(JSONObject post) throws ParseException;
     JSONObject getPostDetails(long postID);
     Optional<Property> getProperty(long propertyID);
 }

@@ -48,24 +48,19 @@ public class PostController {
     @PostMapping("/new")
     public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
         System.out.println("details: " + postDetails);
-        postService.savePost(postDetails);
+        postService.savePost(null, postDetails);
     }
 
     @PutMapping("/edit")
-    public boolean editPost(@RequestParam int userID,
-                            @RequestBody String post)
+    public void editPost(/*@RequestParam int userID,*/
+                            @RequestBody JSONObject post)
             throws ParseException {
-
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(post);
-        postService.editPost(json);
-        return false;
+        postService.editPost(post);
     }
 
     @DeleteMapping("/delete/{postID}")
-    public boolean deletePost(@PathVariable long postID) throws ParseException {
+    public void deletePost(@PathVariable long postID) throws ParseException {
         postService.deletePost(postID);
-        return false;
     }
 
 
@@ -105,6 +100,7 @@ public class PostController {
     public JSONObject getPostDetails(@PathVariable int postID){
         return postService.getPostDetails(postID);
     }
+
     // 8yary el endpoint
     @GetMapping("/info/{propertyID}")
     public Optional<Property> getProperty(@PathVariable int propertyID){

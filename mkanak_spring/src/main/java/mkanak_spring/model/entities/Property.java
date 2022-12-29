@@ -14,12 +14,12 @@ public class Property {
     @Id
     @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long propertyID;
-    @Column(name = "post_date")
+    private Long propertyID;
+    @Column(name = "post_date", updatable = false)
     @CreationTimestamp
     private Date publishDate;
-    @Column(name = "seller_id")
-    private long sellerID;
+    @Column(name = "seller_id", updatable = false)
+    private Long sellerID;
     @Column(name = "rooms", nullable = false)
     private int roomNumber;
     @Column(name = "bathrooms", nullable = false)
@@ -41,11 +41,11 @@ public class Property {
     @Column(name = "has_pictures")
     private boolean hasPictures;
 
-    public long getPropertyID() {
+    public Long getPropertyID() {
         return propertyID;
     }
 
-    public void setPropertyID(long propertyID) {
+    public void setPropertyID(Long propertyID) {
         this.propertyID = propertyID;
     }
 
@@ -53,7 +53,7 @@ public class Property {
         return sellerID;
     }
 
-    public void setSellerID(long sellerID) {
+    public void setSellerID(Long sellerID) {
         this.sellerID = sellerID;
     }
 
@@ -129,7 +129,7 @@ public class Property {
         this.type = type;
     }
 
-    public boolean isHasPictures() {
+    public boolean getHasPictures() {
         return hasPictures;
     }
 
