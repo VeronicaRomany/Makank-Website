@@ -1,4 +1,4 @@
-{
+{ 
 
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -69,9 +70,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "options": {
-
-          },
+   
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
@@ -101,8 +100,10 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
               "node_modules/bootstrap/scss/bootstrap.scss"
+            
 
             ],
             "scripts": []

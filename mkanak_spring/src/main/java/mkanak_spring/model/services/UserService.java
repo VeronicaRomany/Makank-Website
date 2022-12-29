@@ -6,10 +6,9 @@ import mkanak_spring.model.entities.User;
 import java.util.List;
 
 public interface UserService {
-    Long saveUser(JSONObject user) throws ParseException;
+    Long createUser(JSONObject user) throws ParseException;
     Long logInUser(String username, String password);
     User findUserInfoByUseId(long userID);
-    String findUserPhoneByUseId(long userID);
-    // edit user
-    // get user
+//    String findUserPhoneByUseId(long userID);
+    boolean editUser(JSONObject user) ;
 }

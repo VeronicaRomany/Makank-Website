@@ -1,27 +1,15 @@
-<nav (click)="temp()">
-            <h2 class = "logo">Makank</h2>
-            <ul class = "nav-links">
-                <li>
-                    <a href="/Home" >Home</a>
-                </li>
-                
-                <li>
-                    <a href="/Profile" *ngIf="!isLoggedIn" >Profile</a>
-                </li>
-                <ul *ngIf="!isLoggedIn">
-                <li>
-                    <a href="/Login" >Login</a>
-                </li>
-                  </ul>
-                  <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-                    <li class="nav-item">
-                      <a href="/Profile" class="nav-link" routerLink="Profile">{{ username }}</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href class="nav-link" (click)="logout()">Logout</a>
-                    </li>
-                  </ul>
-            </ul>
-  
-</nav>
 
+<mat-toolbar (click)="temp()" style="    background: #f7d292;color: #28210d;" class="mat-elevation-z4">
+  <a href="/Home" mat-button>Home</a>
+  
+  <a href="/Profile" mat-button>{{ username }}</a>
+  <div class="log" (click)="navigateHome()">
+    <mat-icon style="    margin-top: 5px; margin-right: 4px;">eco</mat-icon>
+  <h1>M A K A N A K</h1>
+</div>
+<div class="spacer"></div>
+
+<a href="/Login" *ngIf="!isLoggedIn" mat-button>Login</a>
+<a href="/Register" *ngIf="!isLoggedIn" mat-raised-button style="background-color: rgb(244, 65, 125); color:rgb(255, 255, 255);" >Sign Up</a>
+<a mat-raised-button  *ngIf="isLoggedIn" (click)="logout()" style="background-color: rgb(244, 65, 125); color:rgb(255, 255, 255);" >Logout</a>
+</mat-toolbar>

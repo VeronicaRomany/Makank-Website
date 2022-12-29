@@ -1,45 +1,33 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.FilterPreference;
-import mkanak_spring.model.SortingPreference;
-import mkanak_spring.model.ViewingPreference;
-
-import org.junit.jupiter.api.BeforeEach;
+import mkanak_spring.model.repositories.*;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-import java.util.List;
 //
 //@RunWith(SpringRunner.class)
 //@DataJpaTest
 class PostDAOTest {
 
-    @Autowired
+    @Mock
     ApartmentRepo apartmentRepo;
-    @Autowired
+    @Mock
     VillaRepo villaRepo;
-    @Autowired
+    @Mock
     PropertyPictureRepo propertyPictureRepo;
-    @Autowired
+    @Mock
     PostRepo postRepo;
-    @Autowired
+    @Mock
     SavedPostsRepo savedPostsRepo;
     @Autowired
     PostDAO dao;
-//
-//
-//    @BeforeEach
-//    Void setup(){
-//
-//    }
 
 
     @Test
     void saveApartment() {
+
+
     }
 
     @Test

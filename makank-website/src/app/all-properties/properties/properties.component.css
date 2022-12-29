@@ -28,13 +28,17 @@ body{
     margin: 0 auto;width: 780px;padding: 10px;height: auto;
 }
 .groups li{
-    position: relative;list-style: none;background: #fff;border-radius: 5px;
+    position: relative;list-style: none;background: #ffffff;border-radius: 5px;
     box-shadow: 0 3px 4px 0 #0001;overflow: hidden;margin-bottom: 30px;transition: all 0.3s;
 }
 .groups li:hover{
     transform: scale(1.04);box-shadow: 0 4px 14px 0 #0005;
 }
-.groups .card{overflow: hidden;display: block;}
+.groups .card{overflow: hidden;display: block;background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 .groups .image-session{float: left;overflow: hidden;margin-right: 20px;}
 .groups .image-session .image{width: 280px;height: 220px;display: block;background-size: contain;
     background-position: center;}
@@ -85,11 +89,79 @@ body{
     box-shadow: 0 1px 6px 0 #0004;
     transition: all 0.3s;
 }
+.groups .footer .delete{
+    position: absolute;
+    bottom: 90px;
+    right: 25px;
+  
+    line-height: 2.2;
+   background-color: transparent;
+    
+    text-decoration: none;
+   
+    transition: all 0.3s;
+    height: 30px;
+    width: 30px;
+}
+.groups .footer .settings{
+    position: absolute;
+    bottom: 160px;
+    right: 25px;
+  
+    line-height: 2.2;
+   background-color: transparent;
+    
+    text-decoration: none;
+   
+    transition: all 0.3s;
+    height: 30px;
+    width: 30px;
+}
+.groups .footer .saved{
+    position: absolute;
+    bottom: 55px;
+    right: 175px;
+   font-size: 40px;
+    line-height: 2.2;
+   background-color: transparent;
+    
+    text-decoration: none;
+   
+    transition: all 0.3s;
+ 
+}
+.groups .footer .button3{
+    position: absolute;
+    bottom: 150px;
+    right: 158px;
+   
+   
+    line-height: 2.2;
+   
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    text-decoration: none;
+    box-shadow: 0 1px 6px 0 #0004;
+    transition: all 0.3s;
+
+}
+.groups .footer .delete:hover{
+    box-shadow: 0 3px 8px 0 rgba(250, 241, 241, 0.333);
+    background: transparent;
+    right: 15px;
+}
+.groups .footer .settings:hover{
+    box-shadow: 0 3px 8px 0 rgba(250, 241, 241, 0.333);
+    background: transparent;
+    right: 15px;
+}
 .groups .footer .button:hover{
-    box-shadow: 0 3px 8px 0 #0005;
+    box-shadow: 0 3px 8px 0 rgba(95, 9, 9, 0.333);
     background: #063a78;
     right: 15px;
 }
+
 .groups .footer .views{
     display: block;
     font-size: 12px;
@@ -239,4 +311,24 @@ input{
 }
 .t{
     color: rgb(160, 33, 33);
+}
+
+.area{
+    margin: 7px auto;
+    padding: 2px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+h4{
+    margin: 0;
+}
+h3{
+    margin: 0;
+}
+h5{
+    margin: 0;
 }

@@ -1,8 +1,10 @@
 package mkanak_spring.model.dao;
 
-import mkanak_spring.model.LoginManager;
 import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
+import mkanak_spring.model.repositories.UserCredentialsRepo;
+import mkanak_spring.model.repositories.UserRepo;
+import mkanak_spring.model.services.JsonToObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -39,7 +41,7 @@ class UserDAOTest {
 
     @Test
     void onLogInUserInvokeWithCorrectUserCredentials() {
-        LoginManager loginManager = new LoginManager();
+        JsonToObject loginManager = new JsonToObject();
         String username = "lolo";
         String password = "password";
         UserCredentials userCredentialsTest = loginManager.SignInUser(username, password);

@@ -1,0 +1,191 @@
+.header{
+    text-align: center;
+    font-family:cursive ;
+}
+
+.container{
+    border-radius: 50px;
+    background-color: rgb(120, 156, 141);
+    width: 1500px;
+    height: 800px;
+    margin: auto;
+    margin-top: 50px;
+    font-family:cursive ;
+
+}
+
+
+
+.preFirst1{
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: rgb(221, 235, 228);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.preFirst2{
+    border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: rgb(221, 235, 228);
+     border-radius: 5px;
+     margin-left: 100px;
+     margin-right: 100px;
+}
+.preFirst3{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+     border-radius: 5px;
+     margin-left: 150px;
+     margin-right: 100px;
+}
+.preFirst4{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+    margin-left: 150px;
+}
+
+.firstLine{
+     display: flex
+}
+
+.firstLine1{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.firstLine2{
+    margin-left: 35px;
+
+}
+
+.firstLine3{
+    margin-left:65px;
+   
+}
+
+.firstLine4{
+    margin-left:65px;
+}
+
+.preSecond1{
+    border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: rgb(221, 235, 228);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.preSecond2{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+    border-radius: 5px;
+    margin-left: 70px;
+    margin-right: 100px;
+
+}
+.preSecond3{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+     border-radius: 5px;
+     margin-left: 160px;
+     margin-right: 100px;
+
+}
+
+
+
+.secondLine{
+    display: inline-flex;
+}
+
+
+.secondLine1{
+
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+.secondLine2{
+    margin-left: 80px;
+}
+
+.secondLine3{
+    margin-left:65px;
+    text-align: center;
+    width: 550px;
+   
+}
+
+.preThird1{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+
+.preThird2{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+    border-radius: 5px;
+    margin-left: 110px;
+    margin-right: 100px;
+}
+
+
+.ThirdLine1{
+
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+
+.ThirdLine2{
+    margin-left: 40px;
+}
+
+
+.preFourth1{
+ border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: rgb(221, 235, 228);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.fourthLine{
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 440px;
+}
+
+
+.choose1{
+    margin-left: 50px;
+   
+}
+
+.choose2{
+    margin-left: 50px;
+}
+
+.prelastLine{
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(221, 235, 228);
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+
+
+
+
+
+

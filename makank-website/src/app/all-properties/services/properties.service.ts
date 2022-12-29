@@ -40,5 +40,22 @@ export class PropertiesService {
     })
 
   }
+
+
+
+  getIds(postId:number):Observable<number[]>{
+    console.log("user id passed: "+ postId)
+    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString())
+
+  }
+
+  deletePost(iD:number):Observable<Post[]>{
+    let queryParams=new HttpParams();
+    queryParams = queryParams.append("postID",iD);
+    return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString())
+  }
+
   
+
+
 }
