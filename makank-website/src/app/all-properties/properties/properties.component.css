@@ -28,13 +28,17 @@ body{
     margin: 0 auto;width: 780px;padding: 10px;height: auto;
 }
 .groups li{
-    position: relative;list-style: none;background: #fff;border-radius: 5px;
+    position: relative;list-style: none;background: #ffffff;border-radius: 5px;
     box-shadow: 0 3px 4px 0 #0001;overflow: hidden;margin-bottom: 30px;transition: all 0.3s;
 }
 .groups li:hover{
     transform: scale(1.04);box-shadow: 0 4px 14px 0 #0005;
 }
-.groups .card{overflow: hidden;display: block;}
+.groups .card{overflow: hidden;display: block;background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 .groups .image-session{float: left;overflow: hidden;margin-right: 20px;}
 .groups .image-session .image{width: 280px;height: 220px;display: block;background-size: contain;
     background-position: center;}
