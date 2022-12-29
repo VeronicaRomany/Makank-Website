@@ -148,12 +148,12 @@ body{
 }
 .groups .footer .delete:hover{
     box-shadow: 0 3px 8px 0 rgba(250, 241, 241, 0.333);
-    background: #ffffff;
+    background: transparent;
     right: 15px;
 }
 .groups .footer .settings:hover{
     box-shadow: 0 3px 8px 0 rgba(250, 241, 241, 0.333);
-    background: #ffffff;
+    background: transparent;
     right: 15px;
 }
 .groups .footer .button:hover{
