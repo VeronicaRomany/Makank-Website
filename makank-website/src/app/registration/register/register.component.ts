@@ -8,6 +8,7 @@ import {  ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { DataReturned } from 'src/app/login/services/auth.service.service';
 import { User } from 'src/app/user';
 import { AuthService } from 'src/app/_services/auth.service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
@@ -151,7 +152,9 @@ export class RegisterComponent implements OnInit {
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    this.http.post<number>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((data:number) =>{
+    this.http.post<DataReturned>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((dataReturned) =>{
+      let data=dataReturned.id  
+      let token=dataReturned.token
       if(data>0)
       console.log("ana 3mlt register")
       console.log(data);
@@ -162,7 +165,7 @@ export class RegisterComponent implements OnInit {
           console.log("successfully login")
           console.log(userID)
           this.tokenStorage.saveToken(this.newAccount.username);
-          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID});
+          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID,"token":token});
           console.log(this.tokenStorage.getUser())
           Globals.setUserID(userID)
           this.router.navigate(['/', 'Home'])

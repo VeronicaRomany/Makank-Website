@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -178,38 +178,19 @@ export class EditProfileComponent implements OnInit {
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    /*this.http.post<number>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((data:number) =>{
-      if(data>0)
-      console.log("ana 3mlt register")
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.tokenStorage.getUser())
+    this.http.post<boolean>("http://localhost:8080/users/profile/edit",JSON.parse(NewAccountJsonString),{headers: headers}).subscribe((data:boolean) =>{
+      if(data)
+      prompt("Your edit saved")
       console.log(data);
-      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((userID: number)=> {
-        console.log("ana 3mlt login")
-        console.log(userID)
-        if(userID > 0){
-          console.log("successfully login")
-          console.log(userID)
-          this.tokenStorage.saveToken(this.newAccount.username);
-          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID});
-          console.log(this.tokenStorage.getUser())
-          Globals.setUserID(userID)
-          this.router.navigate(['/', 'Home'])
-        }
-      
-    },);
-
-  },);*/
+  },);
 }
 
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
-
-
-
   
-
-
   SelectFile(event:any){
     this.file = event.target.files[0];
 

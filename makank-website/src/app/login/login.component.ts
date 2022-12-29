@@ -32,10 +32,13 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe((data: number)=> {
+    this.authService.login(username, password).subscribe((dataReturned)=> {
+        let data=dataReturned.id
+        let token=dataReturned.token
+
         if(data > 0){
           this.tokenStorage.saveToken(username);
-          this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
+          this.tokenStorage.saveUser({"username":username,"password":password,"userId":data,"token":token});
           console.log(this.tokenStorage.getUser())
 
           Globals.setUserID(data)
