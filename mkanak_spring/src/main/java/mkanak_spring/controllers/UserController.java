@@ -44,14 +44,5 @@ public class UserController {
         return userService.findUserInfoByUseId(u);
     }
 
-    @GetMapping("/user/profile/phone/{userIdPhone}")
-    public String getUserPhone(@PathVariable long userIdPhone){
-        Gson gson = new Gson();
-        System.out.println("REQUEST : "+userIdPhone);
-        long u= gson.fromJson(String.valueOf(userIdPhone),long.class);
-        String test = userService.findUserPhoneByUseId(u);
-        System.out.println(test);
-        return test;
-    }
 
 }

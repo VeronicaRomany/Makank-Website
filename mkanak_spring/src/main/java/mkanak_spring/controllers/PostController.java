@@ -1,9 +1,11 @@
 package mkanak_spring.controllers;
 
+import com.google.gson.Gson;
 import mkanak_spring.model.FilterPreference;
 import mkanak_spring.model.SortingPreference;
 import mkanak_spring.model.ViewingPreference;
 import mkanak_spring.model.entities.Post;
+import mkanak_spring.model.entities.User;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,15 +32,14 @@ public class PostController {
 
 
     //    ################ Profile posts ########################
-    @GetMapping("/{targetUserID}")
-    public List<Post> getProfilePosts(@PathVariable int targetUserID, @RequestParam String preference) throws ParseException {
+    @GetMapping("userPost/{userID}")
+    public List<Post> getProfilePosts(@PathVariable int userID, @RequestParam String preference) throws ParseException {
+        System.out.println("tdyresersd");
+        System.out.println("postUserID" + userID);
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
-        return postService.getProfilePosts(targetUserID,json);
+        return postService.getProfilePosts(userID,json);
     }
-
-
-
 
     //   ################ Manipulation posts ########################
     @PostMapping("/new")

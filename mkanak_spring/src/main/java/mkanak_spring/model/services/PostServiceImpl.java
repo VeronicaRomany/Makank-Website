@@ -59,9 +59,9 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Post> getProfilePosts(int targetUserID, JSONObject preferences) {
+    public List<Post> getProfilePosts(int userID, JSONObject preferences) {
         ViewingPreference v = converter.parseViewingPreference(preferences);
-        return postDAO.getPostsByUser(v,targetUserID);
+        return postDAO.getPostsByUser(v,userID);
     }
 
     @Override

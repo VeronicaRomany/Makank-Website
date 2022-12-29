@@ -11,7 +11,7 @@ public interface PostService {
     void savePost(JSONObject post) throws ParseException;
     List<Post> getHomepagePosts(JSONObject preference) ;
     List<Post> getSavedPosts(int id, JSONObject preference);
-    List<Post> getProfilePosts(int targetUserID, JSONObject preferences);
+    List<Post> getProfilePosts(int userID, JSONObject preferences);
     List<Long> getSavedPostsIDs(int userID);
     void addToSavedPosts(JSONObject entry);
     void removeFromSaved(JSONObject entry);

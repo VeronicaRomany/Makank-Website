@@ -103,3 +103,242 @@ body{
     text-align: center;
   }
 }
+*{
+  margin: auto;padding: 0;box-sizing: border-box;
+
+}
+body{
+  background: #eee;font-family: sans-serif;}
+.flexone{
+  flex: 1;
+}
+
+
+.type{
+  overflow: hidden;
+  font-size: 20px;
+  color: rgb(87, 87, 87);
+}
+
+
+.price{
+  overflow: hidden;
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
+
+
+.groups{
+  margin: 0 auto;width: 780px;padding: 10px;height: auto;
+}
+.groups li{
+  position: relative;list-style: none;background: #fff;border-radius: 5px;
+  box-shadow: 0 3px 4px 0 #0001;overflow: hidden;margin-bottom: 30px;transition: all 0.3s;
+}
+.groups li:hover{
+  transform: scale(1.04);box-shadow: 0 4px 14px 0 #0005;
+}
+.groups .card{overflow: hidden;display: block;}
+.groups .image-session{float: left;overflow: hidden;margin-right: 20px;}
+.groups .image-session .image{width: 280px;height: 220px;display: block;background-size: contain;
+  background-position: center;}
+.groups .meta-sission{position: relative;padding: 15px;display: block;height: 220px;}
+.groups .meta-sission .head{display: flex;margin-bottom: 10px;}
+.groups .meta-sission .head .catogry{list-style: none;text-decoration: none;font-size: 14px;
+  font-weight: 600;color: #0075ff;
+}
+.meta-sission .head .per span,
+.meta-sission .head .per input{
+  display: block;
+  font-size: 10px;
+  text-align: right;
+}
+.meta-sission .head .per input{
+
+  height: 5px;
+  border-radius: 5px;
+  background: #0001;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+.meta-sission .head .per input::-webkit-slider-thumb{
+
+  width: 0;
+  box-shadow: -100px 0 0 100px #0075ff;
+}
+.groups .body .title{
+  height: 60px;
+  overflow: hidden;
+  font-size: 24px;
+}
+.groups .body .desc{
+  height: 45px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+.groups .footer .button{
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+  background: #0075ff;color: #fff;
+  line-height: 2.2;
+  padding: 0 20px;
+  border-radius: 50px
+;text-decoration: none;
+  box-shadow: 0 1px 6px 0 #0004;
+  transition: all 0.3s;
+}
+.groups .footer .button:hover{
+  box-shadow: 0 3px 8px 0 #0005;
+  background: #063a78;
+  right: 15px;
+}
+.groups .footer .views{
+  display: block;
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+@media screen and (max-width:780px){.groups{    width: 96%;}
+  .groups li:hover{    transform: none;    box-shadow: none;}
+}
+@media screen and (max-width:560px){.groups .image-session{    float: none;    margin-right: 0;}
+  .groups .image-session .image{width: 100%;}
+}
+
+
+
+.container1{
+
+  top: 14;
+  left: 0;
+  position:absolute;
+  width:100%;
+  margin-right: 0;
+}
+
+.savedButton{
+
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin-top: 1rem;
+  margin-left: 9rem;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 8%;
+}
+
+.savedButton:disabled {
+  cursor: default;
+}
+
+.savedButton:focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+.container2{
+  width: 95%;
+
+}
+
+.option{
+
+  background-color: rgb(247, 210, 146);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self:center;
+  width: 90%;
+  margin-top: 6rem;
+  margin-left: 4rem;
+  position: relative;
+
+  left:50%;
+  transform: translate(-50%,-50%);
+  border: 5px rgb(249, 197, 107) solid;
+  border-radius: 20px;
+
+}
+.option2{
+  background-color: rgb(247, 210, 146);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self:center;
+  width: 21%;
+  margin-left: 9rem;
+
+  position: relative;
+
+
+  transform: translateY(-50%);
+  border: 5px rgb(249, 197, 107) solid;
+  border-radius: 20px;
+}
+select{
+  padding: 10px 10px 10px;
+  border-radius: 15px;
+  margin: 1rem;
+}
+
+
+html{
+  width: 100vw;
+}
+
+.price{
+  display: block;
+
+
+}
+
+.checkbox{
+
+  display:block;
+
+}
+.search-btn{
+  display: block;
+  text-align: left;
+  margin-right: 2rem;
+}
+#p1::before{
+  content: "Price range";
+}
+
+#a1::before{
+  content: "Area range";
+}
+input{
+  width: 90px;
+}
+.search{
+  width: 640px;
+  padding: .5rem;
+  margin-left: 16px ;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.t{
+  color: rgb(160, 33, 33);
+}

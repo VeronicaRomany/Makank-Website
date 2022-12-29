@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
 
-
 import { Post } from '../../shared/post';
 import { Property, Villa } from '../../shared/property';
 import { ViewingPreference } from '../../shared/viewingPreference';
@@ -18,22 +17,23 @@ import { PropertiesService } from '../services/properties.service';
 })
 export class PropertiesComponent implements OnInit {
   posts:Post[] = []
-  serv: PropertiesService 
+  serv: PropertiesService
   preference:ViewingPreference=new ViewingPreference()
-  
-  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService) { 
+
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService) {
     this.serv= service
-  
+
   }
 
   ngOnInit(): void {
+
     // let p = this.getDummyPost()
     // let p2= this.getDummyPost()
     // this.posts.push(p)
     // this.posts.push(p2)
     // console.log(this.posts)
     this.sendPostsRequests()
-     
+
   }
 
   sendPostsRequests(){
@@ -43,7 +43,7 @@ export class PropertiesComponent implements OnInit {
           this.posts=results
         // Globals.setPosts(results)
       } );
-   
+
   }
   getSavedPost(){
     let userID = this.token.getUser().userId;
@@ -57,7 +57,7 @@ export class PropertiesComponent implements OnInit {
 //     let p = new Post()
 //     let v = new Villa()
 //     v.hasGarden=false
-//     v.hasPool=true 
+//     v.hasPool=true
 //     v.numberOfLevels=3
 //     p.property=v
 //     p.postID=5
@@ -80,7 +80,7 @@ export class PropertiesComponent implements OnInit {
 //   //}
 
   goTonewPost():void{
-    
+
     this.router.navigate([ '/','NewPost'])
   }
   getInfo(){
@@ -104,7 +104,7 @@ export class PropertiesComponent implements OnInit {
       minPrice.value = maxPrice.value
       maxPrice.value = temp
     }
-  
+
     if(Number(minArea.value)>Number(maxArea.value)){
       console.log("Areaaaa++++++")
       var temp = minArea.value
@@ -129,7 +129,7 @@ export class PropertiesComponent implements OnInit {
     this.preference.filterPreference.maxArea=Number(maxArea.value)==0? -1:Number(maxArea.value)
     this.preference.filterPreference.withPictures=withPictures.checked
     this.preference.filterPreference.studentHousing=studentHousing.checked
-    this.preference.sorted=sortingCriteria.value=="Sort by"? false:true 
+    this.preference.sorted=sortingCriteria.value=="Sort by"? false:true
     this.preference.sortingPreference.sortingCriteria=sortingCriteria.value
     this.preference.sortingPreference.ascending=order.value=="ascending"? true: false
     //this.searchData.filterDetails.infoSearchWord=textSearch.value
@@ -143,17 +143,17 @@ export class PropertiesComponent implements OnInit {
    // this.searchData.filterDetails.maxArea =Number(maxArea.value)
    // this.searchData.filterDetails.withPictures= withPictures.checked
     //this.searchData.filterDetails.studentHousing=studentHousing.checked
-    //this.searchData.sorted = sortingCriteria.value=="Sort by"? false:true 
+    //this.searchData.sorted = sortingCriteria.value=="Sort by"? false:true
     //this.searchData.sortingDetails.sortingCriteria= sortingCriteria.value
     //this.searchData.sortingDetails.ascending= order.value=="ascending"? true: false
    // var body =JSON.stringify(this.searchData)
     //console.log( body)
-   
+
   //  this.http.post(this.url,body).subscribe((data:any)=>{
   //   console.log(data)
   //  })
-     
-  
+
+
 
     console.log(this.preference)
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
@@ -161,11 +161,11 @@ export class PropertiesComponent implements OnInit {
           this.posts=results
         // Globals.setPosts(results)
       } );
-   
-  
+
+
    }
    getSavedPosts(){
-    
+
 
    }
 

@@ -63,8 +63,8 @@ public class PostDAO {
     }
 
 
-    public List<Post> getPostsByUser(ViewingPreference preference, int id){
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,id);
+    public List<Post> getPostsByUser(ViewingPreference preference, int userID){
+        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,userID);
         Specification<Post> sps = pb.build();
         if(sps==null)
             return postRepo.findAll();
