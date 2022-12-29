@@ -26,7 +26,8 @@ export class ProfileComponent implements OnInit {
       console.log("ii")
     }
     this.profile.getUserInfo(this.userID).subscribe(result=>{this.currentUserInfo=result
-    console.log(result)})
+    console.log(result)
+    this.profile.setUser(result)})
     // this.profile.getUserPhone(this.userID).subscribe(res=>{this.pho=res})
     // this.currentUserInfo.phone=this.pho
     // console.log(this.pho)

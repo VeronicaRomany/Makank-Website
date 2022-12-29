@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -8,28 +8,26 @@ import {  ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { DataReturned } from 'src/app/login/services/auth.service.service';
 import { User } from 'src/app/user';
 import { AuthService } from 'src/app/_services/auth.service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
-
-import { RegisterService } from '../service/register.service';
-
-
+import { RegisterService } from '../registration/service/register.service';
+import { ProfileComponent } from '../profile/profile.component';
+import { ProfileService } from '../profile/services/profile.service';
 
 
 export default class Validation {
   static match(controlName: string, checkControlName: string): ValidatorFn {
+    
     return (controls: AbstractControl) => {
-      const control = controls.get(controlName);
+      
       const checkControl = controls.get(checkControlName);
 
       if (checkControl?.errors && !checkControl.errors['matching']) {
         return null;
       }
-
-      if (control?.value !== checkControl?.value) {
+      if (controlName !== checkControl?.value) {
         controls.get(checkControlName)?.setErrors({ matching: true });
         return { matching: true };
       } else {
@@ -38,20 +36,19 @@ export default class Validation {
     };
   }
 }
-
-
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
+
   form: FormGroup = new FormGroup({
     fullname: new FormControl(''),
     username: new FormControl(''),
     email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
+    old_password: new FormControl(''),
+    new_password: new FormControl(''),
     phoneNumber: new FormControl(''),
     description : new FormControl(''),
     address : new FormControl(''),
@@ -83,14 +80,24 @@ export class RegisterComponent implements OnInit {
   }
 
   newAccount:User= new User()
+  user:User=new User()
+  currentUserInfo=this.profile.getUser()
+
+  
   
   
   
 
   constructor(private formBuilder: FormBuilder, private http:HttpClient,private readonly registerservice: RegisterService,
-    private authService: AuthService, private tokenStorage: TokenStorageService,private router:Router) {}
+    private profile: ProfileService, private authService: AuthService, private tokenStorage: TokenStorageService,
+    private router:Router) {}
 
   ngOnInit(): void {
+   
+  
+
+   
+    
     this.form = this.formBuilder.group(
       {
         fullname: ['', Validators.required],
@@ -101,25 +108,37 @@ export class RegisterComponent implements OnInit {
           ]
         ],
         email: ['', [ Validators.email]],
-        password: [
+        old_password: [
           '',
           [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(40)
+            Validators.required
           ]
         ],
-        confirmPassword: ['', Validators.required],
+        new_password: ['',
+        [Validators.minLength(6),
+        Validators.maxLength(40)]
+      ],
         phoneNumber: ['',[Validators.required,Validators.minLength(9),Validators.maxLength(11)]],
         description : ['',''],
         address : ['',''],
         profilePicture :['','']
 
       },
+      
       {
-        validators: [Validation.match('password', 'confirmPassword')]
+        validators: [Validation.match(this.currentUserInfo.password, 'old_password')]
       }
     );
+    console.log(this.currentUserInfo);
+    console.log(this.currentUserInfo.password);
+    this.f['username'].setValue(this.currentUserInfo.username);
+
+    this.f['fullname'].setValue(this.currentUserInfo.name);
+    this.f['phoneNumber'].setValue(this.currentUserInfo.phone);
+    this.f['description'].setValue(this.currentUserInfo.description);
+    this.f['address'].setValue(this.currentUserInfo.address);
+    this.f['email'].setValue(this.currentUserInfo.email);
+    this.f['profilePicture'].setValue(this.currentUserInfo.profilePicLink);
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -127,6 +146,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -137,42 +157,32 @@ export class RegisterComponent implements OnInit {
     console.log(jsonString);
    
     this.f['profilePicture'].setValue (this.urllink)
-  
+    
+    console.log(this.f['fullname'].value,"fn")
     this.newAccount.name = this.f['fullname'].value
-    this.newAccount.password=this.f['password'].value
+    console.log(this.f['new_password'].value,"new_password")
+    if(this.f['new_password'].value!='')
+       this.newAccount.password=this.f['new_password'].value
+    else
+       this.newAccount.password=this.f['old_password'].value
     this.newAccount.username = this.f['username'].value
     this.newAccount.phone_numbers[0] = this.f['phoneNumber'].value
     this.newAccount.email = this.f['email'].value
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
     this.newAccount.profile_pic_link =this.f['profilePicture'].value
+    
 
    
     var NewAccountJsonString = JSON.stringify(this.newAccount)
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    this.http.post<DataReturned>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((dataReturned) =>{
-      let data=dataReturned.id  
-      let token=dataReturned.token
-      if(data>0)
-      console.log("ana 3mlt register")
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.tokenStorage.getUser().token)
+    this.http.post<boolean>("http://localhost:8080/users/profile/edit",JSON.parse(NewAccountJsonString),{headers: headers}).subscribe((data:boolean) =>{
+      if(data)
+      prompt("Your edit saved")
       console.log(data);
-      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((userID: number)=> {
-        console.log("ana 3mlt login")
-        console.log(userID)
-        if(userID > 0){
-          console.log("successfully login")
-          console.log(userID)
-          this.tokenStorage.saveToken(this.newAccount.username);
-          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID,"token":token});
-          console.log(this.tokenStorage.getUser())
-          Globals.setUserID(userID)
-          this.router.navigate(['/', 'Home'])
-        }
-      
-    },);
-
   },);
 }
 
@@ -180,12 +190,7 @@ export class RegisterComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
   }
-
-
-
   
-
-
   SelectFile(event:any){
     this.file = event.target.files[0];
 
@@ -209,8 +214,5 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
-    
-
-
 
 }
