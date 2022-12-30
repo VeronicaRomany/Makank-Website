@@ -9,8 +9,9 @@ import { Post } from '../../shared/post';
 import { Property, Villa } from '../../shared/property';
 import { ViewingPreference } from '../../shared/viewingPreference';
 
-import { PropertiesService } from '../services/properties.service';
+
 import { LargeViewComponent } from 'src/app/large-view/large-view.component';
+import { PropertiesService } from '../services/properties.service';
 @Component({
   selector: 'app-properties',
   templateUrl: './properties.component.html',

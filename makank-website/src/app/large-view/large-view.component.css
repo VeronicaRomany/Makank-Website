@@ -221,3 +221,16 @@ h3{
     border: none;
     background-color: transparent;
   }
+.changeBtn{
+    height: 100%;
+    width: 400px;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+.next{
+   font-size: 100px;
+}
+.previous{
+    font-size: 100px;
+ }

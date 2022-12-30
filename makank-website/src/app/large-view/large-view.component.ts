@@ -15,23 +15,56 @@ export class LargeViewComponent implements OnInit {
    }
  
   
+   images:string[]=[]
+   counter:number=0
   ngOnInit(): void {
    console.log ( this.data.postId );
    //this.getDummyData();
    this.getLargePost(this.data.postId);
    console.log("tb eeeeh");
    
+   
    console.log(this.largePost);
    
 
   }
+changePic(){
+  if(this.images.length>1){
+ this.counter=(this.counter+1)%this.images.length;
+var  image =document.getElementById('image1') as HTMLImageElement;
+image.setAttribute("src",this.images[this.counter]);
 
-  async getLargePost(postId:number){
-   await this.serv.getLargePost(postId).subscribe(results=>{
-     console.log(results);
+console.log("chaaaange");
+  }
+
+}
+firstPic(){
+  return this.counter==0
+}
+lastPic(){
+  if(this.counter==this.images.length-1){
+    return true
+  }
+  else{return false}
+}
+noPictures(){
+  if(this.images[0]==null){
+    console.log("mafiiish");
+    
+    return true;
+
+  }
+  console.log("feeeeeeh");
+  
+  return false
+}
+   getLargePost(postId:number){
+   this.serv.getLargePost(postId).subscribe(results=>{
+     console.log(results.area);
       this.largePost= results
       console.log("reeeq");
-      
+      this.images=this.largePost.pictures
+      console.log(this.largePost.pictures[0]);
      console.log(this.largePost);
      
       
