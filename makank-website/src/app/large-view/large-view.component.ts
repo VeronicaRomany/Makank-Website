@@ -9,20 +9,32 @@ import { PostLargeView } from './postLargeView';
 })
 export class LargeViewComponent implements OnInit {
   serv:LargeViewService
+  largePost:PostLargeView= new PostLargeView()
   constructor(@Inject(MAT_DIALOG_DATA) public data:{postId:number ,type:string},private service:LargeViewService) {
     this.serv =this.service
    }
-  largePost= new PostLargeView();
+ 
   
   ngOnInit(): void {
    console.log ( this.data.postId );
-   this.getDummyData();
-     // this.getLargePost(this.data.postId);
+   //this.getDummyData();
+   this.getLargePost(this.data.postId);
+   console.log("tb eeeeh");
+   
+   console.log(this.largePost);
+   
+
   }
 
-   getLargePost(postId:number){
-    this.serv.getLargePost(postId).subscribe(results=>{
-      this.largePost=results
+  async getLargePost(postId:number){
+   await this.serv.getLargePost(postId).subscribe(results=>{
+     console.log(results);
+      this.largePost= results
+      console.log("reeeq");
+      
+     console.log(this.largePost);
+     
+      
     })
 
    }

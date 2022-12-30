@@ -72,8 +72,8 @@ public class PostController {
     @DeleteMapping("/delete/{postID}")
     public boolean deletePost(@RequestHeader("Authorization") String bearerToken,
                               @PathVariable int postID) throws Exception {
-        int idJson = (int) postService.getPostDetails(postID).get("sellerID");
-        if (!securityGuard.verifyJWTtoken(idJson, bearerToken))
+        long idJson = (long) postService.getProperty(postID).get("sellerID");
+        if (!securityGuard.verifyJWTtoken((int)idJson, bearerToken))
             throw new Exception("error");
 
         postService.deletePost(postID);
