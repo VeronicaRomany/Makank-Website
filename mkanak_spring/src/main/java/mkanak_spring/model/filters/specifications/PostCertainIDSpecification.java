@@ -21,6 +21,6 @@ public class PostCertainIDSpecification implements Specification<Post> {
 
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        return criteriaBuilder.equal(root.get("propertyID"),sellerID);
+        return criteriaBuilder.equal(root.get("sellerID"),sellerID);
     }
 }
