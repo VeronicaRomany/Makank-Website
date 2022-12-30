@@ -139,6 +139,7 @@ export class EditProfileComponent implements OnInit {
     this.f['address'].setValue(this.currentUserInfo.address);
     this.f['email'].setValue(this.currentUserInfo.email);
     this.f['profilePicture'].setValue(this.currentUserInfo.profilePicLink);
+    this.urllink=this.currentUserInfo.profilePicLink
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -183,6 +184,7 @@ export class EditProfileComponent implements OnInit {
       if(data)
       alert("Your edit saved")
       console.log(data);
+      this.router.navigate(['/', 'Profile'])
   },);
 }
 

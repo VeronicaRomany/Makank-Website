@@ -1,8 +1,6 @@
 package mkanak_spring.model.services;
 
-
 import mkanak_spring.model.entities.*;
-
 import mkanak_spring.model.filters.PostSpecificationBuilder;
 import mkanak_spring.model.preferences.ViewingPreference;
 import mkanak_spring.model.repositories.*;
@@ -10,20 +8,25 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import mkanak_spring.model.*;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
 public class PostServiceImpl implements PostService{
-
-
     @Autowired
     ApartmentRepo apartmentRepo;
     @Autowired
@@ -36,29 +39,29 @@ public class PostServiceImpl implements PostService{
     SavedPostsRepo savedPostsRepo;
     @Autowired
     JsonToObject converter;
+    @Autowired
+    PropertyRepo propertyRepo;
 
     @Override
-    public void createPost(JSONObject post) throws ParseException {
-        JsonToObject converter = new JsonToObject();
-        System.out.println("Type: " + post.get("type"));
+    public void savePost(Long propertyID, JSONObject post) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(post.toString());
         JSONArray pictures = (JSONArray) object.get("pictures");
         if(post.get("type").toString().compareTo("villa") == 0) {
-            Villa property = new Villa();
-            property = converter.buildVilla(post);
+            Villa property = converter.buildVilla(post);
             property.setHasPictures(pictures.size() != 0);
+            property.setPropertyID(propertyID);
             this.saveVilla(property);
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
-            this.saveAllPictures(pictureList);
+            this.savePropertyPictures(pictureList);
         }
         else {
-            Apartment property = new Apartment();
-            property = converter.buildApartment(post);
+            Apartment property = converter.buildApartment(post);
             property.setHasPictures(pictures.size() != 0);
+            property.setPropertyID(propertyID);
             this.saveApartment(property);
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
-            this.saveAllPictures(pictureList);
+            this.savePropertyPictures(pictureList);
         }
     }
 
@@ -87,8 +90,6 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void addToSavedPosts(JSONObject saveEntry) {
-
-
         int userID = (int) saveEntry.get("userID");
         int postID = (int) saveEntry.get("postID");
         this.addToSavedPosts(userID,postID);
@@ -102,13 +103,38 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public void deletePost(JSONObject details) {
-        //TODO
+    public void deletePost(long postID) {
+        propertyRepo.deleteById(postID);
     }
 
     @Override
-    public void editPost(JSONObject post) {
-        //TODO
+    public void editPost(JSONObject post) throws ParseException {
+        Long postID = ((Number) post.get("postID")).longValue();
+        System.out.println("id: " + postID);
+        propertyPictureRepo.deletePicturesById(postID);
+        if(post.get("type").toString().compareTo((String) this.getProperty(postID).get("type")) != 0) {
+            Property property = new Property();
+            converter.buildPost(property, post);
+            List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, postID);
+            property.setPropertyID(postID);
+            property.setHasPictures(pictureList.size() != 0);
+            System.out.println("aaa: " + property.getPropertyID());
+            propertyRepo.updateProperty(property.getPropertyID(), property.getRoomNumber(), property.getBathroomNumber(),
+                    property.getPrice(), property.getCity(), property.getAddress(), property.getArea(), property.isRent(),
+                    property.getInfo(), property.getType(), property.getHasPictures());
+            propertyPictureRepo.saveAll(pictureList);
+            if(post.get("type").toString().compareTo("villa") != 0) {
+                villaRepo.deleteVilla(postID);
+                apartmentRepo.insertApartment(postID, (boolean)post.get("elevator"),
+                        (int)post.get("level"), (boolean) post.get("studentHousing"));
+            }
+            else {
+                apartmentRepo.deleteApartment(postID);
+                villaRepo.insertVilla(postID, (boolean)post.get("hasGarden"),
+                        (int)post.get("level"), (boolean) post.get("hasPool"));
+            }
+        }
+        else this.savePost(postID, post);
     }
 
     @Override
@@ -116,43 +142,28 @@ public class PostServiceImpl implements PostService{
         return postRepo.getPostLargeView(postID);
     }
 
+    @Override
+    public JSONObject getProperty(long propertyID) throws ParseException {
+        Gson gson = new Gson();
+        String property = gson.toJson(propertyRepo.findById(propertyID).orElse(null));
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(property);
 
-    private Property getDummyPost(){
-        Apartment x = new Apartment();
-        x.setSellerID(5);
-        x.setAddress("22nd 45street");
-        String[] pics = new String[5];
-        pics[0] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYI7wP8BBfh928fLg3Ui5Slj7ROZW_zc3rag&usqp=CAU";
-        x.setHasPictures(true);
-        x.setArea(250);
-        x.setInfo("for sale owner is moving to Banha");
-        x.setType("villa");
-        x.setRoomNumber(3);
-        x.setBathroomNumber(4);
-        x.setCity("Alexandria, Egypt");
-        x.setRent(false);
-        x.setElevator(true);
-        return x;
+        json.put("pictures", this.getPropertyPictures(propertyID));
+        return json;
     }
-
-
-
-
-
-
-    public void saveApartment(Apartment property) {
-        apartmentRepo.save(property);
+    private void saveVilla(Villa villa) {
+        villaRepo.save(villa);
     }
-
-    public void saveVilla(Villa property) {
-        villaRepo.save(property);
+    private void saveApartment(Apartment apartment) {
+        apartmentRepo.save(apartment);
     }
-
-    public void saveAllPictures(List<PropertyPicture> propertyPictureList) {
-        propertyPictureRepo.saveAll(propertyPictureList);
+    private void savePropertyPictures(List<PropertyPicture> pictureList) {
+        propertyPictureRepo.saveAll(pictureList);
     }
-
-
+    private List<String> getPropertyPictures(long propertyID) {
+        return propertyPictureRepo.getPropertyPictures(propertyID);
+    }
 
     public List<Post> getAllPosts(ViewingPreference preference, int pageNum, int pageSize) {
         PostSpecificationBuilder pb;
@@ -216,6 +227,4 @@ public class PostServiceImpl implements PostService{
     public List<Long> getSavedPostsIDs(long id){
         return savedPostsRepo.getUserSavedPostsIDs(id);
     }
-
-
 }

@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
         return userRepo.findUserInfoByUseId(userID);
     }
 
-
     public void saveUser(User user) {
         userRepo.save(user);
     }
@@ -76,8 +75,4 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 }
-//    @Override
-//    public String findUserPhoneByUseId(long userID) {
-//        return userDAO.findUserPhoneByUseId(userID);
-//    }
 

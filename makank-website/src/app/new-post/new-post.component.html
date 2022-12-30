@@ -99,11 +99,31 @@
           <select class="ThirdLine1" formControlName="city" id="city"    [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
               <option value="cairo">Cairo</option>
               <option value="alex">Alexandria</option>
+              <option value="gizeh">Gizeh</option>
+              <option value="shubraelkheima">Shubra El-Kheima</option>
+              <option value="portSaid">Port Said</option>
+              <option value="suez">Suez</option>
+              <option value="luxor">Luxor</option>
+              <option value="elmansura">Al-Mansura</option>
+              <option value="ma7la">El-Mahalla El-Kubra</option>
               <option value="tanta">Tanta</option>
               <option value="asuit">Asuit</option>
-              <option value="sohag">Sohag</option>
-              <option value="luxor">Luxor</option>
+              <option value="esmaillia">Ismaillia</option>
+              <option value="fayum">Fayyum</option> 
+              <option value="zagazig">Zagazig</option> 
               <option value="aswan">Aswan</option>
+              <option value="damietta">Damietta</option>
+              <option value="damanhur">Damanhur</option>
+              <option value="elmenya">Al-Minya</option>
+              <option value="beniSuef">Beni Suef</option>
+              <option value="qena">Qena</option> 
+              <option value="sohag">Sohag</option>
+              <option value="hurghada">Hurghada</option>
+              <option value="marsaMatrouh">Marsa Matruh</option> 
+              <option value="redSea">Red Sea</option>
+              <option value="southSinai">South Sinai</option>
+              <option value="northSinai">North Sinai</option>
+              <option value="newVillage">New Village</option>
           </select>
           <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
               <div style="margin-left:50px ;" *ngIf="f['city'].errors['required']">required</div>
