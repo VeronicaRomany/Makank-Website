@@ -179,8 +179,8 @@
 
       </ul>
       <div>
-        <button type="button" *ngIf=!checkPrevious() (click)="previousPage()">previous</button>
-        <button type="button" (click)="nextPage()">Next</button>
+        <button href="#" class="previous" *ngIf=!checkPrevious() (click)="previousPage()">&laquo; Previous</button>
+        <button href="#" class="next" (click)="nextPage()">Next &raquo;</button>
       </div>
     </div>
   </div>
