@@ -1,4 +1,7 @@
 package mkanak_spring.model.services;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import mkanak_spring.model.*;
 import mkanak_spring.model.dao.PostDAO;
 import mkanak_spring.model.entities.*;
@@ -96,7 +99,7 @@ public class PostServiceImpl implements PostService{
         Long postID = ((Number) post.get("postID")).longValue();
         System.out.println("id: " + postID);
         propertyPictureRepo.deletePicturesById(postID);
-        if(post.get("type").toString().compareTo(this.getProperty(postID).get().getType()) != 0) {
+        if(post.get("type").toString().compareTo((String) this.getProperty(postID).get("type")) != 0) {
             Property property = new Property();
             converter.buildPost(property, post);
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, postID);
@@ -127,8 +130,14 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Optional<Property> getProperty(long propertyID) {
-        return propertyRepo.findById(propertyID);
+    public JSONObject getProperty(long propertyID) throws ParseException {
+        Gson gson = new Gson();
+        String property = gson.toJson(propertyRepo.findById(propertyID).orElse(null));
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(property);
+
+        json.put("pictures", this.getPropertyPictures(propertyID));
+        return json;
     }
     private void saveVilla(Villa villa) {
         villaRepo.save(villa);
@@ -138,5 +147,8 @@ public class PostServiceImpl implements PostService{
     }
     private void savePropertyPictures(List<PropertyPicture> pictureList) {
         propertyPictureRepo.saveAll(pictureList);
+    }
+    private List<String> getPropertyPictures(long propertyID) {
+        return propertyPictureRepo.getPropertyPictures(propertyID);
     }
 }

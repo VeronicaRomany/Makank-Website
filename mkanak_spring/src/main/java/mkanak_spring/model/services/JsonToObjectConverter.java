@@ -71,5 +71,4 @@ public class JsonToObjectConverter {
         }
         return pictureList;
     }
-
 }

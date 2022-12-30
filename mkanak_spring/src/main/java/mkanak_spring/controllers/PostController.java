@@ -46,20 +46,24 @@ public class PostController {
 
     //   ################ Manipulation posts ########################
     @PostMapping("/new")
-    public void addPost(@RequestBody JSONObject postDetails) throws ParseException {
+    public void addPost(@RequestHeader("Authorization") String bearerToken,
+                        @RequestBody JSONObject postDetails) throws Exception {
         System.out.println("details: " + postDetails);
         postService.savePost(null, postDetails);
     }
 
     @PutMapping("/edit")
-    public void editPost(/*@RequestParam int userID,*/
-                            @RequestBody JSONObject post)
+    public void editPost(@RequestHeader("Authorization") String bearerToken,
+                         @RequestBody JSONObject post)
             throws ParseException {
         postService.editPost(post);
     }
 
     @DeleteMapping("/delete/{postID}")
-    public void deletePost(@PathVariable long postID) throws ParseException {
+    public void deletePost(@RequestHeader("Authorization") String bearerToken,
+                           @PathVariable int postID) throws Exception {
+        int idJson = (int) postService.getPostDetails(postID).get("seller_id");
+
         postService.deletePost(postID);
     }
 
@@ -103,7 +107,7 @@ public class PostController {
 
     // 8yary el endpoint
     @GetMapping("/info/{propertyID}")
-    public Optional<Property> getProperty(@PathVariable int propertyID){
+    public JSONObject getProperty(@PathVariable int propertyID) throws ParseException {
         return postService.getProperty(propertyID);
     }
 

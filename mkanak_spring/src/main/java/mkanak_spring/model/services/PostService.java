@@ -19,5 +19,5 @@ public interface PostService {
     void deletePost(long postID);
     void editPost(JSONObject post) throws ParseException;
     JSONObject getPostDetails(long postID);
-    Optional<Property> getProperty(long propertyID);
+    JSONObject getProperty(long propertyID) throws ParseException;
 }
