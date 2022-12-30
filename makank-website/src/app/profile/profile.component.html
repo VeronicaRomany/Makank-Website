@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="left">
-      <img src="https://i.imgur.com/cMy8V5j.png" alt="user" width="200" height="200">
+      <img src="{{ currentUserInfo.profilePicLink}}" alt="user" width="200" height="200">
       <h2>{{ currentUserInfo.name }}</h2>
        <h3>{{ currentUserInfo.username }}</h3>
   </div>
@@ -35,13 +35,13 @@
     
       <div class="social_media">
           <ul>
-            <li><a style="font-size: small;" routerLink="/Edit" >edit</a></li>
-
+           
         </ul>
     </div>
   </div>
 </div>
-
+<button mat-raised-button style="background-color: rgb(61, 210, 160);   margin-left: 1150px;
+margin-top: 35px; padding: 3px 3px;" (click)="editProfile();">Edit</button>
 
 
 
