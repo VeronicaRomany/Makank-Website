@@ -126,7 +126,7 @@ export class EditProfileComponent implements OnInit {
       },
       
       {
-        validators: [Validation.match(this.currentUserInfo.password, 'old_password')]
+        validators: [Validation.match(this.tokenStorage.getUser().password, 'old_password')]
       }
     );
     console.log(this.currentUserInfo);
@@ -179,9 +179,9 @@ export class EditProfileComponent implements OnInit {
     this.urllink=""
 
     var headers=new HttpHeaders().append("Authorization","Bearer "+this.tokenStorage.getUser().token)
-    this.http.post<boolean>("http://localhost:8080/users/profile/edit",JSON.parse(NewAccountJsonString),{headers: headers}).subscribe((data:boolean) =>{
+    this.http.post<boolean>("http://localhost:8080/users/profile/edit/"+this.tokenStorage.getUser().userId,JSON.parse(NewAccountJsonString),{headers: headers}).subscribe((data:boolean) =>{
       if(data)
-      prompt("Your edit saved")
+      alert("Your edit saved")
       console.log(data);
   },);
 }

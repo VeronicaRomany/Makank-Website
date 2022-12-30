@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/mkanak_spring/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/makank-website/dist" />
       <excludeFolder url="file://$MODULE_DIR$/makank-website/tmp" />
     </content>

@@ -155,19 +155,22 @@ export class RegisterComponent implements OnInit {
     this.http.post<DataReturned>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((dataReturned) =>{
       let data=dataReturned.id  
       let token=dataReturned.token
+      console.log(dataReturned,data,token)
       if(data>0)
       console.log("ana 3mlt register")
       console.log(data);
-      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((userID: number)=> {
+      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((user)=> {
         console.log("ana 3mlt login")
-        console.log(userID)
-        if(userID > 0){
+        console.log(user)
+        let data=dataReturned.id  
+        let token=dataReturned.token
+        if(data > 0){
           console.log("successfully login")
-          console.log(userID)
+          console.log(data)
           this.tokenStorage.saveToken(this.newAccount.username);
-          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID,"token":token});
+          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":data,"token":token});
           console.log(this.tokenStorage.getUser())
-          Globals.setUserID(userID)
+          Globals.setUserID(data)
           this.router.navigate(['/', 'Home'])
         }
       

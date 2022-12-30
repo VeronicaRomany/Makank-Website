@@ -45,6 +45,25 @@ public class JsonToObject {
         return userInstance;
     }
 
+    public User getUserFromJson(JSONObject userObject,int userId) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject object = (JSONObject) parser.parse(userObject.toString());
+
+        Long id = (long) userId;
+        User userInstance = new User();
+        userInstance.setUserID(id);
+        userInstance.setAddress((String) object.get("address"));
+        userInstance.setUsername((String) object.get("username"));
+        userInstance.setName((String) object.get("name"));
+        userInstance.setDescription((String) object.get("description"));
+        userInstance.setPassword((String) object.get("password"));
+        userInstance.setEmail((String) object.get("email"));
+        userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
+        userInstance.setPhoneNumber((String) object.get("phone_number"));
+
+        return userInstance;
+    }
+
 //    public List<PhoneNumber> addPhoneNumbers(User userInstance, JSONObject user) throws ParseException {
 //        JSONParser parser = new JSONParser();
 //        JSONObject object = (JSONObject) parser.parse(user.toString());

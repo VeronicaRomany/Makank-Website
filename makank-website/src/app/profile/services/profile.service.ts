@@ -10,9 +10,11 @@ export class ProfileService {
 
   currentUserInfo:User = new User
   constructor(private http:HttpClient) { }
-  userURL:string = "http://localhost:8080/user"
+  userURL:string = "http://localhost:8080/users"
 
+  
   getUserInfo(userID: number | undefined):Observable<User>{
+    
     console.log(userID)
     return this.http.get<User>(this.userURL+"/profile/"+userID)
   }
@@ -20,6 +22,7 @@ export class ProfileService {
     this.currentUserInfo=user
   }
   getUser(){
+    console.log(this.currentUserInfo)
     return this.currentUserInfo
   }
   // getUserPhone(userIdPhone: number | undefined):Observable<string>{

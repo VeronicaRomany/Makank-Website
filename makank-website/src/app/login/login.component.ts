@@ -10,6 +10,7 @@ import { Globals } from 'src/globals';
   styleUrls: ['./login.component.css'],
   providers: [ Globals ],
 })
+
 export class LoginComponent implements OnInit {
   form: any = {
     username: null,
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
+      console.log("Has token")
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;
     }
@@ -61,6 +63,7 @@ export class LoginComponent implements OnInit {
         }
       },
   );
+  this.reloadPage
   }
 
   reloadPage(): void {
