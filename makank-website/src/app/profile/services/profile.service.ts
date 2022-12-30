@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { User } from 'src/app/shared/user';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import {Post} from "../../shared/post";
 import {ViewingPreference} from "../../shared/viewingPreference";
 
@@ -11,7 +12,7 @@ import {ViewingPreference} from "../../shared/viewingPreference";
 export class ProfileService {
 
   currentUserInfo:User = new User
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private token: TokenStorageService) { }
   userURL:string = "http://localhost:8080/users"
   postsURL:string = "http://localhost:8080/posts"
 
@@ -42,6 +43,14 @@ export class ProfileService {
     queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
     return this.http.get<Post[]>(this.postsURL+"/profile/"+targetUserID.toString(),{params:queryParams})
   }
+  getPostsOfTheUserCounter(preferenceIn:ViewingPreference,targetUserID: number,pageNum:number):Observable<number>{
+    console.log(targetUserID)
+    console.log(preferenceIn)
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    
+    return this.http.get<number>(this.postsURL+"/profile/"+targetUserID.toString()+"/count",{params:queryParams})
+  }
   getSavedPosts(iD:number,preferenceIn:ViewingPreference,pageNum:number):Observable<Post[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
@@ -50,8 +59,9 @@ export class ProfileService {
     })
   }
   getIds(postId:number):Observable<number[]>{
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
     console.log("user id passed: "+ postId)
-    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString())
+    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString(),{headers:headers})
 
   }
 

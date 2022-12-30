@@ -333,6 +333,7 @@ h3{
 h5{
     margin: 0;
 }
+
 button {
   text-decoration: none;
   display: inline-block;
@@ -344,13 +345,13 @@ button {
 .previous {
   background-color:#e9ae2e;
   color: white;
-  margin-left: 500px;
+  margin-left: 550px;
 }
 
 .next {
   background-color: #e9ae2e;
   color: white;
-  margin-right: 500px;
+  margin-right: 550px;
 }
 
 .round {
@@ -358,11 +359,12 @@ button {
 }
 .paging{
     display: flex;
-    margin-bottom: 40px
+    margin-bottom: 40px ;
+   
 }
 
 .disablednext{
-    background-color: #848484;
+    background-color: #848484 ;
     color: white;
     margin-right: 550px;
 }

@@ -1,34 +1,53 @@
-<div class="container" *ngIf="!notLogIn">
-  <body>
-  <div class="container">
-    <div class="box">
-      <img src={{currentUserInfo.profilePicLink}} alt="user" width="100">
-      <ul>
-        <li>Name</li>
-        {{ currentUserInfo.name }}
-        <li>UserName</li>
-        {{ currentUserInfo.username }}
-      </ul>
-    </div>
-    <div class="About">
-      <ul>
-        <h1>about</h1>
-      </ul>
-      <ul>
-        <h3>Office Address</h3>
-        {{ currentUserInfo.address }}
-      </ul>
-      <ul>
-        <h3>Email Address</h3>
-        {{ currentUserInfo.email }}
-      </ul>
-      <ul>
-        <h3>Phone Number</h3>
-        {{ currentUserInfo.phoneNumber}}
-      </ul>
-      <a routerLink="/Edit"><button class="btn btn-success pull-right" >Edit</button></a>
+<div class="wrapper">
+  <div class="left">
+      <img src="https://i.imgur.com/cMy8V5j.png" alt="user" width="200" height="200">
+      <h2>{{ currentUserInfo.name }}</h2>
+       <h3>{{ currentUserInfo.username }}</h3>
+  </div>
+  <div class="right">
+      <div class="info">
+          <h3>Information</h3>
+          <div class="info_data">
+               <div class="data">
+                  <h4>Email</h4>
+                  <p>{{ currentUserInfo.email }}</p>
+               </div>
+               <div class="data">
+                 <h4>Phone</h4>
+                  <p>{{ currentUserInfo.phoneNumber}}</p>
+            </div>
+          </div>
+      </div>
+    
+    <div class="projects">
+          
+          <div class="projects_data">
+               <div class="data">
+                  <h4>Addres</h4>
+                  <p>{{ currentUserInfo.address }}</p>
+               </div>
+               <div class="data">
+                 <h4>Description</h4>
+                  <p>{{ currentUserInfo.description }}</p>
+            </div>
+          </div>
+      </div>
+    
+      <div class="social_media">
+          <ul>
+            <li><a style="font-size: small;" routerLink="/Edit" >edit</a></li>
+
+        </ul>
     </div>
   </div>
+</div>
+
+
+
+
+ <div class="container" *ngIf="!notLogIn">
+  <body>
+
   <div class="container1">
 
     <div class="container2">
@@ -165,7 +184,7 @@
               </div>
               <div class="footer">
                 <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
-                <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                        <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                 <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
                 <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
                 <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/delete.png" alt="">
@@ -177,11 +196,14 @@
         </li>
 
       </ul>
-      <div>
-        <button href="#" class="previous" *ngIf=!checkPrevious() (click)="previousPage()">&laquo; Previous</button>
-        <button href="#" class="next" (click)="nextPage()">Next &raquo;</button>
-      </div>
+      <div class="paging">
+      <button mat-raised-button class="previous" *ngIf="checkPrevious()" (click)="previousPage()" >&laquo; Previous</button>
+      <button  mat-raised-button class="disabledprevious" *ngIf="!checkPrevious()" >&laquo; Previous</button>
+      <h2 style="color:white" >{{currentPage+1}} / {{maxPagesNum}}</h2>
+      <button mat-raised-button class="next"  *ngIf="checkNext()" (click)="nextPage()" >Next &raquo;</button>
+      <button  mat-raised-button class="disablednext"  *ngIf="!checkNext()"  >Next &raquo;</button>
     </div>
+  </div>
   </div>
   </body>
 </div>

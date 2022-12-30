@@ -55,7 +55,7 @@ public class PostController {
         return postService.getProfilePosts(targetUserID,json,pageNum,pageSize);
     }
 
-    @GetMapping("/{targetUserID}/count")
+    @GetMapping("/profile/{targetUserID}/count")
     public long getProfilePosts(@PathVariable int targetUserID,@RequestParam String preference) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
