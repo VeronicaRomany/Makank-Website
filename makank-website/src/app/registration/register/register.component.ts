@@ -60,6 +60,8 @@ export class RegisterComponent implements OnInit {
   submitted = false;
 
   urllink:string="";
+  phoneLen : boolean = false;
+  phone : String=""
 
   
   file:File={
@@ -97,10 +99,10 @@ export class RegisterComponent implements OnInit {
         username: [
           '',
           [
-            Validators.required
+            Validators.required,Validators.pattern("^[A-Za-z][A-Za-z0-9]*$")
           ]
         ],
-        email: ['', [ Validators.email]],
+        email: ['', [ Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
         password: [
           '',
           [
@@ -128,6 +130,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.phone  = this.f['phoneNumber'].value
+    console.log(this.phone)
+    if(this.phone.length == 10){
+      console.log("e2fsh")
+      this.phoneLen=true;
+      return;
+    }
 
     if (this.form.invalid) {
       return;
@@ -156,8 +165,9 @@ export class RegisterComponent implements OnInit {
       let data=dataReturned.id  
       let token=dataReturned.token
       console.log(dataReturned,data,token)
-      if(data>0)
-      console.log("ana 3mlt register")
+      if(data>0){
+
+        console.log("ana 3mlt register")
       console.log(data);
       this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((user)=> {
         console.log("ana 3mlt login")
@@ -175,12 +185,18 @@ export class RegisterComponent implements OnInit {
         }
       
     },);
+      }else if(data ==-1){
+        console.log("taken user name")
+        window.alert("This username is already taken")
+      
 
-  },);
+  }},);
 }
 
   onReset(): void {
     this.submitted = false;
+    this.urllink="";
+    this.phoneLen=false;
     this.form.reset();
   }
 
