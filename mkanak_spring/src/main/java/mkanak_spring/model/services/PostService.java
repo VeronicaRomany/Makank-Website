@@ -18,6 +18,6 @@ public interface PostService {
     void removeFromSaved(JSONObject entry);
     void deletePost(long postID);
     void editPost(JSONObject post) throws ParseException;
-    JSONObject getPostDetails(long postID);
+    JSONObject getPostDetails(long postID) throws ParseException;
     JSONObject getProperty(long propertyID) throws ParseException;
 }

@@ -1,5 +1,7 @@
 package mkanak_spring.model.services;
 
+import aj.org.objectweb.asm.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import mkanak_spring.model.entities.*;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
 import mkanak_spring.model.preferences.ViewingPreference;
@@ -138,8 +140,12 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public JSONObject getPostDetails(long postID) {
-        return postRepo.getPostLargeView(postID);
+    public JSONObject getPostDetails(long postID) throws ParseException {
+        Gson gson = new Gson();
+        String json = gson.toJson(postRepo.getPostLargeView(postID));
+        JSONParser parser = new JSONParser();
+        JSONObject post = (JSONObject) parser.parse(json);
+        return (JSONObject) post.get("post_large_view");
     }
 
     @Override
