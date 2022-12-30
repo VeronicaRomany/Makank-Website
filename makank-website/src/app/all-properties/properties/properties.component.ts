@@ -20,7 +20,7 @@ import { PropertiesService } from '../services/properties.service';
 })
 export class PropertiesComponent implements OnInit {
   posts:Post[] = []
-  serv: PropertiesService 
+  serv: PropertiesService
   preference:ViewingPreference=new ViewingPreference()
   saved:number[]=[]
   userID:number=0
@@ -28,12 +28,16 @@ export class PropertiesComponent implements OnInit {
   goToEdit:boolean=false
   editedID:number=0
   loggedIn:boolean=false
-  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) { 
+  currentPage:number=0
+  postFlag:boolean=false
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) {
     this.serv= service
-  
+
   }
 
   ngOnInit(): void {
+    this.currentPage=0
+    this.postFlag=false
     // let p = this.getDummyPost()
     // let p2= this.getDummyPost()
     // this.posts.push(p)
@@ -44,21 +48,19 @@ export class PropertiesComponent implements OnInit {
     this.getSavedPostsIds();
   }
     this.sendPostsRequests();
-     
+
   }
 
   sendPostsRequests(){
     this.userID = this.token.getUser().userId;
     console.log(this.preference)
-      this.serv.getPostsHomePage(this.preference).subscribe(results => {
+      this.serv.getPostsHomePage(this.preference,0).subscribe(results => {
           console.log("ana rg3t", results)
           this.posts=results
-        // Globals.setPosts(results)
       } );
-   
   }
   getSavedPostsIds(){
-    
+
     let userID = this.token.getUser().userId;
  this.serv.getIds(userID).subscribe(results =>{
   console.log("idsssss ", results)
@@ -66,8 +68,8 @@ export class PropertiesComponent implements OnInit {
  })
   }
   checkSaved(id:number){
-    
-    
+
+
      for(let i =0 ; i< this.saved.length;i++){
       if(this.saved[i]==id){
         return true;
@@ -88,22 +90,22 @@ export class PropertiesComponent implements OnInit {
           postID:id
         }
         var unsavedPostJsonString = JSON.stringify(ob)
-      
+
         console.log("unsaving post " + unsavedPostJsonString);
         this.http.post("http://localhost:8080/posts/unsavePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
-       
-        
+
+
       }
       else{
         btn!.style.color = "orange";
-        
+
         var ob={
           userID:userID ,
           postID:id
         }
         var savedPostJsonString = JSON.stringify(ob)
         console.log("saving post " + savedPostJsonString);
-        
+
         this.http.post("http://localhost:8080/posts/savePost",ob,{responseType:'text'}).subscribe((data:any) =>{ })
       }
    }else{
@@ -113,8 +115,10 @@ export class PropertiesComponent implements OnInit {
   getSavedPost(){
     if(this.loggedIn){
     this.getSavedPostsIds();
+    this.postFlag=true
+    this.currentPage=0
     let userID = this.token.getUser().userId;
-    this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
+    this.serv.getSavedPosts(userID,this.preference,0).subscribe(results => {
 
 
       console.log("saveeed", results)
@@ -126,7 +130,7 @@ export class PropertiesComponent implements OnInit {
   }
 
 openLargeView(postID:number ,propertyType:string){
- 
+
  this.dialog.open(LargeViewComponent,{data:{postId:postID ,type:propertyType}});
 }
 
@@ -154,7 +158,7 @@ openLargeView(postID:number ,propertyType:string){
 //     let p = new Post()
 //     let v = new Villa()
 //     v.hasGarden=false
-//     v.hasPool=true 
+//     v.hasPool=true
 //     v.numberOfLevels=3
 //     p.property=v
 //     p.postID=5
@@ -177,7 +181,7 @@ openLargeView(postID:number ,propertyType:string){
 //   //}
 
   goTonewPost():void{
-    
+
     this.router.navigate([ '/','NewPost'])
   }
   getInfo(){
@@ -201,7 +205,7 @@ openLargeView(postID:number ,propertyType:string){
       minPrice.value = maxPrice.value
       maxPrice.value = temp
     }
-  
+
     if(Number(minArea.value)>Number(maxArea.value)){
       console.log("Areaaaa++++++")
       var temp = minArea.value
@@ -226,7 +230,7 @@ openLargeView(postID:number ,propertyType:string){
     this.preference.filterPreference.maxArea=Number(maxArea.value)==0? -1:Number(maxArea.value)
     this.preference.filterPreference.withPictures=withPictures.checked
     this.preference.filterPreference.studentHousing=studentHousing.checked
-    this.preference.sorted=sortingCriteria.value=="Sort by"? false:true 
+    this.preference.sorted=sortingCriteria.value=="Sort by"? false:true
     this.preference.sortingPreference.sortingCriteria=sortingCriteria.value
     this.preference.sortingPreference.ascending=order.value=="ascending"? true: false
     //this.searchData.filterDetails.infoSearchWord=textSearch.value
@@ -240,33 +244,65 @@ openLargeView(postID:number ,propertyType:string){
    // this.searchData.filterDetails.maxArea =Number(maxArea.value)
    // this.searchData.filterDetails.withPictures= withPictures.checked
     //this.searchData.filterDetails.studentHousing=studentHousing.checked
-    //this.searchData.sorted = sortingCriteria.value=="Sort by"? false:true 
+    //this.searchData.sorted = sortingCriteria.value=="Sort by"? false:true
     //this.searchData.sortingDetails.sortingCriteria= sortingCriteria.value
     //this.searchData.sortingDetails.ascending= order.value=="ascending"? true: false
    // var body =JSON.stringify(this.searchData)
     //console.log( body)
-   
+
   //  this.http.post(this.url,body).subscribe((data:any)=>{
   //   console.log(data)
   //  })
-     
-  
+
+
 
     console.log(this.preference)
     this.getSavedPostsIds();
-      this.serv.getPostsHomePage(this.preference).subscribe(results => {
-          console.log(this.preference)
+      this.serv.getPostsHomePage(this.preference,0).subscribe(results => {
           console.log("filteeeeer ", results)
           this.posts=results
         // Globals.setPosts(results)
       } );
-   
-  
-   }
-   getSavedPosts(){
-    
+
 
    }
-
+   nextPage(){
+    this.currentPage++
+    if(!this.postFlag){
+      this.serv.getPostsHomePage(this.preference,this.currentPage).subscribe(results => {
+        console.log("ana rg3t", results)
+        this.posts=results
+      } );
+    }
+    else{
+      this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
+        console.log("saveeed", results)
+        this.posts=results
+      })
+    }
+   }
+  previousPage(){
+    if(this.currentPage>0){
+      this.currentPage--
+      if(!this.postFlag){
+        this.serv.getPostsHomePage(this.preference,this.currentPage).subscribe(results => {
+          console.log("ana rg3t", results)
+          this.posts=results
+        } );
+      }
+      else{
+        this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
+          console.log("saveeed", results)
+          this.posts=results
+        })
+      }
+    }
+  }
+  checkPrevious() {
+    if(this.currentPage>0){
+      return false
+    }
+    return true
+  }
 }
 

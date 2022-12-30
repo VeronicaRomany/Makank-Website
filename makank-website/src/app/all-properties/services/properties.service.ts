@@ -16,26 +16,27 @@ export class PropertiesService {
   
   constructor(private http:HttpClient,private token: TokenStorageService ) { }
   postsURL:string = "http://localhost:8080/posts"
-  
 
 
-  getPostsHomePage(preferenceIn:ViewingPreference):Observable<Post[]>{
+
+  getPostsHomePage(preferenceIn:ViewingPreference,pageNum:number):Observable<Post[]>{
     console.log(preferenceIn)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
-    
+    queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
     return this.http.get<Post[]>(this.postsURL+"/homepage",{params:queryParams})
   }
   getFilteredPosts(preferenceIn:ViewingPreference):Observable<Post[]>{
     console.log(preferenceIn)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
-    
+
     return this.http.get<Post[]>(this.postsURL+"/homepage",{params:queryParams})
   }
-  getSavedPosts(iD:number,preferenceIn:ViewingPreference):Observable<Post[]>{
+  getSavedPosts(iD:number,preferenceIn:ViewingPreference,pageNum:number):Observable<Post[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
     return this.http.get<Post[]>(this.postsURL+"/saved/"+iD.toString(),{params:queryParams
 
     })
@@ -57,7 +58,7 @@ export class PropertiesService {
     return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString(),{headers:headers})
   }
 
-  
+
 
 
 }

@@ -44,7 +44,7 @@ public class PostController {
 
 
     //    ################ Profile posts ########################
-    @GetMapping("/{targetUserID}")
+    @GetMapping("/profile/{targetUserID}")
     public List<Post> getProfilePosts(@PathVariable int targetUserID,
                                       @RequestParam String preference,
                                       @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,

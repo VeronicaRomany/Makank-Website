@@ -57,6 +57,7 @@ public class UserController {
 
     @GetMapping("/profile/{userID}")
     public User getUserInfo(@PathVariable long userID){
+        System.out.println("tmam");
         Gson gson = new Gson();
         long u = gson.fromJson(String.valueOf(userID),long.class);
         return userService.findUserInfoByUseId(u);

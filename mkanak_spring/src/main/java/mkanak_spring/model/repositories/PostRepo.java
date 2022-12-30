@@ -24,4 +24,6 @@ public interface PostRepo extends JpaRepository<Post, Long> , JpaSpecificationEx
     @Query(value = "SELECT * FROM post_large_view(?1)", nativeQuery = true)
     JSONObject getPostLargeView(long postID);
 
+    @Query("FROM Post p WHERE p.sellerID = ?1")
+    List<Post> findPostsByUseId(long userID);
 }
