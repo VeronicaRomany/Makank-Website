@@ -164,7 +164,6 @@ public class PostServiceImpl implements PostService{
     @Override
     public void editPost(JSONObject post) throws ParseException {
         Long postID = ((Number) post.get("postID")).longValue();
-        System.out.println("id: " + postID);
         propertyPictureRepo.deletePicturesById(postID);
         if(post.get("type").toString().compareTo((String) this.getProperty(postID).get("type")) != 0) {
             Property property = new Property();
@@ -172,7 +171,6 @@ public class PostServiceImpl implements PostService{
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, postID);
             property.setPropertyID(postID);
             property.setHasPictures(pictureList.size() != 0);
-            System.out.println("aaa: " + property.getPropertyID());
             propertyRepo.updateProperty(property.getPropertyID(), property.getRoomNumber(), property.getBathroomNumber(),
                     property.getPrice(), property.getCity(), property.getAddress(), property.getArea(), property.isRent(),
                     property.getInfo(), property.getType(), property.getHasPictures());

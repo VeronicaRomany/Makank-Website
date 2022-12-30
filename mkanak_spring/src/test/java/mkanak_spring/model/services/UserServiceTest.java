@@ -35,30 +35,29 @@ class UserServiceTest {
         userCredentialsTest.setUserID(1L);
 
         userServiceTest.logInUser(userCredentialsTest);
-        ArgumentCaptor<UserCredentials> userCredentialsArgumentCaptor = ArgumentCaptor.forClass(UserCredentials.class);
+        ArgumentCaptor<String> userCredentialsArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
-        verify(userServiceTest).logInUser(userCredentialsArgumentCaptor.capture());
+        verify(userCredentialsRepoTest).findByUsername(userCredentialsArgumentCaptor.capture());
 
-        UserCredentials capturedCredentials = userCredentialsArgumentCaptor.getValue();
+        String capturedCredentials = userCredentialsArgumentCaptor.getValue();
 
-        assertThat(capturedCredentials).isEqualTo(userCredentialsTest);
+        assertThat(capturedCredentials).isEqualTo(username);
     }
 
     @Test
     public void onSignUpInvokeWithCorrectUserCredentials() {
         User userTest = new User(null, "yara", "username",
-                "yara@gmail.com", "", "", "password", "", null);
+                "yara@gmail.com", "", "", "password", "", "01234567891");
 
         userTest.setUserID(1L);
 
         userServiceTest.saveUser(userTest);
         ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
 
-        verify(userServiceTest).saveUser(userArgumentCaptor.capture());
+        verify(userRepoTest).save(userArgumentCaptor.capture());
 
         User capturedUser = userArgumentCaptor.getValue();
 
-        assertThat(capturedUser).isEqualTo(userTest);
-
+        assertThat(capturedUser.getUsername()).isEqualTo(userTest.getUsername());
     }
 }
