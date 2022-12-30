@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../login/services/token-storage.service';
 import { ProfileService } from '../profile/services/profile.service';
 import {Globals} from "../../globals";
 import { User } from 'src/app/shared/user';
@@ -9,6 +8,7 @@ import {ViewingPreference} from "../shared/viewingPreference";
 import {LargeViewComponent} from "../large-view/large-view.component";
 import {MatDialog} from "@angular/material/dialog";
 import {HttpClient} from "@angular/common/http";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-profile',

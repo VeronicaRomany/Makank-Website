@@ -14,7 +14,6 @@ export class Post{
     rent:boolean=false
     info:string=""
     pictures:string[] = []
-    image:string=""
     level: number=1
     elevator: boolean= false
     studentHousing: boolean= false
@@ -22,5 +21,5 @@ export class Post{
     hasPool:boolean=false
     hasPictures:boolean=false
     image:string=""
-    
+
   }

@@ -19,9 +19,9 @@ import { ProfileService } from '../profile/services/profile.service';
 
 export default class Validation {
   static match(controlName: string, checkControlName: string): ValidatorFn {
-    
+
     return (controls: AbstractControl) => {
-      
+
       const checkControl = controls.get(checkControlName);
 
       if (checkControl?.errors && !checkControl.errors['matching']) {
@@ -58,7 +58,7 @@ export class EditProfileComponent implements OnInit {
 
   urllink:string="";
 
-  
+
   file:File={
     lastModified: 0,
     name: '',
@@ -83,21 +83,21 @@ export class EditProfileComponent implements OnInit {
   user:User=new User()
   currentUserInfo=this.profile.getUser()
 
-  
-  
-  
-  
+
+
+
+
 
   constructor(private formBuilder: FormBuilder, private http:HttpClient,private readonly registerservice: RegisterService,
     private profile: ProfileService, private authService: AuthService, private tokenStorage: TokenStorageService,
     private router:Router) {}
 
   ngOnInit(): void {
-   
-  
 
-   
-    
+
+
+
+
     this.form = this.formBuilder.group(
       {
         fullname: ['', Validators.required],
@@ -124,7 +124,7 @@ export class EditProfileComponent implements OnInit {
         profilePicture :['','']
 
       },
-      
+
       {
         validators: [Validation.match(this.tokenStorage.getUser().password, 'old_password')]
       }
@@ -134,7 +134,7 @@ export class EditProfileComponent implements OnInit {
     this.f['username'].setValue(this.currentUserInfo.username);
 
     this.f['fullname'].setValue(this.currentUserInfo.name);
-    this.f['phoneNumber'].setValue(this.currentUserInfo.phone);
+    this.f['phoneNumber'].setValue(this.currentUserInfo.phoneNumber);
     this.f['description'].setValue(this.currentUserInfo.description);
     this.f['address'].setValue(this.currentUserInfo.address);
     this.f['email'].setValue(this.currentUserInfo.email);
@@ -156,9 +156,9 @@ export class EditProfileComponent implements OnInit {
 
     var jsonString = JSON.stringify(this.form.value, null, 2)
     console.log(jsonString);
-   
+
     this.f['profilePicture'].setValue (this.urllink)
-    
+
     console.log(this.f['fullname'].value,"fn")
     this.newAccount.name = this.f['fullname'].value
     console.log(this.f['new_password'].value,"new_password")
@@ -172,9 +172,9 @@ export class EditProfileComponent implements OnInit {
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
     this.newAccount.profile_pic_link =this.f['profilePicture'].value
-    
 
-   
+
+
     var NewAccountJsonString = JSON.stringify(this.newAccount)
     console.log(NewAccountJsonString)
     this.urllink=""
@@ -192,16 +192,16 @@ export class EditProfileComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
   }
-  
+
   SelectFile(event:any){
     this.file = event.target.files[0];
 
 
     this.registerservice.upload(this.file).subscribe(url => this.urllink=url)
-    
+
 
     console.log(this.urllink)
-    
+
   }
 
   selectFile(event:any){
@@ -212,7 +212,7 @@ export class EditProfileComponent implements OnInit {
 
         this.urllink = event.target.result
         this.f['profilePicture'].setValue (this.urllink)
-        
+
       }
     }
   }

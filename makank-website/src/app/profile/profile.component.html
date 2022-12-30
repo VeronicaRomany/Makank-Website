@@ -1,6 +1,6 @@
 <div class="container" *ngIf="!notLogIn">
   <body>
-  <div class="container9">
+  <div class="container">
     <div class="box">
       <img src={{currentUserInfo.profilePicLink}} alt="user" width="100">
       <ul>
@@ -30,19 +30,13 @@
     </div>
   </div>
   <div class="container1">
-
     <button class="savedButton" (click)="getSavedPost()" >Saved Posts</button>
-
     <button class="savedButton" (click)="goTonewPost()">Add Post</button>
-
-
-
     <div class="container2">
       <div class="option">
         <div class="selec">
           <div >
             <input class="search" type="text" id="searchText"/>
-
           </div>
           <select class="la" name="" id="format1">
             <option value="any">Type</option>
@@ -53,38 +47,55 @@
           <select name="" id="format2">
             <option value="any">City</option>
 
-            <option value="Alexandria">Alexandria</option>
-            <option value="Cairo">Cairo</option>
-            <option value="Aswan">Aswan</option>
-
+            <option value="cairo">Cairo</option>
+            <option value="alex">Alexandria</option>
+            <option value="gizeh">Gizeh</option>
+            <option value="shubraelkheima">Shubra El-Kheima</option>
+            <option value="portSaid">Port Said</option>
+            <option value="suez">Suez</option>
+            <option value="luxor">Luxor</option>
+            <option value="elmansura">Al-Mansura</option>
+            <option value="ma7la">El-Mahalla El-Kubra</option>
+            <option value="tanta">Tanta</option>
+            <option value="asuit">Asuit</option>
+            <option value="esmaillia">Ismaillia</option>
+            <option value="fayum">Fayyum</option>
+            <option value="zagazig">Zagazig</option>
+            <option value="aswan">Aswan</option>
+            <option value="damietta">Damietta</option>
+            <option value="damanhur">Damanhur</option>
+            <option value="elmenya">Al-Minya</option>
+            <option value="beniSuef">Beni Suef</option>
+            <option value="qena">Qena</option>
+            <option value="sohag">Sohag</option>
+            <option value="hurghada">Hurghada</option>
+            <option value="marsaMatrouh">Marsa Matruh</option>
+            <option value="redSea">Red Sea</option>
+            <option value="southSinai">South Sinai</option>
+            <option value="northSinai">North Sinai</option>
+            <option value="newVillage">New Village</option>
           </select>
           <select name="" id="format3">
             <option value="any">Buy/Rent</option>
             <option value="buy">Buy</option>
             <option value="rent">Rent</option>
-
           </select>
-
         </div>
         <div class="area" id="p1">
-
           <div>
             <input type="number" min="0"  id="minPrice"/>
             <label for="c2">min</label>
           </div>
-
           <div>
             <input type="number" min="0" id="maxPrice"/>
             <label for="c2">max</label>
           </div>
         </div>
         <div class="area" id="a1">
-
           <div>
             <input type="number" min="0"  id="minArea"/>
             <label for="c2">min</label>
           </div>
-
           <div>
             <input type="number" min="0"  id="maxArea"/>
             <label for="c2">max</label>
@@ -96,7 +107,6 @@
 
             <label for="c1">With pictures</label>
           </div>
-
           <div>
             <input type="checkbox" id="c2"/>
             <label for="c2">Student Housing</label>
@@ -106,7 +116,6 @@
           <button mat-raised-button (click)="getInfo()">search</button>
         </div>
       </div>
-
       <div class="option2">
         <div class="selec">
           <select class="la" name="" id="sort">
@@ -114,49 +123,20 @@
             <option value="price">Price</option>
             <option value="date">Date</option>
             <option value="area">Area</option>
-
           </select>
-
           <select  name="" id="order">
             <option value="ascending ">Ascending </option>
             <option value="descending">Descending</option>
-
           </select>
-
-
-
-
-
-
         </div>
-
-
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="article-contener"  >
       <ul class="groups" *ngFor="let item of posts"  >
-
-
-
         <li>
-
-
-
           <div class="card"  >
             <div class="image-session " >
-              <!--<span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.picture}});"></span>-->
+              <span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.image}});"></span>
               <span class="image" *ngIf="!item.hasPictures" style="background-image: url('assets/noImage.jpg');"></span>
             </div>
             <div class="meta-sission" >

@@ -16,9 +16,9 @@ export class ProfileService {
   postsURL:string = "http://localhost:8080/posts"
 
 
-  
+
   getUserInfo(userID: number | undefined):Observable<User>{
-    
+
     console.log(userID)
     return this.http.get<User>(this.userURL+"/profile/"+userID)
   }
