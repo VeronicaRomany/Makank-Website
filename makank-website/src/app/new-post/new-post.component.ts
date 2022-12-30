@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
@@ -85,27 +85,29 @@ export class NewPostComponent implements OnInit {
             this.editPost.postID=params.data
             
             // get post by id   >> request lma a3mlo ams7 al dummy data de
-      
-            // this.http.get<Post>("http://localhost:8080/posts/info/params.data").subscribe((data:any) =>{
-            //   this.editPost=data
-            // })
             
-            //dummy data
-            this. editPost.type = "villa"
-            this. editPost.city = "alex"
-            this. editPost.price= 10000
-            this. editPost.area= 150
-            this. editPost.address="El3asfraaaa"
-            this .editPost.level=12
-            this. editPost.roomNumber=12
-            this. editPost.bathroomNumber=12
-            this. editPost.elevator=true
-            this. editPost.studentHousing=true
-            this. editPost.hasGarden=true
-            this. editPost.hasPool=true
-            this. editPost.info=""
-            this. editPost.rent=true
-            this. editPost.pictures=[]
+            this.http.get<Post>("http://localhost:8080/posts/info/params.data").subscribe((data:any) =>{
+              this.editPost=data
+            })
+
+
+            
+            // //dummy data
+            // this. editPost.type = "villa"
+            // this. editPost.city = "alex"
+            // this. editPost.price= 10000
+            // this. editPost.area= 150
+            // this. editPost.address="El3asfraaaa"
+            // this .editPost.level=12
+            // this. editPost.roomNumber=12
+            // this. editPost.bathroomNumber=12
+            // this. editPost.elevator=true
+            // this. editPost.studentHousing=true
+            // this. editPost.hasGarden=true
+            // this. editPost.hasPool=true
+            // this. editPost.info=""
+            // this. editPost.rent=true
+            // this. editPost.pictures=[]
       
 
             // nms7 l7d hena
@@ -149,6 +151,8 @@ export class NewPostComponent implements OnInit {
     }
 
   
+
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
 
     console.log("create new post")
 
@@ -200,16 +204,13 @@ export class NewPostComponent implements OnInit {
     console.log(NewPostJsonString)
 
     if(this.editing){
-
-      this.http.put("http://localhost:8080/posts/edit",this.newPost.postID,JSON.parse(NewPostJsonString)).subscribe((data:any) =>{
+      this.http.post("http://localhost:8080/posts/edit",JSON.parse(NewPostJsonString),{headers: headers}).subscribe((data:any) =>{
         window.alert("Your post has be eddited")
         this.router.navigate(['/', 'Home'])
       })
-
-
     }else{
 
-      this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString)).subscribe((data:any) =>{
+      this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString),{headers: headers}).subscribe((data:any) =>{
         this.router.navigate(['/', 'Home'])
       })
      
