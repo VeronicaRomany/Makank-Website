@@ -19,18 +19,30 @@ public class PostSpecificationBuilder {
     private List<Long> postIDs;
     private int id =-1 ;
     private ViewingPreference v;
+
+    // normal
     public PostSpecificationBuilder(ViewingPreference v ){
         this.possibleSpecifications=new ArrayList<>();
         this.v= v;
     }
 
+    //for posts by a certain person
     public PostSpecificationBuilder(ViewingPreference v, int id ){
         this(v);
         this.id=id;
     }
 
+    //for posts included in a list of ids (apartment stuff)
     public PostSpecificationBuilder(ViewingPreference v, List<Long> ids ){
         this(v);
+        this.postIDs=ids;
+    }
+
+
+    //for posts included in a list of ids (apartment stuff) and posted by certain person
+    public PostSpecificationBuilder(ViewingPreference v,int id, List<Long> ids ){
+        this(v);
+        this.id = id;
         this.postIDs=ids;
     }
 

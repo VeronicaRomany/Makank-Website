@@ -24,6 +24,7 @@ import java.util.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -72,10 +73,45 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    public long getHomepagePostsCount(JSONObject preference) {
+        ViewingPreference p = converter.parseViewingPreference(preference);
+        PostSpecificationBuilder pb;
+        if(preference!=null && p.isFiltered()
+                && Objects.equals(p.getFilterPreference().getPropertyType(), "apartment")
+                && p.getFilterPreference().isStudentHousing()) {
+
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(p.getFilterPreference().isStudentHousing());
+            pb = new PostSpecificationBuilder(p,studentHouseIDs);
+        } else {
+            pb = new PostSpecificationBuilder(p);
+        }
+        return this.buildAndCount(pb);
+    }
+
+    @Override
     public List<Post> getSavedPosts(int id, JSONObject preference,int pageNum,int pageSize) {
         ViewingPreference v = converter.parseViewingPreference(preference);
         return this.getSavedPostsByUserID(id,v,pageNum,pageSize);
     }
+
+    @Override
+    public long getSavedPostsCount(int id, JSONObject preferences) {
+        List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id); //get saved posts by that user
+        ViewingPreference preference = converter.parseViewingPreference(preferences);
+        if(preference!=null && preference.isFiltered()
+                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
+                && preference.getFilterPreference().isStudentHousing()) {
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
+            Set<Long> result = postIDsSaved.stream()
+                    .distinct()
+                    .filter(studentHouseIDs::contains)
+                    .collect(Collectors.toSet());
+            postIDsSaved=result.stream().toList();
+        }
+        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,postIDsSaved);
+        return buildAndCount(pb);
+    }
+
 
     @Override
     public List<Post> getProfilePosts(int targetUserID, JSONObject preferences,int pageNum,int pageSize) {
@@ -84,22 +120,41 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    public long getProfilePostsCount(int targetUserID, JSONObject preferences) {
+        ViewingPreference preference = converter.parseViewingPreference(preferences);
+        PostSpecificationBuilder pb;
+        if(preference!=null && preference.isFiltered()
+                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
+                && preference.getFilterPreference().isStudentHousing()) {
+
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
+            pb = new PostSpecificationBuilder(preference,targetUserID,studentHouseIDs);
+        } else {
+            pb = new PostSpecificationBuilder(preference,targetUserID);
+        }
+        return buildAndCount(pb);
+    }
+
+    @Override
     public List<Long> getSavedPostsIDs(int userID) {
-        return this.getSavedPostsIDs(userID);
+        return savedPostsRepo.getUserSavedPostsIDs((long) userID);
     }
 
     @Override
     public void addToSavedPosts(JSONObject saveEntry) {
         int userID = (int) saveEntry.get("userID");
         int postID = (int) saveEntry.get("postID");
-        this.addToSavedPosts(userID,postID);
+        SavedPostsEntry entry = new SavedPostsEntry();
+        entry.setPostID((long) postID);
+        entry.setUserID((long) userID);
+        savedPostsRepo.save(entry);
     }
 
     @Override
     public void removeFromSaved(JSONObject entry) {
-        int userID = (int) entry.get("userID");
-        int postID = (int) entry.get("postID");
-        this.removeFromSavedPosts(userID,postID);
+        long userID = (int) entry.get("userID");
+        long postID = (int) entry.get("postID");
+        savedPostsRepo.deleteSavedPost(userID,postID);
     }
 
     @Override
@@ -201,30 +256,53 @@ public class PostServiceImpl implements PostService{
         }
     }
 
+
+    private long buildAndCount(PostSpecificationBuilder pb){
+        Specification<Post> sps = pb.build();
+        Sort s = pb.getSort();
+        if(sps==null) {
+            return postRepo.count();
+        }
+        else {
+            return postRepo.count(sps);
+        }
+    }
+
+
+
+
     public List<Post> getPostsByUser(int id,ViewingPreference preference, int pageNum,int pageSize){
-        PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,id);
+        PostSpecificationBuilder pb;
+        if(preference!=null && preference.isFiltered()
+                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
+                && preference.getFilterPreference().isStudentHousing()) {
+
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
+            pb = new PostSpecificationBuilder(preference,id,studentHouseIDs);
+        } else {
+            pb = new PostSpecificationBuilder(preference,id);
+        }
         return buildAndReturn(pb,pageNum,pageSize);
     }
 
 
     public List<Post> getSavedPostsByUserID(int id,ViewingPreference preference, int pageNum,int pageSize){
-        List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id);
+        List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id); //get saved posts by that user
+        if(preference!=null && preference.isFiltered()
+                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
+                && preference.getFilterPreference().isStudentHousing()) {
+            List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
+            Set<Long> result = postIDsSaved.stream()
+                    .distinct()
+                    .filter(studentHouseIDs::contains)
+                    .collect(Collectors.toSet());
+            postIDsSaved=result.stream().toList();
+        }
         PostSpecificationBuilder pb = new PostSpecificationBuilder(preference,postIDsSaved);
         return buildAndReturn(pb,pageNum,pageSize);
     }
 
-    public void removeFromSavedPosts(long userID, long postID){
-        savedPostsRepo.deleteSavedPost(userID,postID);
-    }
 
-    public void addToSavedPosts(long userID, long postID){
-        SavedPostsEntry entry = new SavedPostsEntry();
-        entry.setPostID(postID);
-        entry.setUserID(userID);
-        savedPostsRepo.save(entry);
-    }
 
-    public List<Long> getSavedPostsIDs(long id){
-        return savedPostsRepo.getUserSavedPostsIDs(id);
-    }
+
 }
