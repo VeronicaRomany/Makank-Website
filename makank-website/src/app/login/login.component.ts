@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       console.log("Has token")
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;
+      this.router.navigate(['/', 'Home'])
     }
   }
 
@@ -48,7 +49,9 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
+           window.location.reload();
           this.router.navigate(['/', 'Home'])
+          
         }
         else{
           if(data == -1) {

@@ -24,7 +24,7 @@ public class PostController {
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference,
                                   @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                  @RequestParam(name = "pageSize",defaultValue = "50") int pageSize)
+                                  @RequestParam(name = "pageSize",defaultValue = "10") int pageSize)
             throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
@@ -48,7 +48,7 @@ public class PostController {
     public List<Post> getProfilePosts(@PathVariable int targetUserID,
                                       @RequestParam String preference,
                                       @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                      @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                      @RequestParam(name = "pageSize",defaultValue = "10") int pageSize
                                       ) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
@@ -105,7 +105,7 @@ public class PostController {
                                     @PathVariable int userID,
                                     @RequestParam String preference,
                                     @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                    @RequestParam(name = "pageSize",defaultValue = "50") int pageSize
+                                    @RequestParam(name = "pageSize",defaultValue = "10") int pageSize
                                     ) throws Exception {
         if(!securityGuard.verifyJWTtoken(userID,bearerToken))
             throw new Exception("error");

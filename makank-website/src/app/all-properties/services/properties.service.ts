@@ -26,6 +26,13 @@ export class PropertiesService {
     queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
     return this.http.get<Post[]>(this.postsURL+"/homepage",{params:queryParams})
   }
+  getPostsHomePageCounter(preferenceIn:ViewingPreference,pageNum:number):Observable<number>{
+    console.log(preferenceIn)
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
+    return this.http.get<number>(this.postsURL+"/homepage/count",{params:queryParams})
+  }
   getFilteredPosts(preferenceIn:ViewingPreference):Observable<Post[]>{
     console.log(preferenceIn)
     let queryParams = new HttpParams();
@@ -34,20 +41,33 @@ export class PropertiesService {
     return this.http.get<Post[]>(this.postsURL+"/homepage",{params:queryParams})
   }
   getSavedPosts(iD:number,preferenceIn:ViewingPreference,pageNum:number):Observable<Post[]>{
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
     queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
-    return this.http.get<Post[]>(this.postsURL+"/saved/"+iD.toString(),{params:queryParams
+    return this.http.get<Post[]>(this.postsURL+"/saved/"+iD.toString(),{params:queryParams,headers:headers
 
     })
+    
+
+  }
+  getSavedPostsCounter(iD:number,preferenceIn:ViewingPreference,pageNum:number):Observable<number>{
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
+    return this.http.get<number>(this.postsURL+"/saved/"+iD.toString()+"/count",{params:queryParams,headers:headers
+
+    })
+    
 
   }
 
 
-
   getIds(postId:number):Observable<number[]>{
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
     console.log("user id passed: "+ postId)
-    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString())
+    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString(),{headers:headers})
 
   }
 

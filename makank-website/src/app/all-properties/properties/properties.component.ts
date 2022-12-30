@@ -29,13 +29,16 @@ export class PropertiesComponent implements OnInit {
   editedID:number=0
   loggedIn:boolean=false
   currentPage:number=0
+  numOfPosts:number=0
   postFlag:boolean=false
+  maxPagesNum:number=0
   constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) {
     this.serv= service
 
   }
 
   ngOnInit(): void {
+    
     this.currentPage=0
     this.postFlag=false
     // let p = this.getDummyPost()
@@ -58,6 +61,10 @@ export class PropertiesComponent implements OnInit {
           console.log("ana rg3t", results)
           this.posts=results
       } );
+      this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+        this.numOfPosts=results
+        this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+      })
   }
   getSavedPostsIds(){
 
@@ -82,7 +89,9 @@ export class PropertiesComponent implements OnInit {
     console.log(id);
     let userID = this.token.getUser().userId;
     var st : string = String(id);
-      var btn= document.getElementById(st) ;
+      var btn= document.getElementById(st) as HTMLImageElement;
+      console.log(btn+" yaaaaa3m aho");
+      
       if (btn?.style.color=="orange"){
         btn.style.color = "grey";
         var ob={
@@ -123,6 +132,12 @@ export class PropertiesComponent implements OnInit {
 
       console.log("saveeed", results)
       this.posts=results
+    })
+    this.serv.getSavedPostsCounter(this.userID,this.preference,0).subscribe(results => {
+      console.log("saveeed", results)
+     
+      this.numOfPosts=results
+      this.maxPagesNum=Math.ceil(this.numOfPosts/10);
     })
      }else{
       alert("Login or Register !");
@@ -263,7 +278,10 @@ openLargeView(postID:number ,propertyType:string){
           this.posts=results
         // Globals.setPosts(results)
       } );
-
+      this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+        this.numOfPosts=results
+        this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+      })
 
    }
    nextPage(){
@@ -273,12 +291,21 @@ openLargeView(postID:number ,propertyType:string){
         console.log("ana rg3t", results)
         this.posts=results
       } );
+          this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+            this.numOfPosts=results
+            this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+          })
     }
     else{
       this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
         console.log("saveeed", results)
         this.posts=results
-      })
+      });
+      this.serv.getSavedPostsCounter(this.userID,this.preference,0).subscribe(results => {
+        console.log("saveeed counter", results)
+        this.numOfPosts=results
+        this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+      });
     }
    }
   previousPage(){
@@ -289,20 +316,39 @@ openLargeView(postID:number ,propertyType:string){
           console.log("ana rg3t", results)
           this.posts=results
         } );
+        this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+          this.numOfPosts=results
+          this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+          console.log("post NUM ", results)
+        })
       }
       else{
         this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
           console.log("saveeed", results)
           this.posts=results
+        });
+        this.serv.getSavedPostsCounter(this.userID,this.preference,0).subscribe(results => {
+          console.log("saveeed", results)
+         
+          this.numOfPosts=results
+          this.maxPagesNum=Math.ceil(this.numOfPosts/10);
         })
       }
     }
   }
   checkPrevious() {
     if(this.currentPage>0){
-      return false
+      return true
     }
-    return true
+    return false
+  }
+  checkNext(){
+    if(this.currentPage<Math.ceil(this.numOfPosts/10)-1){
+      console.log(" e "+this.currentPage + " : "+Math.ceil(this.numOfPosts/10));
+      
+      return true
+    }
+    return false
   }
 }
 
