@@ -63,7 +63,6 @@ public class UserController {
     }
 
 
-
     @PostMapping(value = "/profile/edit/{userId}")
     public boolean editUser(@PathVariable int userId, @RequestHeader("Authorization") String bearerToken,
                             @RequestBody JSONObject jsonObject) throws Exception {
@@ -74,24 +73,4 @@ public class UserController {
         return userService.editUser(jsonObject,userId);
     }
 
-
-
 }
-
-
-
-
-
-
-
-
-
-//    @GetMapping("/profile/phone/{userIdPhone}")
-//    public String getUserPhone(@PathVariable long userIdPhone){
-//        Gson gson = new Gson();
-//        System.out.println("REQUEST : "+userIdPhone);
-//        long u= gson.fromJson(String.valueOf(userIdPhone),long.class);
-//        String test = userService.findUserPhoneByUseId(u);
-//        System.out.println(test);
-//        return test;
-//    }

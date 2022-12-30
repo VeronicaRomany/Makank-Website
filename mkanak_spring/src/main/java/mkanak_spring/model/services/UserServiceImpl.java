@@ -4,6 +4,10 @@ import mkanak_spring.model.entities.User;
 import mkanak_spring.model.entities.UserCredentials;
 import mkanak_spring.model.repositories.UserCredentialsRepo;
 import mkanak_spring.model.repositories.UserRepo;
+import mkanak_spring.model.LoginManager;
+import mkanak_spring.model.SignupManager;
+import mkanak_spring.model.entities.User;
+import mkanak_spring.model.entities.UserCredentials;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +47,6 @@ public class UserServiceImpl implements UserService {
         return userRepo.findUserInfoByUseId(userID);
     }
 
-
     public void saveUser(User user) {
         userRepo.save(user);
     }
@@ -76,8 +79,4 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 }
-//    @Override
-//    public String findUserPhoneByUseId(long userID) {
-//        return userDAO.findUserPhoneByUseId(userID);
-//    }
 

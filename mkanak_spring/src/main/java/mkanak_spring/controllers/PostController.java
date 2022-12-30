@@ -1,7 +1,9 @@
 package mkanak_spring.controllers;
 
+
 import com.auth0.jwt.algorithms.Algorithm;
 import mkanak_spring.model.entities.Post;
+import mkanak_spring.model.entities.Property;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -47,41 +50,37 @@ public class PostController {
     //   ################ Manipulation posts ########################
     @PostMapping("/new")
     public void addPost(@RequestHeader("Authorization") String bearerToken,
-                        @RequestBody JSONObject jsonObject) throws Exception {
-        int idJson = (int) jsonObject.get("seller_id");
+                            @RequestBody JSONObject postDetails) throws Exception {
+        int idJson = (int) postDetails.get("seller_id");
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
-        postService.createPost(jsonObject);
+        System.out.println("details: " + postDetails);
+        postService.savePost(null, postDetails);
     }
+
 
     @PostMapping("/edit")
     public boolean editPost(@RequestHeader("Authorization") String bearerToken,
-                            @RequestBody JSONObject jsonObject)
+                            @RequestBody JSONObject post)
             throws Exception {
-        //TODO check the recieved body of the request if valid
-        int idJson = (int) jsonObject.get("seller_id");
+
+        int idJson = (int) post.get("seller_id");
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
-
-//        JSONParser parser = new JSONParser();
-//        JSONObject jsonObject = (JSONObject) parser.parse(jsonObject);
-        postService.editPost(jsonObject);
+        postService.editPost(post);
         return false;
     }
 
     @PostMapping("/delete")
     public boolean deletePost(@RequestHeader("Authorization") String bearerToken,
-                              @RequestBody JSONObject jsonObject) throws Exception {
+                              @PathVariable int postID) throws Exception {
         //TODO check if post deletion is with the ids
 
-        int idJson = (int) jsonObject.get("seller_id");
-        if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
+        int idJson = (int) postService.getPostDetails(postID).get("seller_id");
+        if (!securityGuard.verifyJWTtoken(idJson, bearerToken))
             throw new Exception("error");
 
-//        JSONParser parser = new JSONParser();
-//        JSONObject json = (JSONObject) parser.parse(details);
-
-        postService.deletePost(jsonObject);
+        postService.deletePost(postID);
         return false;
     }
 
@@ -128,6 +127,12 @@ public class PostController {
     @GetMapping("/details/{postID}")
     public JSONObject getPostDetails(@PathVariable int postID){
         return postService.getPostDetails(postID);
+    }
+
+    // 8yary el endpoint
+    @GetMapping("/info/{propertyID}")
+    public JSONObject getProperty(@PathVariable int propertyID) throws ParseException {
+        return postService.getProperty(propertyID);
     }
 
 }
