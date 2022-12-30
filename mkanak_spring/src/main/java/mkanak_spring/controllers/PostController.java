@@ -147,7 +147,7 @@ public class PostController {
     }
 
     @GetMapping("/details/{postID}")
-    public JSONObject getPostDetails(@PathVariable int postID){
+    public JSONObject getPostDetails(@PathVariable int postID) throws ParseException {
         return postService.getPostDetails(postID);
     }
 
