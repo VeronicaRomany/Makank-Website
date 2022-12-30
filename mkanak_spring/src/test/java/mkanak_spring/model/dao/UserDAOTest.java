@@ -74,19 +74,5 @@ class UserDAOTest {
         assertThat(capturedUsername).isEqualTo(username);
     }
 
-    @Test
-    void onEmailExistsInvokeWithCorrectUsername() {
-        String email = "email@yahoo.com";
 
-        userRepoTest.findByEmail(email);
-
-        ArgumentCaptor<String> userArgumentCaptor = ArgumentCaptor.forClass(String.class);
-
-        verify(userRepoTest).findByEmail(userArgumentCaptor.capture());
-
-        String capturedEmail = userArgumentCaptor.getValue();
-
-        assertThat(capturedEmail).isEqualTo(email);
-
-    }
 }

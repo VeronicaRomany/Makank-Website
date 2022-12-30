@@ -93,7 +93,7 @@ public class PostSpecificationBuilder {
             this.possibleSpecifications.add(new PostPriceRangeSpecification(v));
         else if(f.getMaxPrice()!=-1) //has max price but not min price
             this.possibleSpecifications.add(new PostMaxPriceSpecification(v));
-        else if(f.getMinPrice()!=-1)//has min price but not max price
+        else if(f.getMinPrice()!=-1) //has min price but not max price
             this.possibleSpecifications.add(new PostMinPriceSpecification(v));
 
         if(f.getMinArea()!=-1 && f.getMaxArea()!= -1)

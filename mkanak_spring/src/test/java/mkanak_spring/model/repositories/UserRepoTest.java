@@ -23,33 +23,6 @@ class UserRepoTest {
     void deleteAll() {
         userRepoTest.deleteAll();
     }
-    @Test
-    void checkIfUserEmailExists() {
-        // given
-        String email = "yarahossam@gmail.com";
-        User user = new User(null, "yara", "yara test",
-                email, "", "", "password", "", null);
-
-        userRepoTest.save(user);
-
-        // when
-        Boolean isPresent = userRepoTest.findByEmail(email);
-
-        // then
-        assertThat(isPresent).isTrue();
-    }
-
-    @Test
-    void checkIfUserEmailDoesntExist() {
-        // given
-        String email = "yarahossam@gmail.com";
-
-        // when
-        Boolean isPresent = userRepoTest.findByEmail(email);
-
-        // then
-        assertThat(isPresent).isFalse();
-    }
 
     @Test
     void checkIfUsernameExists() {

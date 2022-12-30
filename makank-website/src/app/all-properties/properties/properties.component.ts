@@ -254,6 +254,7 @@ openLargeView(postID:number ,propertyType:string){
     console.log(this.preference)
     this.getSavedPostsIds();
       this.serv.getPostsHomePage(this.preference).subscribe(results => {
+          console.log(this.preference)
           console.log("filteeeeer ", results)
           this.posts=results
         // Globals.setPosts(results)

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public class JsonToObject {
-    public ViewingPreference parseViewingPreference(JSONObject json){
+    public ViewingPreference getPreferenceFromJSON(JSONObject json){
         ObjectMapper m = new ObjectMapper();
         ViewingPreference v=null;
         try {
@@ -31,25 +31,14 @@ public class JsonToObject {
         JSONObject object = (JSONObject) parser.parse(userObject.toString());
 
         Long id = (Long) object.get("user_id");
-        User userInstance = new User();
-        userInstance.setUserID(id);
-        userInstance.setAddress((String) object.get("address"));
-        userInstance.setUsername((String) object.get("username"));
-        userInstance.setName((String) object.get("name"));
-        userInstance.setDescription((String) object.get("description"));
-        userInstance.setPassword((String) object.get("password"));
-        userInstance.setEmail((String) object.get("email"));
-        userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
-        userInstance.setPhoneNumber((String) object.get("phone_number"));
-
-        return userInstance;
+        return getUserFromJson(userObject,id);
     }
 
-    public User getUserFromJson(JSONObject userObject,int userId) throws ParseException {
+    public User getUserFromJson(JSONObject userObject,Long userId) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(userObject.toString());
 
-        Long id = (long) userId;
+        Long id = userId;
         User userInstance = new User();
         userInstance.setUserID(id);
         userInstance.setAddress((String) object.get("address"));
@@ -64,18 +53,7 @@ public class JsonToObject {
         return userInstance;
     }
 
-//    public List<PhoneNumber> addPhoneNumbers(User userInstance, JSONObject user) throws ParseException {
-//        JSONParser parser = new JSONParser();
-//        JSONObject object = (JSONObject) parser.parse(user.toString());
-//        JSONArray phoneNos = (JSONArray) object.get("phone_numbers");
-//        List<PhoneNumber> numbers = new ArrayList<>();
-//        for(Object obj : phoneNos){
-//            String message = (String) obj;
-//            PhoneNumber phoneNumber = new PhoneNumber(userInstance.getUserID(), message);
-//            numbers.add(phoneNumber);
-//        }
-//        return numbers;
-//    }
+
 
     public UserCredentials SignInUser(String userName, String password){
         return new UserCredentials(userName,password);

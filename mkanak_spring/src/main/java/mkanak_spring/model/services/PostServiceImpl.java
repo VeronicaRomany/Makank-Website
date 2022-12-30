@@ -1,7 +1,5 @@
 package mkanak_spring.model.services;
 
-import aj.org.objectweb.asm.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import mkanak_spring.model.entities.*;
 import mkanak_spring.model.filters.PostSpecificationBuilder;
 import mkanak_spring.model.preferences.ViewingPreference;
@@ -11,11 +9,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import mkanak_spring.model.*;
-import org.json.simple.*;
-import org.json.simple.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -54,29 +47,29 @@ public class PostServiceImpl implements PostService{
             Villa property = converter.buildVilla(post);
             property.setHasPictures(pictures.size() != 0);
             property.setPropertyID(propertyID);
-            this.saveVilla(property);
+            villaRepo.save(property);
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
-            this.savePropertyPictures(pictureList);
+            propertyPictureRepo.saveAll(pictureList);
         }
         else {
             Apartment property = converter.buildApartment(post);
             property.setHasPictures(pictures.size() != 0);
             property.setPropertyID(propertyID);
-            this.saveApartment(property);
+            apartmentRepo.save(property);
             List<PropertyPicture> pictureList = converter.buildPropertyPictures(post, property.getPropertyID());
-            this.savePropertyPictures(pictureList);
+            propertyPictureRepo.saveAll(pictureList);
         }
     }
 
     @Override
     public List<Post> getHomepagePosts(JSONObject preference,int pageNum,int pageSize) {
-        ViewingPreference p = converter.parseViewingPreference(preference);
+        ViewingPreference p = converter.getPreferenceFromJSON(preference);
         return this.getAllPosts(p,pageNum,pageSize);
     }
 
     @Override
     public long getHomepagePostsCount(JSONObject preference) {
-        ViewingPreference p = converter.parseViewingPreference(preference);
+        ViewingPreference p = converter.getPreferenceFromJSON(preference);
         PostSpecificationBuilder pb;
         if(preference!=null && p.isFiltered()
                 && Objects.equals(p.getFilterPreference().getPropertyType(), "apartment")
@@ -92,14 +85,14 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<Post> getSavedPosts(int id, JSONObject preference,int pageNum,int pageSize) {
-        ViewingPreference v = converter.parseViewingPreference(preference);
+        ViewingPreference v = converter.getPreferenceFromJSON(preference);
         return this.getSavedPostsByUserID(id,v,pageNum,pageSize);
     }
 
     @Override
     public long getSavedPostsCount(int id, JSONObject preferences) {
         List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id); //get saved posts by that user
-        ViewingPreference preference = converter.parseViewingPreference(preferences);
+        ViewingPreference preference = converter.getPreferenceFromJSON(preferences);
         if(preference!=null && preference.isFiltered()
                 && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
                 && preference.getFilterPreference().isStudentHousing()) {
@@ -117,13 +110,13 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<Post> getProfilePosts(int targetUserID, JSONObject preferences,int pageNum,int pageSize) {
-        ViewingPreference v = converter.parseViewingPreference(preferences);
+        ViewingPreference v = converter.getPreferenceFromJSON(preferences);
         return this.getPostsByUser(targetUserID,v,pageNum,pageSize);
     }
 
     @Override
     public long getProfilePostsCount(int targetUserID, JSONObject preferences) {
-        ViewingPreference preference = converter.parseViewingPreference(preferences);
+        ViewingPreference preference = converter.getPreferenceFromJSON(preferences);
         PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
                 && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
@@ -153,10 +146,14 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public void removeFromSaved(JSONObject entry) {
-        long userID = (int) entry.get("userID");
-        long postID = (int) entry.get("postID");
-        savedPostsRepo.deleteSavedPost(userID,postID);
+    public void removeFromSaved(JSONObject jentry) {
+        long userID = (int) jentry.get("userID");
+        long postID = (int) jentry.get("postID");
+
+        SavedPostsEntry entry = new SavedPostsEntry();
+        entry.setPostID(postID);
+        entry.setUserID(userID);
+        savedPostsRepo.delete(entry);
     }
 
     @Override
@@ -213,15 +210,7 @@ public class PostServiceImpl implements PostService{
         json.put("pictures", this.getPropertyPictures(propertyID));
         return json;
     }
-    private void saveVilla(Villa villa) {
-        villaRepo.save(villa);
-    }
-    private void saveApartment(Apartment apartment) {
-        apartmentRepo.save(apartment);
-    }
-    private void savePropertyPictures(List<PropertyPicture> pictureList) {
-        propertyPictureRepo.saveAll(pictureList);
-    }
+
     private List<String> getPropertyPictures(long propertyID) {
         return propertyPictureRepo.getPropertyPictures(propertyID);
     }

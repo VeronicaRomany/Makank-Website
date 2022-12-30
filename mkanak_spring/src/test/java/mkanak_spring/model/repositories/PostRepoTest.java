@@ -25,139 +25,107 @@ class PostRepoTest {
     @Autowired
     PostRepo postRepoTest;
 
-    @Test
-    void testInsertionSimple(){
-        Post testPost = this.getTestPost(0);
-        postRepoTest.save(testPost);
-        boolean present = postRepoTest.existsByAddress("testAddress");
-        assertTrue(present);
-    }
+//    @Test
+//    void testInsertionSimple(){
+//        Post testPost = this.getTestPost(0);
+//        postRepoTest.save(testPost);
+//        boolean present = postRepoTest.existsByAddress("testAddress");
+//        assertTrue(present);
+//    }
+//
+//    @Test
+//    void testInsertionThenDeletionSimple(){
+//        Post testPost = this.getTestPost(0);
+//        postRepoTest.save(testPost);
+//        postRepoTest.deleteByAddressAllIgnoreCase("testAddress");
+//        boolean present = postRepoTest.existsByAddress("testAddress");
+//        assertFalse(present);
+//    }
+//
+//    @Test
+//    void testInsertionBatch(){
+//        ArrayList<Post> batch = new ArrayList<>();
+//        for(int i = 0 ; i<5 ;i++){
+//            batch.add(this.getTestPost(i));
+//        }
+//        postRepoTest.saveAll(batch);
+//        long num = postRepoTest.countByAddress("testAddress");
+//        assertEquals(num,batch.size());
+//    }
+//
+//
+//    @Test
+//    void testInsertionThenDeletionBatch(){
+//        ArrayList<Post> batch = new ArrayList<>();
+//        for(int i = 0 ; i<5 ;i++){
+//            batch.add(this.getTestPost(i));
+//        }
+//        postRepoTest.saveAll(batch);
+//        postRepoTest.deleteByAddressAllIgnoreCase("testAddress");
+//        long num = postRepoTest.countByAddress("testAddress");
+//        assertEquals(num,0);
+//    }
+//
+//
+//    @Test
+//    void testRetrievalFiltered(){
+//        ArrayList<Post> batch = new ArrayList<>();
+//        for(int i = 0 ; i<5 ;i++){
+//            batch.add(this.getTestPost(i));
+//        }
+//
+//        postRepoTest.saveAll(batch);
+//        ViewingPreference v = this.getTestPreference();
+//        PostSpecificationBuilder sb = new PostSpecificationBuilder(v);
+//        List<Post> filteredPosts = postRepoTest.findAll(sb.build());
+//        assertEquals(1,filteredPosts.size());
+//    }
+//
+//    @Test
+//    void testAutomaticIDs(){
+//        ArrayList<Post> batch = new ArrayList<>();
+//        for(int i = 0 ; i<5 ;i++){
+//            batch.add(this.getTestPost(i));
+//        }
+//        postRepoTest.saveAll(batch);
+//        List<Long> ids = postRepoTest.getDistinctPostIDsByAddress("testAddress");
+//        assertEquals(ids.size(),5);
+//    }
+//
+//    @Test
+//    void testRetrievalByIDs(){
+//        ArrayList<Post> batch = new ArrayList<>();
+//        for(int i = 0 ; i<5 ;i++){
+//            batch.add(this.getTestPost(i));
+//        }
+//        postRepoTest.saveAll(batch);
+//        List<Long> ids = postRepoTest.getDistinctPostIDsByAddress("testAddress");
+//        List<Post> postsByIDs = postRepoTest.findAllById(ids);
+//        assertEquals(postsByIDs.size(),5);
+//    }
+//
+//
+//    @Test
+//    void testInsertionThenEdit(){
+//        Post p = this.getTestPost(0);
+//        Long id = p.getPropertyID();
+//        postRepoTest.save(p);
+//
+//        p.setPrice(90);
+//        postRepoTest.save(p);
+//
+//        assertEquals(1,postRepoTest.count());
+//
+//        Post inDB = postRepoTest.getReferenceById(id);
+//        assertEquals(90, inDB.getPrice());
+//
+//    }
 
-    @Test
-    void testInsertionThenDeletionSimple(){
-        Post testPost = this.getTestPost(0);
-        postRepoTest.save(testPost);
-        postRepoTest.deleteByAddressAllIgnoreCase("testAddress");
-        boolean present = postRepoTest.existsByAddress("testAddress");
-        assertFalse(present);
-    }
-
-    @Test
-    void testInsertionBatch(){
-        ArrayList<Post> batch = new ArrayList<>();
-        for(int i = 0 ; i<5 ;i++){
-            batch.add(this.getTestPost(i));
-        }
-        postRepoTest.saveAll(batch);
-        long num = postRepoTest.countByAddress("testAddress");
-        assertEquals(num,batch.size());
-    }
-
-
-    @Test
-    void testInsertionThenDeletionBatch(){
-        ArrayList<Post> batch = new ArrayList<>();
-        for(int i = 0 ; i<5 ;i++){
-            batch.add(this.getTestPost(i));
-        }
-        postRepoTest.saveAll(batch);
-        postRepoTest.deleteByAddressAllIgnoreCase("testAddress");
-        long num = postRepoTest.countByAddress("testAddress");
-        assertEquals(num,0);
-    }
-
-
-    @Test
-    void testRetrievalFiltered(){
-        ArrayList<Post> batch = new ArrayList<>();
-        for(int i = 0 ; i<5 ;i++){
-            batch.add(this.getTestPost(i));
-        }
-
-        postRepoTest.saveAll(batch);
-        ViewingPreference v = this.getTestPreference();
-        PostSpecificationBuilder sb = new PostSpecificationBuilder(v);
-        List<Post> filteredPosts = postRepoTest.findAll(sb.build());
-        assertEquals(1,filteredPosts.size());
-    }
-
-    @Test
-    void testAutomaticIDs(){
-        ArrayList<Post> batch = new ArrayList<>();
-        for(int i = 0 ; i<5 ;i++){
-            batch.add(this.getTestPost(i));
-        }
-        postRepoTest.saveAll(batch);
-        List<Long> ids = postRepoTest.getDistinctPostIDsByAddress("testAddress");
-        assertEquals(ids.size(),5);
-    }
-
-    @Test
-    void testRetrievalByIDs(){
-        ArrayList<Post> batch = new ArrayList<>();
-        for(int i = 0 ; i<5 ;i++){
-            batch.add(this.getTestPost(i));
-        }
-        postRepoTest.saveAll(batch);
-        List<Long> ids = postRepoTest.getDistinctPostIDsByAddress("testAddress");
-        List<Post> postsByIDs = postRepoTest.findAllById(ids);
-        assertEquals(postsByIDs.size(),5);
-    }
-
-
-    @Test
-    void testInsertionThenEdit(){
-        Post p = this.getTestPost(0);
-        Long id = p.getPropertyID();
-        postRepoTest.save(p);
-
-        p.setPrice(90);
-        postRepoTest.save(p);
-
-        assertEquals(1,postRepoTest.count());
-
-        Post inDB = postRepoTest.getReferenceById(id);
-        assertEquals(90, inDB.getPrice());
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-    @AfterEach
-    void tearDown() {
-        postRepoTest.deleteAll();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//    @AfterEach
+//    void tearDown() {
+//        postRepoTest.deleteAll();
+//    }
 
 
     private Post getTestPost(int i){

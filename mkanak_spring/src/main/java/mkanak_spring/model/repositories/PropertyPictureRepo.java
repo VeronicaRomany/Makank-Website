@@ -15,7 +15,7 @@ public interface PropertyPictureRepo extends JpaRepository<PropertyPicture, Prop
     @Transactional
     @Modifying
     @Query(value = "delete from property_pictures p where p.post_id = ?1", nativeQuery = true)
-    void deletePicturesById(Long postID);
+        void deletePicturesById(Long postID);
 
     @Query(value = "select pic_link from property_pictures p where p.post_id = ?1", nativeQuery = true)
     List<String> getPropertyPictures(long propertyID);

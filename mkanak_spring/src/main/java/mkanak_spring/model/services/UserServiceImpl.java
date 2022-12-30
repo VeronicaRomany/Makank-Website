@@ -55,9 +55,6 @@ public class UserServiceImpl implements UserService {
         return userRepo.findByUsername(username);
     }
 
-    public Boolean emailExists(String email) {
-        return userRepo.findByEmail(email);
-    }
 
 
 
@@ -67,7 +64,7 @@ public class UserServiceImpl implements UserService {
         JsonToObject converter = new JsonToObject();
         User user = null;
         try {
-            user = converter.getUserFromJson(userJson,userId);
+            user = converter.getUserFromJson(userJson, (long) userId);
         } catch (ParseException e) {
             return false;
         }
