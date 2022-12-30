@@ -63,12 +63,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean editUser(JSONObject userJson)  {
+    public boolean editUser(JSONObject userJson,int userId)  {
         // TODO validate user
         JsonToObject converter = new JsonToObject();
         User user = null;
         try {
-            user = converter.getUserFromJson(userJson);
+            user = converter.getUserFromJson(userJson,userId);
         } catch (ParseException e) {
             return false;
         }

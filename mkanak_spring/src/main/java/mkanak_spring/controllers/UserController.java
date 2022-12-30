@@ -2,7 +2,6 @@ package mkanak_spring.controllers;
 
 import com.google.gson.Gson;
 import mkanak_spring.model.entities.User;
-import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -17,8 +16,6 @@ import java.util.Objects;
 public class UserController {
     @Autowired
     UserService userService;
-    @Autowired
-    UserDAO userDAO;
     @Autowired
     SecurityGuard securityGuard;
 
@@ -67,13 +64,14 @@ public class UserController {
 
 
 
-    @PostMapping(value = "/profile/edit")
-    public boolean editUser(@RequestHeader("Authorization") String bearerToken,
+    @PostMapping(value = "/profile/edit/{userId}")
+    public boolean editUser(@PathVariable int userId, @RequestHeader("Authorization") String bearerToken,
                             @RequestBody JSONObject jsonObject) throws Exception {
-        int idJson = (int) jsonObject.get("user_id");
+
+        int idJson = userId;
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
-        return userService.editUser(jsonObject);
+        return userService.editUser(jsonObject,userId);
     }
 
 

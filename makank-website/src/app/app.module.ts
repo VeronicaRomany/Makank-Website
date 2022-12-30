@@ -32,6 +32,12 @@ import {MatIconModule} from '@angular/material/icon';
 import { LargeViewComponent } from './large-view/large-view.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn:ProfileComponent
+})
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +48,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     FilterComponent,
     NewPostComponent,
     LargeViewComponent,
+    EditProfileComponent,
     
 
   ],
@@ -61,7 +68,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   
     
   ],
-  providers: [],
+  providers: [ProfileComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

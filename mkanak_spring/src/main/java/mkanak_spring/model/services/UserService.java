@@ -10,5 +10,5 @@ public interface UserService {
     Long logInUser(String username, String password);
     User findUserInfoByUseId(long userID);
 //    String findUserPhoneByUseId(long userID);
-    boolean editUser(JSONObject user) ;
+    boolean editUser(JSONObject user,int userId) ;
 }
