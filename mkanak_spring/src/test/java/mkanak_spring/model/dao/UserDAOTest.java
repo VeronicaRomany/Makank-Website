@@ -25,6 +25,8 @@ class UserDAOTest {
     @Mock
     private UserCredentialsRepo userCredentialsRepoTest;
 
+//    @InjectMocks
+//    private UserDAO userDAOTest;
     @Test
     void onSaveUserInvokeWithCorrectUser() {
         User userTest = new User(null, "yara", "username",

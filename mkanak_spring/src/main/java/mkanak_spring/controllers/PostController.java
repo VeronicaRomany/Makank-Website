@@ -1,8 +1,9 @@
 package mkanak_spring.controllers;
 
+
 import com.auth0.jwt.algorithms.Algorithm;
 import mkanak_spring.model.entities.Post;
-import mkanak_spring.model.entities.User;
+import mkanak_spring.model.entities.Property;
 import mkanak_spring.model.services.PostService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -22,7 +24,7 @@ public class PostController {
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference,
                                   @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                  @RequestParam(name = "pageSize",defaultValue = "20") int pageSize)
+                                  @RequestParam(name = "pageSize",defaultValue = "50") int pageSize)
             throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
@@ -31,7 +33,7 @@ public class PostController {
 
 
     //    ################ Profile posts ########################
-    @GetMapping("/profile/{targetUserID}")
+    @GetMapping("/{targetUserID}")
     public List<Post> getProfilePosts(@PathVariable int targetUserID,
                                       @RequestParam String preference,
                                       @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
@@ -48,41 +50,33 @@ public class PostController {
     //   ################ Manipulation posts ########################
     @PostMapping("/new")
     public void addPost(@RequestHeader("Authorization") String bearerToken,
-                        @RequestBody JSONObject jsonObject) throws Exception {
-        int idJson = (int) jsonObject.get("seller_id");
+                            @RequestBody JSONObject postDetails) throws Exception {
+        int idJson = (int) postDetails.get("sellerID");
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
-        postService.createPost(jsonObject);
+        System.out.println("details: " + postDetails);
+        postService.savePost(null, postDetails);
     }
+
 
     @PostMapping("/edit")
     public boolean editPost(@RequestHeader("Authorization") String bearerToken,
-                            @RequestBody JSONObject jsonObject)
-            throws Exception {
-        //TODO check the recieved body of the request if valid
-        int idJson = (int) jsonObject.get("seller_id");
+                            @RequestBody JSONObject post) throws Exception {
+        int idJson = (int) post.get("sellerID");
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
-
-//        JSONParser parser = new JSONParser();
-//        JSONObject jsonObject = (JSONObject) parser.parse(jsonObject);
-        postService.editPost(jsonObject);
+        postService.editPost(post);
         return false;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete/{postID}")
     public boolean deletePost(@RequestHeader("Authorization") String bearerToken,
-                              @RequestBody JSONObject jsonObject) throws Exception {
-        //TODO check if post deletion is with the ids
-
-        int idJson = (int) jsonObject.get("seller_id");
-        if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
+                              @PathVariable int postID) throws Exception {
+        long idJson = (long) postService.getProperty(postID).get("sellerID");
+        if (!securityGuard.verifyJWTtoken((int)idJson, bearerToken))
             throw new Exception("error");
 
-//        JSONParser parser = new JSONParser();
-//        JSONObject json = (JSONObject) parser.parse(details);
-
-        postService.deletePost(jsonObject);
+        postService.deletePost(postID);
         return false;
     }
 
@@ -93,7 +87,7 @@ public class PostController {
                                     @PathVariable int userID,
                                     @RequestParam String preference,
                                     @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                    @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                    @RequestParam(name = "pageSize",defaultValue = "50") int pageSize
                                     ) throws Exception {
         if(!securityGuard.verifyJWTtoken(userID,bearerToken))
             throw new Exception("error");
@@ -112,23 +106,23 @@ public class PostController {
 
     @PostMapping("/savePost")
     public void addToSavedPost(@RequestBody JSONObject jsonObject) throws ParseException {
-//        JSONParser parser = new JSONParser();
-//        JSONObject json = (JSONObject) parser.parse(saveEntry);
-//        System.out.println(json);
         postService.addToSavedPosts(jsonObject);
     }
 
     @PostMapping("/unsavePost")
     public void removePostFromSaved(@RequestBody JSONObject jsonObject) throws ParseException {
-//        JSONParser parser = new JSONParser();
-//        JSONObject json = (JSONObject) parser.parse(entry);
-
         postService.removeFromSaved(jsonObject);
     }
 
     @GetMapping("/details/{postID}")
     public JSONObject getPostDetails(@PathVariable int postID){
         return postService.getPostDetails(postID);
+    }
+
+    // 8yary el endpoint
+    @GetMapping("/info/{propertyID}")
+    public JSONObject getProperty(@PathVariable int propertyID) throws ParseException {
+        return postService.getProperty(propertyID);
     }
 
 }

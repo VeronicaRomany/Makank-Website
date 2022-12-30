@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
@@ -21,6 +18,8 @@ public class User {
     private String username;
     @Column(unique = true)
     private String email;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
     private String address;
     @Column(name = "profile_pic_link")
     private String profilePicLink;
@@ -29,8 +28,7 @@ public class User {
     private String password;
     @Column(name = "user_description")
     private String description;
-    @Column(name = "phone_number")
-    private String phoneNumber;
+
 
     public User(Long userID, String name, String username, String email, String address, String profilePicLink, String password, String description, String phoneNumber) {
         this.userID = userID;

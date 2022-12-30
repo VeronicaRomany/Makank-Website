@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 
 import { Post } from '../../shared/post';
@@ -12,8 +13,8 @@ import { ViewingPreference } from '../../shared/viewingPreference';
   providedIn: 'root'
 })
 export class PropertiesService {
-
-  constructor(private http:HttpClient) { }
+  
+  constructor(private http:HttpClient,private token: TokenStorageService ) { }
   postsURL:string = "http://localhost:8080/posts"
 
 
@@ -52,8 +53,9 @@ export class PropertiesService {
 
   deletePost(iD:number):Observable<Post[]>{
     let queryParams=new HttpParams();
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
     queryParams = queryParams.append("postID",iD);
-    return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString())
+    return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString(),{headers:headers})
   }
 
 

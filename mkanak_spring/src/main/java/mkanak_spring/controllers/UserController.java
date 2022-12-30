@@ -64,34 +64,14 @@ public class UserController {
     }
 
 
-
-    @PostMapping(value = "/profile/edit")
-    public boolean editUser(@RequestHeader("Authorization") String bearerToken,
+    @PostMapping(value = "/profile/edit/{userId}")
+    public boolean editUser(@PathVariable int userId, @RequestHeader("Authorization") String bearerToken,
                             @RequestBody JSONObject jsonObject) throws Exception {
-        int idJson = (int) jsonObject.get("user_id");
+
+        int idJson = userId;
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
-        return userService.editUser(jsonObject);
+        return userService.editUser(jsonObject,userId);
     }
 
-
-
 }
-
-
-
-
-
-
-
-
-
-//    @GetMapping("/profile/phone/{userIdPhone}")
-//    public String getUserPhone(@PathVariable long userIdPhone){
-//        Gson gson = new Gson();
-//        System.out.println("REQUEST : "+userIdPhone);
-//        long u= gson.fromJson(String.valueOf(userIdPhone),long.class);
-//        String test = userService.findUserPhoneByUseId(u);
-//        System.out.println(test);
-//        return test;
-//    }

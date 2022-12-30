@@ -21,5 +21,6 @@ export class Post{
     hasGarden:boolean=false
     hasPool:boolean=false
     hasPictures:boolean=false
-
+    image:string=""
+    
   }

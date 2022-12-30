@@ -1,0 +1,53 @@
+.upload img{
+    width: 25%;
+    height: 25%;
+
+}
+
+
+
+form{
+    margin: auto;
+    
+    
+ }
+ .register-form{
+    height: 97%;
+    width: 80%;
+    border:solid;
+    border-color: rgb(234, 234, 234);
+    padding: 10px 50px 20px;
+   
+   
+ }
+ .frame{
+  
+    width: 100%;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+input{
+  margin-top: 20px;
+  width: 100%;
+ 
+}
+.fr{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 700px;
+
+    
+}
+.upload{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+    width: 40%;
+}
