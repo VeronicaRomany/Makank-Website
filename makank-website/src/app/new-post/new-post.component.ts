@@ -6,7 +6,7 @@ import { Post } from '../shared/post';
 import { NewPostService } from './service/new-post.service';
 import { Globals } from 'src/globals';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenStorageService } from '../login/services/token-storage.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 
 

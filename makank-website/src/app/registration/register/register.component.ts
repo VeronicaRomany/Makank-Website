@@ -8,7 +8,7 @@ import {  ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { DataReturned } from 'src/app/login/services/auth.service.service';
+import { DataReturned } from 'src/app/dataReturned';
 import { User } from 'src/app/user';
 import { AuthService } from 'src/app/_services/auth.service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterPreference, SortingPreference, ViewingPreference } from '../viewingPreference';
-import { TokenStorageService } from 'src/app/login/services/token-storage.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Router } from '@angular/router';
 
 @Component({

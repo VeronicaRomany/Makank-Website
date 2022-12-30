@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../login/services/token-storage.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 import { ProfileService } from '../profile/services/profile.service';
 import {Globals} from "../../globals";
 import { User } from 'src/app/shared/user';
