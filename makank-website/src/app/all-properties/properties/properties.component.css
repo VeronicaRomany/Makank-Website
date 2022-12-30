@@ -225,6 +225,7 @@ body{
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
 }
 .container2{
+    margin-top: 150px;
     width: 95%;
 
 }
@@ -238,7 +239,7 @@ body{
     align-self:center;
     width: 90%;
    margin-top: 6rem;
-   margin-left: 4rem;
+   margin-left: 2rem;
     position: relative;
 
   left:50%;
@@ -363,10 +364,10 @@ button {
 .disablednext{
     background-color: #848484;
     color: white;
-    margin-right: 500px;
+    margin-right: 550px;
 }
 .disabledprevious{
     background-color: #848484;
     color: white;
-    margin-left: 500px;
+    margin-left: 550px;
 }

@@ -12,6 +12,8 @@ import { ViewingPreference } from '../../shared/viewingPreference';
 
 import { LargeViewComponent } from 'src/app/large-view/large-view.component';
 import { PropertiesService } from '../services/properties.service';
+import { SharedService } from 'src/app/shared.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-properties',
   templateUrl: './properties.component.html',
@@ -32,20 +34,19 @@ export class PropertiesComponent implements OnInit {
   numOfPosts:number=0
   postFlag:boolean=false
   maxPagesNum:number=0
-  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) {
+  clickEventsubscription:Subscription;
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient,private sharedService:SharedService) {
     this.serv= service
-
+  this.clickEventsubscription=    this.sharedService.getClickEvent().subscribe(()=>{
+  this.getSavedPost();
+})
   }
 
   ngOnInit(): void {
     
     this.currentPage=0
     this.postFlag=false
-    // let p = this.getDummyPost()
-    // let p2= this.getDummyPost()
-    // this.posts.push(p)
-    // this.posts.push(p2)
-    // console.log(this.posts)
+
     this.loggedIn = !!this.token.getToken();
     if(this.loggedIn){
     this.getSavedPostsIds();
@@ -167,34 +168,6 @@ openLargeView(postID:number ,propertyType:string){
 }
 
 
-
-
-// // getDummyPost():Post{
-//     let p = new Post()
-//     let v = new Villa()
-//     v.hasGarden=false
-//     v.hasPool=true
-//     v.numberOfLevels=3
-//     p.property=v
-//     p.postID=5
-//     p.publishDate=new Date()
-//     p.property=new Property()
-//     p.property.pictures=['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsleUSqV4jrTGyQ-LfR3V5bkobZGtG0hyXf5ObJEy7&s']
-//     p.property.area=25
-//     p.property.city='ka3 el hamoor'
-//     p.property.info='pinapple 3 levels very good neighborhood\n neighbors are jazz playning squid and a pink starfish'
-//     p.property.bathroomNumber=1
-//     p.property.rent=false
-//     p.property.roomNumber=4
-//     p.property.sellerID=145
-//     p.property.price=50000000000
-
-//     let x = (p.property as Villa).hasGarden
-//     console.log(x)
-//     console.log(p.property instanceof Villa)
-//     return p
-//   //}
-
   goTonewPost():void{
 
     this.router.navigate([ '/','NewPost'])
@@ -248,26 +221,7 @@ openLargeView(postID:number ,propertyType:string){
     this.preference.sorted=sortingCriteria.value=="Sort by"? false:true
     this.preference.sortingPreference.sortingCriteria=sortingCriteria.value
     this.preference.sortingPreference.ascending=order.value=="ascending"? true: false
-    //this.searchData.filterDetails.infoSearchWord=textSearch.value
-    //this.searchData.filterDetails.propertyType=type.value
-    //this.searchData.filterDetails.citySearchWord=city.value
-   // this.searchData.filterDetails.purchaseType=buyRent.value
-   // this.searchData.filterDetails.university= university.value
-   // this.searchData.filterDetails.maxPrice =Number(maxPrice.value)
-    //this.searchData.filterDetails.minPrice =Number(minPrice.value)
-   // this.searchData.filterDetails.minArea = Number(minArea.value)
-   // this.searchData.filterDetails.maxArea =Number(maxArea.value)
-   // this.searchData.filterDetails.withPictures= withPictures.checked
-    //this.searchData.filterDetails.studentHousing=studentHousing.checked
-    //this.searchData.sorted = sortingCriteria.value=="Sort by"? false:true
-    //this.searchData.sortingDetails.sortingCriteria= sortingCriteria.value
-    //this.searchData.sortingDetails.ascending= order.value=="ascending"? true: false
-   // var body =JSON.stringify(this.searchData)
-    //console.log( body)
 
-  //  this.http.post(this.url,body).subscribe((data:any)=>{
-  //   console.log(data)
-  //  })
 
 
 
