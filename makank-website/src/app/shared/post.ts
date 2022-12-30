@@ -21,5 +21,6 @@ export class Post{
     hasPool:boolean=false
     universities:string[]=[]
     hasPictures:boolean=false
+    image:string=""
     
   }
