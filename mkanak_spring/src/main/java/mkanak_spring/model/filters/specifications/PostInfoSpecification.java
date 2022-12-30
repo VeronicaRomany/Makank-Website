@@ -18,7 +18,6 @@ public class PostInfoSpecification implements Specification<Post> {
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         String str = "%" + this.preference.getFilterPreference().getInfoSearchWord() + "%";
-        return criteriaBuilder.like(root.get("info"),str);
-
+        return criteriaBuilder.like(criteriaBuilder.upper(root.get("info")),str.toUpperCase());
     }
 }

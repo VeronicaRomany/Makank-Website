@@ -14,26 +14,26 @@ public class Property {
     @Id
     @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long propertyID;
+    private Long propertyID=null;
     @Column(name = "post_date", updatable = false)
     @CreationTimestamp
     private Date publishDate;
     @Column(name = "seller_id", updatable = false)
     private Long sellerID;
     @Column(name = "rooms", nullable = false)
-    private int roomNumber;
+    private int roomNumber=1;
     @Column(name = "bathrooms", nullable = false)
-    private int bathroomNumber;
+    private int bathroomNumber=1;
     @Column(name= "price", nullable = false)
-    private int price;
+    private int price=4500000;
     @Column(name = "city", nullable = false)
-    private String city;
+    private String city="Cairo";
     @Column(name = "property_address", nullable = false)
-    private String address;
+    private String address="6 October";
     @Column(name = "area", nullable = false)
-    private int area;
+    private int area=80;
     @Column(name = "for_rent", nullable = false)
-    private boolean rent;
+    private boolean rent=true;
     @Column(name = "info")
     private String info;
     @Column(name = "property_type", nullable = false)

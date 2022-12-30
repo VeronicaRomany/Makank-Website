@@ -17,6 +17,6 @@ public class PostAddressSpecification implements Specification<Post> {
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         String str = "%" + this.preference.getFilterPreference().getInfoSearchWord() + "%";
-        return criteriaBuilder.like(root.get("address"),str);
+        return criteriaBuilder.like(criteriaBuilder.upper(root.get("address")),str.toUpperCase());
     }
 }

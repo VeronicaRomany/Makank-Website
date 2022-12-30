@@ -103,7 +103,6 @@ public class PostSpecificationBuilder {
         else if(f.getMinArea()!=-1)
             this.possibleSpecifications.add(new PostMinAreaSpecification(v));
 
-
         if(!Objects.equals(f.getInfoSearchWord(), "")){
             Specification<Post> s1 = new PostInfoSpecification(v);
             Specification<Post> s2 = new PostAddressSpecification(v);

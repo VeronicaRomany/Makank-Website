@@ -17,6 +17,6 @@ public class PostCitySpecification implements Specification<Post> {
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         String str = this.preference.getFilterPreference().getCitySearchWord();
-        return criteriaBuilder.like(root.get("city"),str);
+        return criteriaBuilder.like(criteriaBuilder.upper(root.get("city")),str.toUpperCase());
     }
 }
