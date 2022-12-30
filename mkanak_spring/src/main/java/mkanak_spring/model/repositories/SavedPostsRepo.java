@@ -17,10 +17,4 @@ public interface SavedPostsRepo  extends JpaRepository<SavedPostsEntry, SavedPos
     @Query(value = "select post_id from saved_items where user_id = :userID ;",nativeQuery = true)
     List<Long> getUserSavedPostsIDs(@Param("userID") Long userID);
 
-    @Transactional
-    @Modifying
-    @Query("delete from SavedPostsEntry s where s.userID = ?1 and s.postID = ?2")
-    void deleteSavedPost(Long userID, Long postID);
-
-
 }

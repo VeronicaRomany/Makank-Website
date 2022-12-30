@@ -25,9 +25,6 @@
 //        return userRepo.findByUsername(username);
 //    }
 //
-//    public Boolean emailExists(String email) {
-//        return userRepo.findByEmail(email);
-//    }
 //    public User findUserInfoByUseId(long userID) {
 //        return userRepo.findUserInfoByUseId(userID);
 //    }

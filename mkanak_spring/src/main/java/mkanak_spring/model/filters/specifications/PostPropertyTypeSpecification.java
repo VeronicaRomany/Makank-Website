@@ -18,6 +18,6 @@ public class PostPropertyTypeSpecification implements Specification<Post> {
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         String str = this.preference.getFilterPreference().getPropertyType();
-        return criteriaBuilder.like(root.get("type"),str);
+        return criteriaBuilder.like(criteriaBuilder.upper(root.get("type")),str.toUpperCase());
     }
 }

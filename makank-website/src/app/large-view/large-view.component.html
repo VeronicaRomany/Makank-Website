@@ -2,19 +2,16 @@
 <div class="contain">
   
     <div class="box">
+     
         <div class="images">
             <div class="img-holder active">
-                <img src="assets/noImage.jpg">
+                <img src="{{images[0]}}" id="image1" *ngIf="!noPictures();">
+                <img src="assets/noImage.jpg"  *ngIf="noPictures();">
             </div>
-            <div class="img-holder">
-                <img src="assets/noImage.jpg">
-            </div>
-            <div class="img-holder">
-                <img src="assets/p.png">
-            </div>
-            <div class="img-holder">
-                <img src="assets/noImage.jpg">
-            </div>
+         <div class="changeBtn" *ngIf="!noPictures();">
+            <a  class="previous" *ngIf="!firstPic();" >&#8249;</a>
+           <a (click)="changePic();" *ngIf="!lastPic();" class="next">&#8250;</a>
+          </div>
         </div>
         <div class="basic-info">
             <div class="type">
@@ -80,7 +77,7 @@
             <p>{{largePost.info}}</p>
             <ul class="social">
                 <button class="Pbt">
-                    <img class="pImage"  src="assets/p.png" alt="">
+                    <img class="pImage"  src="{{largePost.seller_profile_pic}}" alt="">
                 </button>
                 <div class="co">
                     

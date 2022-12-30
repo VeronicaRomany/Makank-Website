@@ -18,8 +18,8 @@ public interface PostRepo extends JpaRepository<Post, Long> , JpaSpecificationEx
     boolean existsByAddress(String address);
     long countByAddress(String address);
 
-    @Query(value = "select distinct post_id from property where property_address like :add ;",nativeQuery = true)
-    List<Long> getDistinctPostIDsByAddress(@Param("add") String address);
+//    @Query(value = "select distinct post_id from property where property_address like :add ;",nativeQuery = true)
+//    List<Long> getDistinctPostIDsByAddress(@Param("add") String address);
 
     @Query(value = "SELECT * FROM post_large_view(?1)", nativeQuery = true)
     JSONObject getPostLargeView(long postID);

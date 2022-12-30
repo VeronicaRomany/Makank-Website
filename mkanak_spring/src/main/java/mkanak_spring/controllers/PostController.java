@@ -32,6 +32,17 @@ public class PostController {
     }
 
 
+    @GetMapping("/homepage/count")
+    public long getHomePage(@RequestParam String preference)
+            throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(preference);
+        return postService.getHomepagePostsCount(json);
+    }
+
+
+
+
     //    ################ Profile posts ########################
     @GetMapping("/profile/{targetUserID}")
     public List<Post> getProfilePosts(@PathVariable int targetUserID,
@@ -42,6 +53,13 @@ public class PostController {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
         return postService.getProfilePosts(targetUserID,json,pageNum,pageSize);
+    }
+
+    @GetMapping("/profile/{targetUserID}/count")
+    public long getProfilePosts(@PathVariable int targetUserID,@RequestParam String preference) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(preference);
+        return postService.getProfilePostsCount(targetUserID,json);
     }
 
 
@@ -87,7 +105,7 @@ public class PostController {
                                     @PathVariable int userID,
                                     @RequestParam String preference,
                                     @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                    @RequestParam(name = "pageSize",defaultValue = "50") int pageSize
+                                    @RequestParam(name = "pageSize",defaultValue = "10") int pageSize
                                     ) throws Exception {
         if(!securityGuard.verifyJWTtoken(userID,bearerToken))
             throw new Exception("error");
@@ -96,6 +114,20 @@ public class PostController {
         JSONObject json = (JSONObject) parser.parse(preference);
         return postService.getSavedPosts(userID,json,pageNum,pageSize);
     }
+
+    @GetMapping("/saved/{userID}/count")
+    public long getSavedPostsCount(@RequestHeader("Authorization") String bearerToken,
+                                    @PathVariable int userID,
+                                    @RequestParam String preference
+    ) throws Exception {
+        if(!securityGuard.verifyJWTtoken(userID,bearerToken))
+            throw new Exception("error");
+
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(preference);
+        return postService.getSavedPostsCount(userID,json);
+    }
+
 
     @GetMapping("/saved/ids/{userID}")
     public List<Long> getSavedIDs(@RequestHeader("Authorization") String bearerToken,
@@ -115,7 +147,7 @@ public class PostController {
     }
 
     @GetMapping("/details/{postID}")
-    public JSONObject getPostDetails(@PathVariable int postID){
+    public JSONObject getPostDetails(@PathVariable int postID) throws ParseException {
         return postService.getPostDetails(postID);
     }
 

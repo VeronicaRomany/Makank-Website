@@ -12,8 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @RunWith(SpringRunner.class)
@@ -26,101 +30,69 @@ class SavedPostsRepoTest {
     @Autowired
     PostRepo postRepo;
 
-    @BeforeEach
-    void verifyUserPost() {
-        assertTrue(postRepo.existsById(1L));
-        assertTrue(userRepo.existsById(1L));
-    }
+//    @BeforeEach
+//    void verifyUserPost() {
+//        assertTrue(postRepo.existsById(1L));
+//        assertTrue(userRepo.existsById(1L));
+//    }
+//
+//    @Test
+//    void testAddingSavedEntry() {
+//        SavedPostsEntry entry = new SavedPostsEntry();
+//        entry.setUserID(1L);
+//        entry.setPostID(1L);
+//
+//        SavedPostsEntryID id = new SavedPostsEntryID();
+//        id.setPostID(1L);
+//        id.setUserID(1L);
+//        savedPostsRepo.save(entry);
+//        assertTrue(savedPostsRepo.existsById(id));
+//        savedPostsRepo.deleteSavedPost(1L,1L);
+//    }
+//
+//    @Test
+//    void removeAddedSavedEntry(){
+//        SavedPostsEntry entry = new SavedPostsEntry();
+//        entry.setUserID(1L);
+//        entry.setPostID(1L);
+//
+//        SavedPostsEntryID id = new SavedPostsEntryID();
+//        id.setPostID(1L);
+//        id.setUserID(1L);
+//        savedPostsRepo.save(entry);
+//        savedPostsRepo.deleteSavedPost(1L,1L);
+//        assertFalse(savedPostsRepo.existsById(id));
+//    }
 
     @Test
-    void testAddingSavedEntry() {
-        SavedPostsEntry entry = new SavedPostsEntry();
-        entry.setUserID(1L);
-        entry.setPostID(1L);
-
-        SavedPostsEntryID id = new SavedPostsEntryID();
+    void testRetreivingSavedPostsIDsContainTest(){
+        SavedPostsEntry id = new SavedPostsEntry();
         id.setPostID(1L);
         id.setUserID(1L);
-        savedPostsRepo.save(entry);
-        assertTrue(savedPostsRepo.existsById(id));
-        savedPostsRepo.deleteSavedPost(1L,1L);
+        savedPostsRepo.save(id);
+        assertThat(savedPostsRepo.getUserSavedPostsIDs(1L).size()).isEqualTo(1);
     }
-
     @Test
-    void removeAddedSavedEntry(){
-        SavedPostsEntry entry = new SavedPostsEntry();
-        entry.setUserID(1L);
-        entry.setPostID(1L);
-
-        SavedPostsEntryID id = new SavedPostsEntryID();
+    void testRetreivingSavedPostsIDEmptyTest(){
+        SavedPostsEntry id = new SavedPostsEntry();
         id.setPostID(1L);
         id.setUserID(1L);
-        savedPostsRepo.save(entry);
-        savedPostsRepo.deleteSavedPost(1L,1L);
-        assertFalse(savedPostsRepo.existsById(id));
+       // savedPostsRepo.save(id);
+        assertThat(savedPostsRepo.getUserSavedPostsIDs(1L).size()).isEqualTo(0);
     }
 
     @Test
-    void testRetreivingSavedPostsIDsContain(){
-
-    }
-
-}
-
-/*
-
-    @AfterEach
-    void deleteAll() {
-        userRepoTest.deleteAll();
-    }
-
-        userRepoTest.save(user);
-
-        // when
-        Boolean isPresent = userRepoTest.findByEmail(email);
-
-        // then
-        assertThat(isPresent).isTrue();
-    }
-
-    @Test
-    void checkIfUserEmailDoesntExist() {
-        // given
-        String email = "yarahossam@gmail.com";
-
-        // when
-        Boolean isPresent = userRepoTest.findByEmail(email);
-
-        // then
-        assertThat(isPresent).isFalse();
-    }
-
-    @Test
-    void checkIfUsernameExists() {
-        // given
-        String username = "lolo";
-        User user = new User(null, "yara", username,
-                "yarahossam@gmail.com", "", "", "password", "", null);
-
-        userRepoTest.save(user);
-
-        // when
-        Boolean isPresent = userRepoTest.findByUsername(username);
-
-        // then
-        assertThat(isPresent).isTrue();
-    }
-
-    @Test
-    void checkIfUsernameDoesntExist() {
-        // given
-        String username = "lolo";
-
-        // when
-        Boolean isPresent = userRepoTest.findByUsername(username);
-
-        // then
-        assertThat(isPresent).isFalse();
+    void testRetreivingSeveralSavedPostsIDsContainTest(){
+        SavedPostsEntry id = new SavedPostsEntry();
+        id.setPostID(1L);
+        id.setUserID(1L);
+        savedPostsRepo.save(id);
+        id.setPostID(2L);
+        id.setUserID(1L);
+        savedPostsRepo.save(id);
+        List<Long> idList= new ArrayList<>();
+        idList.add(1L);
+        idList.add(2L);
+        assertThat(savedPostsRepo.getUserSavedPostsIDs(1L)).isEqualTo(idList);
     }
 }
- */

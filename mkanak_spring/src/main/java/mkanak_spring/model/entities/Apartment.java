@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "apartment")
 public class Apartment extends Property {
     @Column(name = "apartment_level")
-    private int level;
+    private int level=0;
     @Column(name = "has_elevator")
-    private boolean elevator;
+    private boolean elevator=false;
     @Column(name = "for_students")
-    private boolean studentHousing;
+    private boolean studentHousing=false;
 
     public int getLevel() {
         return level;

@@ -19,18 +19,30 @@ public class PostSpecificationBuilder {
     private List<Long> postIDs;
     private int id =-1 ;
     private ViewingPreference v;
+
+    // normal
     public PostSpecificationBuilder(ViewingPreference v ){
         this.possibleSpecifications=new ArrayList<>();
         this.v= v;
     }
 
+    //for posts by a certain person
     public PostSpecificationBuilder(ViewingPreference v, int id ){
         this(v);
         this.id=id;
     }
 
+    //for posts included in a list of ids (apartment stuff)
     public PostSpecificationBuilder(ViewingPreference v, List<Long> ids ){
         this(v);
+        this.postIDs=ids;
+    }
+
+
+    //for posts included in a list of ids (apartment stuff) and posted by certain person
+    public PostSpecificationBuilder(ViewingPreference v,int id, List<Long> ids ){
+        this(v);
+        this.id = id;
         this.postIDs=ids;
     }
 
@@ -81,7 +93,7 @@ public class PostSpecificationBuilder {
             this.possibleSpecifications.add(new PostPriceRangeSpecification(v));
         else if(f.getMaxPrice()!=-1) //has max price but not min price
             this.possibleSpecifications.add(new PostMaxPriceSpecification(v));
-        else if(f.getMinPrice()!=-1)//has min price but not max price
+        else if(f.getMinPrice()!=-1) //has min price but not max price
             this.possibleSpecifications.add(new PostMinPriceSpecification(v));
 
         if(f.getMinArea()!=-1 && f.getMaxArea()!= -1)
@@ -90,7 +102,6 @@ public class PostSpecificationBuilder {
             this.possibleSpecifications.add(new PostMaxAreaSpecification(v));
         else if(f.getMinArea()!=-1)
             this.possibleSpecifications.add(new PostMinAreaSpecification(v));
-
 
         if(!Objects.equals(f.getInfoSearchWord(), "")){
             Specification<Post> s1 = new PostInfoSpecification(v);
