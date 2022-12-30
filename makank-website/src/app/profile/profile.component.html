@@ -1,6 +1,6 @@
 <div class="container" *ngIf="!notLogIn">
   <body>
-  <div class="container">
+  <div class="container9">
     <div class="box">
       <img src={{currentUserInfo.profilePicLink}} alt="user" width="100">
       <ul>
@@ -197,6 +197,10 @@
         </li>
 
       </ul>
+      <div>
+        <button type="button" *ngIf=!checkPrevious() (click)="previousPage()">previous</button>
+        <button type="button" (click)="nextPage()">Next</button>
+      </div>
     </div>
   </div>
   </body>

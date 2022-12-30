@@ -27,10 +27,14 @@ export class ProfileComponent implements OnInit {
   goToEdit:boolean=false
   editedID:number=0
   loggedIn:boolean=false
+  currentPage:number=0
+  postFlag:boolean=false
   constructor(private token: TokenStorageService, private profile: ProfileService, private router: Router, public dialog:MatDialog, private http:HttpClient) {
   }
 
   ngOnInit(): void {
+    this.currentPage=0
+    this.postFlag=false
     this.currentUser = this.token.getUser();
     this.userID = this.token.getUser().userId;
     if (this.currentUser.username != undefined) {
@@ -42,10 +46,14 @@ export class ProfileComponent implements OnInit {
       console.log(result)
     })
 
-    this.profile.getPostsOfTheUser(this.preference, this.userID).subscribe(results => {
+    this.profile.getPostsOfTheUser(this.preference, this.userID,0).subscribe(results => {
       console.log("ana rg3t", results)
       this.posts = results
     });
+    this.loggedIn = !!this.token.getToken();
+    if(this.loggedIn) {
+      this.getSavedPostsIds();
+    }
   }
 
   getSavedPostsIds() {
@@ -109,7 +117,9 @@ export class ProfileComponent implements OnInit {
     if (this.loggedIn) {
       this.getSavedPostsIds();
       let userID = this.token.getUser().userId;
-      this.profile.getSavedPosts(userID, this.preference).subscribe(results => {
+      this.postFlag=true
+      this.currentPage=0
+      this.profile.getSavedPosts(userID, this.preference,0).subscribe(results => {
 
 
         console.log("saveeed", results)
@@ -136,7 +146,7 @@ export class ProfileComponent implements OnInit {
   sendPostsRequests(){
     this.userID = this.token.getUser().userId;
     console.log(this.preference)
-    this.profile.getPostsOfTheUser(this.preference,this.userID).subscribe(results => {
+    this.profile.getPostsOfTheUser(this.preference,this.userID,0).subscribe(results => {
       console.log("ana rg3t", results)
       this.posts=results
     } );
@@ -254,12 +264,50 @@ export class ProfileComponent implements OnInit {
 
     console.log(this.preference)
     this.getSavedPostsIds();
-    this.profile.getPostsOfTheUser(this.preference,this.userID).subscribe(results => {
+    this.profile.getPostsOfTheUser(this.preference,this.userID,0).subscribe(results => {
       console.log("filteeeeer ", results)
       this.posts = results
       // Globals.setPosts(results)
     });
 
 
+  }
+  nextPage(){
+    this.currentPage++
+    if(!this.postFlag){
+      this.profile.getPostsOfTheUser(this.preference,this.userID,this.currentPage).subscribe(results => {
+        console.log("ana rg3t", results)
+        this.posts=results
+      } );
+    }
+    else{
+      this.profile.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
+        console.log("saveeed", results)
+        this.posts=results
+      })
+    }
+  }
+  previousPage(){
+    if(this.currentPage>0){
+      this.currentPage--
+      if(!this.postFlag){
+        this.profile.getPostsOfTheUser(this.preference,this.userID,this.currentPage).subscribe(results => {
+          console.log("ana rg3t", results)
+          this.posts=results
+        } );
+      }
+      else{
+        this.profile.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
+          console.log("saveeed", results)
+          this.posts=results
+        })
+      }
+    }
+  }
+  checkPrevious() {
+    if(this.currentPage>0){
+      return false
+    }
+    return true
   }
 }

@@ -168,5 +168,9 @@
         </li>
 
     </ul>
+    <div>
+      <button type="button" *ngIf=!checkPrevious() (click)="previousPage()">previous</button>
+      <button type="button" (click)="nextPage()">Next</button>
+    </div>
 </div>
 </div>

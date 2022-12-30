@@ -27,12 +27,16 @@ export class PropertiesComponent implements OnInit {
   goToEdit:boolean=false
   editedID:number=0
   loggedIn:boolean=false
+  currentPage:number=0
+  postFlag:boolean=false
   constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) {
     this.serv= service
 
   }
 
   ngOnInit(): void {
+    this.currentPage=0
+    this.postFlag=false
     // let p = this.getDummyPost()
     // let p2= this.getDummyPost()
     // this.posts.push(p)
@@ -49,7 +53,7 @@ export class PropertiesComponent implements OnInit {
   sendPostsRequests(){
     this.userID = this.token.getUser().userId;
     console.log(this.preference)
-      this.serv.getPostsHomePage(this.preference).subscribe(results => {
+      this.serv.getPostsHomePage(this.preference,0).subscribe(results => {
           console.log("ana rg3t", results)
           this.posts=results
       } );
@@ -110,8 +114,10 @@ export class PropertiesComponent implements OnInit {
   getSavedPost(){
     if(this.loggedIn){
     this.getSavedPostsIds();
+    this.postFlag=true
+    this.currentPage=0
     let userID = this.token.getUser().userId;
-    this.serv.getSavedPosts(userID,this.preference).subscribe(results => {
+    this.serv.getSavedPosts(userID,this.preference,0).subscribe(results => {
 
 
       console.log("saveeed", results)
@@ -251,7 +257,7 @@ openLargeView(postID:number ,propertyType:string){
 
     console.log(this.preference)
     this.getSavedPostsIds();
-      this.serv.getPostsHomePage(this.preference).subscribe(results => {
+      this.serv.getPostsHomePage(this.preference,0).subscribe(results => {
           console.log("filteeeeer ", results)
           this.posts=results
         // Globals.setPosts(results)
@@ -259,10 +265,43 @@ openLargeView(postID:number ,propertyType:string){
 
 
    }
-   getSavedPosts(){
-
-
+   nextPage(){
+    this.currentPage++
+    if(!this.postFlag){
+      this.serv.getPostsHomePage(this.preference,this.currentPage).subscribe(results => {
+        console.log("ana rg3t", results)
+        this.posts=results
+      } );
+    }
+    else{
+      this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
+        console.log("saveeed", results)
+        this.posts=results
+      })
+    }
    }
-
+  previousPage(){
+    if(this.currentPage>0){
+      this.currentPage--
+      if(!this.postFlag){
+        this.serv.getPostsHomePage(this.preference,this.currentPage).subscribe(results => {
+          console.log("ana rg3t", results)
+          this.posts=results
+        } );
+      }
+      else{
+        this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
+          console.log("saveeed", results)
+          this.posts=results
+        })
+      }
+    }
+  }
+  checkPrevious() {
+    if(this.currentPage>0){
+      return false
+    }
+    return true
+  }
 }
 

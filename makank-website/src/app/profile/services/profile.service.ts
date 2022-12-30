@@ -20,16 +20,18 @@ export class ProfileService {
     return this.http.get<User>(this.userURL+"/profile/"+userID)
   }
 
-  getPostsOfTheUser(preferenceIn:ViewingPreference,targetUserID: number):Observable<Post[]>{
+  getPostsOfTheUser(preferenceIn:ViewingPreference,targetUserID: number,pageNum:number):Observable<Post[]>{
     console.log(targetUserID)
     console.log(preferenceIn)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
     return this.http.get<Post[]>(this.postsURL+"/profile/"+targetUserID.toString(),{params:queryParams})
   }
-  getSavedPosts(iD:number,preferenceIn:ViewingPreference):Observable<Post[]>{
+  getSavedPosts(iD:number,preferenceIn:ViewingPreference,pageNum:number):Observable<Post[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    queryParams = queryParams.append("pageNum",JSON.stringify(pageNum));
     return this.http.get<Post[]>(this.postsURL+"/saved/"+iD.toString(),{params:queryParams
     })
   }
