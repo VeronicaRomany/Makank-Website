@@ -12,6 +12,8 @@ import { ViewingPreference } from '../../shared/viewingPreference';
 
 import { LargeViewComponent } from 'src/app/large-view/large-view.component';
 import { PropertiesService } from '../services/properties.service';
+import { SharedService } from 'src/app/shared.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-properties',
   templateUrl: './properties.component.html',
@@ -29,20 +31,22 @@ export class PropertiesComponent implements OnInit {
   editedID:number=0
   loggedIn:boolean=false
   currentPage:number=0
+  numOfPosts:number=0
   postFlag:boolean=false
-  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient) {
+  maxPagesNum:number=0
+  clickEventsubscription:Subscription;
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient,private sharedService:SharedService) {
     this.serv= service
-
+  this.clickEventsubscription=    this.sharedService.getClickEvent().subscribe(()=>{
+  this.getSavedPost();
+})
   }
 
   ngOnInit(): void {
+    
     this.currentPage=0
     this.postFlag=false
-    // let p = this.getDummyPost()
-    // let p2= this.getDummyPost()
-    // this.posts.push(p)
-    // this.posts.push(p2)
-    // console.log(this.posts)
+
     this.loggedIn = !!this.token.getToken();
     if(this.loggedIn){
     this.getSavedPostsIds();
@@ -58,6 +62,10 @@ export class PropertiesComponent implements OnInit {
           console.log("ana rg3t", results)
           this.posts=results
       } );
+      this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+        this.numOfPosts=results
+        this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+      })
   }
   getSavedPostsIds(){
 
@@ -82,7 +90,9 @@ export class PropertiesComponent implements OnInit {
     console.log(id);
     let userID = this.token.getUser().userId;
     var st : string = String(id);
-      var btn= document.getElementById(st) ;
+      var btn= document.getElementById(st) as HTMLImageElement;
+      console.log(btn+" yaaaaa3m aho");
+      
       if (btn?.style.color=="orange"){
         btn.style.color = "grey";
         var ob={
@@ -124,6 +134,12 @@ export class PropertiesComponent implements OnInit {
       console.log("saveeed", results)
       this.posts=results
     })
+    this.serv.getSavedPostsCounter(this.userID,this.preference,0).subscribe(results => {
+      console.log("saveeed", results)
+     
+      this.numOfPosts=results
+      this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+    })
      }else{
       alert("Login or Register !");
      }
@@ -151,34 +167,6 @@ openLargeView(postID:number ,propertyType:string){
     })
 }
 
-
-
-
-// // getDummyPost():Post{
-//     let p = new Post()
-//     let v = new Villa()
-//     v.hasGarden=false
-//     v.hasPool=true
-//     v.numberOfLevels=3
-//     p.property=v
-//     p.postID=5
-//     p.publishDate=new Date()
-//     p.property=new Property()
-//     p.property.pictures=['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsleUSqV4jrTGyQ-LfR3V5bkobZGtG0hyXf5ObJEy7&s']
-//     p.property.area=25
-//     p.property.city='ka3 el hamoor'
-//     p.property.info='pinapple 3 levels very good neighborhood\n neighbors are jazz playning squid and a pink starfish'
-//     p.property.bathroomNumber=1
-//     p.property.rent=false
-//     p.property.roomNumber=4
-//     p.property.sellerID=145
-//     p.property.price=50000000000
-
-//     let x = (p.property as Villa).hasGarden
-//     console.log(x)
-//     console.log(p.property instanceof Villa)
-//     return p
-//   //}
 
   goTonewPost():void{
 
@@ -233,26 +221,7 @@ openLargeView(postID:number ,propertyType:string){
     this.preference.sorted=sortingCriteria.value=="Sort by"? false:true
     this.preference.sortingPreference.sortingCriteria=sortingCriteria.value
     this.preference.sortingPreference.ascending=order.value=="ascending"? true: false
-    //this.searchData.filterDetails.infoSearchWord=textSearch.value
-    //this.searchData.filterDetails.propertyType=type.value
-    //this.searchData.filterDetails.citySearchWord=city.value
-   // this.searchData.filterDetails.purchaseType=buyRent.value
-   // this.searchData.filterDetails.university= university.value
-   // this.searchData.filterDetails.maxPrice =Number(maxPrice.value)
-    //this.searchData.filterDetails.minPrice =Number(minPrice.value)
-   // this.searchData.filterDetails.minArea = Number(minArea.value)
-   // this.searchData.filterDetails.maxArea =Number(maxArea.value)
-   // this.searchData.filterDetails.withPictures= withPictures.checked
-    //this.searchData.filterDetails.studentHousing=studentHousing.checked
-    //this.searchData.sorted = sortingCriteria.value=="Sort by"? false:true
-    //this.searchData.sortingDetails.sortingCriteria= sortingCriteria.value
-    //this.searchData.sortingDetails.ascending= order.value=="ascending"? true: false
-   // var body =JSON.stringify(this.searchData)
-    //console.log( body)
 
-  //  this.http.post(this.url,body).subscribe((data:any)=>{
-  //   console.log(data)
-  //  })
 
 
 
@@ -263,7 +232,10 @@ openLargeView(postID:number ,propertyType:string){
           this.posts=results
         // Globals.setPosts(results)
       } );
-
+      this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+        this.numOfPosts=results
+        this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+      })
 
    }
    nextPage(){
@@ -273,12 +245,21 @@ openLargeView(postID:number ,propertyType:string){
         console.log("ana rg3t", results)
         this.posts=results
       } );
+          this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+            this.numOfPosts=results
+            this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+          })
     }
     else{
       this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
         console.log("saveeed", results)
         this.posts=results
-      })
+      });
+      this.serv.getSavedPostsCounter(this.userID,this.preference,0).subscribe(results => {
+        console.log("saveeed counter", results)
+        this.numOfPosts=results
+        this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+      });
     }
    }
   previousPage(){
@@ -289,20 +270,39 @@ openLargeView(postID:number ,propertyType:string){
           console.log("ana rg3t", results)
           this.posts=results
         } );
+        this.serv.getPostsHomePageCounter(this.preference,this.currentPage).subscribe(results=>{
+          this.numOfPosts=results
+          this.maxPagesNum=Math.ceil(this.numOfPosts/10);
+          console.log("post NUM ", results)
+        })
       }
       else{
         this.serv.getSavedPosts(this.userID,this.preference,0).subscribe(results => {
           console.log("saveeed", results)
           this.posts=results
+        });
+        this.serv.getSavedPostsCounter(this.userID,this.preference,0).subscribe(results => {
+          console.log("saveeed", results)
+         
+          this.numOfPosts=results
+          this.maxPagesNum=Math.ceil(this.numOfPosts/10);
         })
       }
     }
   }
   checkPrevious() {
     if(this.currentPage>0){
-      return false
+      return true
     }
-    return true
+    return false
+  }
+  checkNext(){
+    if(this.currentPage<Math.ceil(this.numOfPosts/10)-1){
+      console.log(" e "+this.currentPage + " : "+Math.ceil(this.numOfPosts/10));
+      
+      return true
+    }
+    return false
   }
 }
 

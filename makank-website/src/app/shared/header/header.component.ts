@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FilterPreference, SortingPreference, ViewingPreference } from '../viewingPreference';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Router } from '@angular/router';
+import { PropertiesComponent } from 'src/app/all-properties/properties/properties.component';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +14,10 @@ export class HeaderComponent implements OnInit {
   username?: string;
   password?:string;
   isLoggedIn=false;
-  constructor(private tokenStorageService: TokenStorageService, private router:Router) { }
+  constructor(private tokenStorageService: TokenStorageService, private router:Router ,private sharedService:SharedService) { }
 
   ngOnInit(): void {
+    
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     console.log(this.tokenStorageService.getUser())
     if (this.isLoggedIn) {
@@ -24,8 +27,21 @@ export class HeaderComponent implements OnInit {
       console.log(this.username)
     }
   }
+  goToNewPost(){
+     if(this.isLoggedIn){
+      this.router.navigate(['/', 'NewPost'])
+     }else{
+      alert('Login or Register')
+     }
+  }
+  clickMe(){
+    this.sharedService.sendClickEvent();
+    }
  navigateHome(){
   this.router.navigate(['/', 'Home'])
+ }
+ getSavedPost(){
+  //this.property.getSavedPost()
  }
 
   temp(){
@@ -52,6 +68,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
+    this.router.navigate(['/', 'Home'])
     window.location.reload();
   }
 

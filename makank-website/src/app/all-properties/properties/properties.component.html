@@ -1,9 +1,6 @@
 
 <div class="container1">
 
-    <button class="savedButton" (click)="getSavedPost()" >Saved Posts</button>
-
-    <button class="savedButton" (click)="goTonewPost()">Add Post</button>
 
 
 
@@ -180,7 +177,7 @@
 
                     </div>
                     <div class="footer">
-                        <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.postID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                        <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                         <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                         <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
                         <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
@@ -193,9 +190,12 @@
         </li>
 
     </ul>
-    <div>
-      <button href="#" class="previous" *ngIf=!checkPrevious() (click)="previousPage()">&laquo; Previous</button>
-      <button href="#" class="next" (click)="nextPage()">Next &raquo;</button>
+    <div class="paging">
+      <button mat-raised-button class="previous" *ngIf="checkPrevious()" (click)="previousPage()" >&laquo; Previous</button>
+      <button  mat-raised-button class="disabledprevious" *ngIf="!checkPrevious()" >&laquo; Previous</button>
+      <h2 style="color:white" >{{currentPage+1}} / {{maxPagesNum}}</h2>
+      <button mat-raised-button class="next"  *ngIf="checkNext()" (click)="nextPage()" >Next &raquo;</button>
+      <button  mat-raised-button class="disablednext"  *ngIf="!checkNext()"  >Next &raquo;</button>
     </div>
 </div>
 </div>
