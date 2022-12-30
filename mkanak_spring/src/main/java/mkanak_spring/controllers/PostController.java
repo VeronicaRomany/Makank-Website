@@ -24,7 +24,7 @@ public class PostController {
     @GetMapping("/homepage")
     public List<Post> getHomePage(@RequestParam String preference,
                                   @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                  @RequestParam(name = "pageSize",defaultValue = "20") int pageSize)
+                                  @RequestParam(name = "pageSize",defaultValue = "50") int pageSize)
             throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(preference);
@@ -51,7 +51,7 @@ public class PostController {
     @PostMapping("/new")
     public void addPost(@RequestHeader("Authorization") String bearerToken,
                             @RequestBody JSONObject postDetails) throws Exception {
-        int idJson = (int) postDetails.get("seller_id");
+        int idJson = (int) postDetails.get("sellerID");
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
         System.out.println("details: " + postDetails);
@@ -61,21 +61,17 @@ public class PostController {
 
     @PostMapping("/edit")
     public boolean editPost(@RequestHeader("Authorization") String bearerToken,
-                            @RequestBody JSONObject post)
-            throws Exception {
-
-        int idJson = (int) post.get("seller_id");
+                            @RequestBody JSONObject post) throws Exception {
+        int idJson = (int) post.get("sellerID");
         if(!securityGuard.verifyJWTtoken(idJson,bearerToken))
             throw new Exception("error");
         postService.editPost(post);
         return false;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete/{postID}")
     public boolean deletePost(@RequestHeader("Authorization") String bearerToken,
                               @PathVariable int postID) throws Exception {
-        //TODO check if post deletion is with the ids
-
         int idJson = (int) postService.getPostDetails(postID).get("seller_id");
         if (!securityGuard.verifyJWTtoken(idJson, bearerToken))
             throw new Exception("error");
@@ -91,7 +87,7 @@ public class PostController {
                                     @PathVariable int userID,
                                     @RequestParam String preference,
                                     @RequestParam(name = "pageNum",defaultValue = "0") int pageNum,
-                                    @RequestParam(name = "pageSize",defaultValue = "20") int pageSize
+                                    @RequestParam(name = "pageSize",defaultValue = "50") int pageSize
                                     ) throws Exception {
         if(!securityGuard.verifyJWTtoken(userID,bearerToken))
             throw new Exception("error");
@@ -110,17 +106,11 @@ public class PostController {
 
     @PostMapping("/savePost")
     public void addToSavedPost(@RequestBody JSONObject jsonObject) throws ParseException {
-//        JSONParser parser = new JSONParser();
-//        JSONObject json = (JSONObject) parser.parse(saveEntry);
-//        System.out.println(json);
         postService.addToSavedPosts(jsonObject);
     }
 
     @PostMapping("/unsavePost")
     public void removePostFromSaved(@RequestBody JSONObject jsonObject) throws ParseException {
-//        JSONParser parser = new JSONParser();
-//        JSONObject json = (JSONObject) parser.parse(entry);
-
         postService.removeFromSaved(jsonObject);
     }
 

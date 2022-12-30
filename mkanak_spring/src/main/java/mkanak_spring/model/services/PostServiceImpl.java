@@ -40,8 +40,6 @@ public class PostServiceImpl implements PostService{
     @Autowired
     JsonToObject converter;
     @Autowired
-    JsonToObjectConverter converter;
-    @Autowired
     PropertyRepo propertyRepo;
 
     @Override
