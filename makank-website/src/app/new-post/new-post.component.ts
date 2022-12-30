@@ -83,17 +83,39 @@ export class NewPostComponent implements OnInit {
             this.editing=true
             console.log("edit post with id = ",params.data);
             this.editPost.postID=params.data
+
+            console.log( this.editPost.postID)
             
             // get post by id   >> request lma a3mlo ams7 al dummy data de
             
-            this.http.get<Post>("http://localhost:8080/posts/info/params.data").subscribe((data:any) =>{
+            this.http.get<Post>("http://localhost:8080/posts/info/"+params.data.toString()).subscribe((data:any) =>{
               this.editPost=data
+              console.log(this.editPost)
+              if(this.editPost.rent){
+                this. newPostForm.controls["RentOrBuy"].setValue("rent")
+              }else{
+                this. newPostForm.controls["RentOrBuy"].setValue("buy")
+              }
+        
+              if(this.editPost.hasPictures){
+                for (let i = 0; i < this.editPost.pictures.length; i++) {
+                  this.photosLinks[i]=this.editPost.pictures[i]
+              }
+            }
+        
+              this. newPostForm.controls["type"].setValue(this.editPost.type)
+              this.onChooseType()
+              this. newPostForm.controls["city"].setValue(this.editPost.city)
+              this. newPostForm.controls["level"].setValue(this.editPost.level)
+              this. newPostForm.controls["price"].setValue(this.editPost.price)
+              this. newPostForm.controls["area"].setValue(this.editPost.area)
+              this. newPostForm.controls["roomsNum"].setValue(this.editPost.roomNumber)
+              this. newPostForm.controls["WCNum"].setValue(this.editPost.bathroomNumber)
+              this. newPostForm.controls["address"].setValue(this.editPost.address)
+              this. newPostForm.controls["info"].setValue(this.editPost.info)
             })
 
 
-            
-            // //dummy data
-            // this. editPost.type = "villa"
             // this. editPost.city = "alex"
             // this. editPost.price= 10000
             // this. editPost.area= 150
@@ -111,28 +133,7 @@ export class NewPostComponent implements OnInit {
       
 
             // nms7 l7d hena
-            if(this.editPost.rent){
-              this. newPostForm.controls["RentOrBuy"].setValue("rent")
-            }else{
-              this. newPostForm.controls["RentOrBuy"].setValue("buy")
-            }
-      
-            if(this.editPost.hasPictures){
-              for (let i = 0; i < this.editPost.pictures.length; i++) {
-                this.photosLinks[i]=this.editPost.pictures[i]
-            }
-          }
-      
-            this. newPostForm.controls["type"].setValue(this.editPost.type)
-            this.onChooseType()
-            this. newPostForm.controls["city"].setValue(this.editPost.city)
-            this. newPostForm.controls["level"].setValue(this.editPost.level)
-            this. newPostForm.controls["price"].setValue(this.editPost.price)
-            this. newPostForm.controls["area"].setValue(this.editPost.area)
-            this. newPostForm.controls["roomsNum"].setValue(this.editPost.roomNumber)
-            this. newPostForm.controls["WCNum"].setValue(this.editPost.bathroomNumber)
-            this. newPostForm.controls["address"].setValue(this.editPost.address)
-            this. newPostForm.controls["info"].setValue(this.editPost.info)
+            
             
       } })
   }
@@ -204,6 +205,7 @@ export class NewPostComponent implements OnInit {
     console.log(NewPostJsonString)
 
     if(this.editing){
+      
       this.http.post("http://localhost:8080/posts/edit",JSON.parse(NewPostJsonString),{headers: headers}).subscribe((data:any) =>{
         window.alert("Your post has be eddited")
         this.router.navigate(['/', 'Home'])
@@ -222,7 +224,7 @@ export class NewPostComponent implements OnInit {
 
 
   onEdit():void{
-    this.newPost.postID=this.editPost.postID
+    this.newPost.postID=this.editPost.propertyID
     console.log( this.newPost.postID)
     this.onSubmit()
   }
