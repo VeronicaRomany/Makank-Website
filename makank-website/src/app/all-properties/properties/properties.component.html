@@ -1,24 +1,24 @@
 
 <div class="container1">
-   
+
     <button class="savedButton" (click)="getSavedPost()" >Saved Posts</button>
 
     <button class="savedButton" (click)="goTonewPost()">Add Post</button>
 
-    
+
 
     <div class="container2">
         <div class="option">
            <div class="selec">
               <div >
                  <input class="search" type="text" id="searchText"/>
-          
-               </div> 
+
+               </div>
            <select class="la" name="" id="format1">
               <option value="any">Type</option>
               <option value="apartment">Apartment</option>
               <option value="villa">Villa</option>
-         
+
            </select>
            <select name="" id="format2">
                <option value="any">City</option>
@@ -26,47 +26,47 @@
                <option value="Alexandria">Alexandria</option>
                <option value="Cairo">Cairo</option>
                <option value="Aswan">Aswan</option>
-       
+
             </select>
             <select name="" id="format3">
                <option value="any">Buy/Rent</option>
                <option value="buy">Buy</option>
                <option value="rent">Rent</option>
-       
+
             </select>
-           
+
            </div>
             <div class="area" id="p1">
-              
+
                <div>
             <input type="number" min="0"  id="minPrice"/>
             <label for="c2">min</label>
-          </div> 
-       
+          </div>
+
           <div>
              <input type="number" min="0" id="maxPrice"/>
              <label for="c2">max</label>
-           </div> 
+           </div>
         </div>
         <div class="area" id="a1">
-              
+
            <div>
         <input type="number" min="0"  id="minArea"/>
         <label for="c2">min</label>
-      </div> 
-     
+      </div>
+
       <div>
          <input type="number" min="0"  id="maxArea"/>
          <label for="c2">max</label>
-       </div> 
+       </div>
      </div>
          <div class="checkbox">
              <div>
              <input type="checkbox" id="c1"/>
-             
+
              <label for="c1">With pictures</label>
             </div>
-       
+
           <div>
             <input type="checkbox" id="c2"/>
             <label for="c2">Student Housing</label>
@@ -76,7 +76,7 @@
             <button mat-raised-button (click)="getInfo()">search</button>
            </div>
         </div>
-     
+
            <div class="option2">
            <div class="selec">
            <select class="la" name="" id="sort">
@@ -84,26 +84,25 @@
               <option value="price">Price</option>
               <option value="date">Date</option>
               <option value="area">Area</option>
-           
+
            </select>
-     
+
            <select  name="" id="order">
               <option value="ascending ">Ascending </option>
               <option value="descending">Descending</option>
-           
+
            </select>
 
 
-           
-           
-         
-     
+
+
+
+
      </div>
-      
-        
+
+
         </div>
      </div>
-     
 
 
 
@@ -114,59 +113,60 @@
 
 
 
-    
+
+
 <div class="article-contener"  >
     <ul class="groups" *ngFor="let item of posts"  >
-      
-     
-        
+
+
+
         <li>
 
-           
+
 
             <div class="card"  >
                 <div class="image-session " >
-                    <span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.pictures}});"></span>
+                    <!--<span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.picture}});"></span>-->
                     <span class="image" *ngIf="!item.hasPictures" style="background-image: url('assets/noImage.jpg');"></span>
                 </div>
                 <div class="meta-sission" >
                     <div class="head">
                         <a  class="catogry">{{item.city}}</a>
                         <span class="flexone"></span>
-                      
+
                     </div>
                     <div class="body">
-                         
+
                         <h2 class="price">{{item.price}} LE</h2>
                         <div *ngIf="item.rent; else elseBlock">
                             <p class="type">Per Month</p>
                         </div>
-                        <ng-template #elseBlock>                      
+                        <ng-template #elseBlock>
                             <p class="type" > Full Price</p>
                         </ng-template>
-                       
+
                         <h4 class="t">{{item.type}}</h4>
-                    
+
                         <h4 class="address">{{item.address}}</h4>
                         <h5 class="area">Area: {{item.area}} &#13217;</h5>
                         <h3 class="desc">{{item.info}}</h3>
-                      
-                   
-                        
+
+
+
                     </div>
                     <div class="footer">
-                        <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                        <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.postID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                         <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                         <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
                         <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
                         <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/delete.png" alt="">
                         <img class="settings" (click)="editMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/edit.png" alt="">
                     </div>
-                    
+
                 </div>
             </div>
         </li>
-      
+
     </ul>
 </div>
 </div>

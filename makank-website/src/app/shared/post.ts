@@ -7,19 +7,19 @@ export class Post{
     sellerID: number = 0
     roomNumber:number = 0
     bathroomNumber:number = 0
-    price:number = 0 
+    price:number = 0
     city: string=""
     address:string=""
     area:number=0
     rent:boolean=false
-    info:String=""
+    info:string=""
     pictures:string[] = []
+    image:string=""
     level: number=1
     elevator: boolean= false
-    studentHousing: boolean= false 
+    studentHousing: boolean= false
     hasGarden:boolean=false
     hasPool:boolean=false
-    universities:string[]=[]
     hasPictures:boolean=false
-    
+
   }

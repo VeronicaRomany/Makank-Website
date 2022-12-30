@@ -2,7 +2,6 @@ package mkanak_spring.controllers;
 
 import com.google.gson.Gson;
 import mkanak_spring.model.entities.User;
-import mkanak_spring.model.dao.UserDAO;
 import mkanak_spring.model.services.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -17,8 +16,6 @@ import java.util.Objects;
 public class UserController {
     @Autowired
     UserService userService;
-    @Autowired
-    UserDAO userDAO;
     @Autowired
     SecurityGuard securityGuard;
 
@@ -60,6 +57,7 @@ public class UserController {
 
     @GetMapping("/profile/{userID}")
     public User getUserInfo(@PathVariable long userID){
+        System.out.println("tmam");
         Gson gson = new Gson();
         long u = gson.fromJson(String.valueOf(userID),long.class);
         return userService.findUserInfoByUseId(u);

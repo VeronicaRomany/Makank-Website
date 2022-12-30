@@ -24,14 +24,17 @@
       </ul>
       <ul>
         <h3>Phone Number</h3>
-        {{ currentUserInfo.phone}}
+        {{ currentUserInfo.phoneNumber}}
       </ul>
     </div>
   </div>
   <div class="container1">
+
     <button class="savedButton" (click)="getSavedPost()" >Saved Posts</button>
 
     <button class="savedButton" (click)="goTonewPost()">Add Post</button>
+
+
 
     <div class="container2">
       <div class="option">
@@ -60,14 +63,9 @@
             <option value="rent">Rent</option>
 
           </select>
-          <select name="" id="format4">
-            <option selected disabled>University</option>
-            <option value="Faculty of Engineering">Faculty of Engineering</option>
-            <option value="Computer Science">Computer Science</option>
 
-          </select>
         </div>
-        <div class="price" id="p1">
+        <div class="area" id="p1">
 
           <div>
             <input type="number" min="0"  id="minPrice"/>
@@ -94,6 +92,7 @@
         <div class="checkbox">
           <div>
             <input type="checkbox" id="c1"/>
+
             <label for="c1">With pictures</label>
           </div>
 
@@ -103,7 +102,7 @@
           </div>
         </div >
         <div class="search-btn">
-          <button (click)="getInfo()">search</button>
+          <button mat-raised-button (click)="getInfo()">search</button>
         </div>
       </div>
 
@@ -114,22 +113,49 @@
             <option value="price">Price</option>
             <option value="date">Date</option>
             <option value="area">Area</option>
+
           </select>
+
           <select  name="" id="order">
             <option value="ascending ">Ascending </option>
             <option value="descending">Descending</option>
+
           </select>
+
+
+
+
+
+
         </div>
+
+
       </div>
     </div>
 
 
+
+
+
+
+
+
+
+
+
+
     <div class="article-contener"  >
       <ul class="groups" *ngFor="let item of posts"  >
+
+
+
         <li>
+
+
+
           <div class="card"  >
             <div class="image-session " >
-              <!--<span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.pictures}});"></span>-->
+              <!--<span class="image" *ngIf="item.hasPictures" style="background-image: url({{item.picture}});"></span>-->
               <span class="image" *ngIf="!item.hasPictures" style="background-image: url('assets/noImage.jpg');"></span>
             </div>
             <div class="meta-sission" >
@@ -147,15 +173,25 @@
                 <ng-template #elseBlock>
                   <p class="type" > Full Price</p>
                 </ng-template>
+
                 <h4 class="t">{{item.type}}</h4>
+
                 <h4 class="address">{{item.address}}</h4>
                 <h5 class="area">Area: {{item.area}} &#13217;</h5>
                 <h3 class="desc">{{item.info}}</h3>
 
+
+
               </div>
               <div class="footer">
-                <a href="#" class="button">Save</a>
+                <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.postID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
+                <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
+                <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/delete.png" alt="">
+                <img class="settings" (click)="editMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/edit.png" alt="">
               </div>
+
             </div>
           </div>
         </li>

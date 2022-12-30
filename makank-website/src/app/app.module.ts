@@ -26,11 +26,12 @@ import { FilterComponent } from './filter-bar/filter/filter.component';
 import { FilterBarModule } from './filter-bar/filter-bar.module';
 import { NewPostComponent } from './new-post/new-post.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { LargeViewComponent } from './large-view/large-view.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatToolbarModule} from "@angular/material/toolbar";
+
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     FilterComponent,
     NewPostComponent,
     LargeViewComponent,
-    
+
 
   ],
   entryComponents:[LargeViewComponent],
@@ -50,7 +51,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    FormsModule,  
+    FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -58,8 +59,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule
-  
-    
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

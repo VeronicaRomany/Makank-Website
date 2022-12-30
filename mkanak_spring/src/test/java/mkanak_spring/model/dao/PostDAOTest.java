@@ -20,9 +20,6 @@ class PostDAOTest {
     PostRepo postRepo;
     @Mock
     SavedPostsRepo savedPostsRepo;
-    @Autowired
-    PostDAO dao;
-
 
     @Test
     void saveApartment() {

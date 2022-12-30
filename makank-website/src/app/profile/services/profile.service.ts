@@ -11,7 +11,7 @@ import {ViewingPreference} from "../../shared/viewingPreference";
 export class ProfileService {
 
   constructor(private http:HttpClient) { }
-  userURL:string = "http://localhost:8080/user"
+  userURL:string = "http://localhost:8080/users"
   postsURL:string = "http://localhost:8080/posts"
 
 
@@ -19,22 +19,29 @@ export class ProfileService {
     console.log(userID)
     return this.http.get<User>(this.userURL+"/profile/"+userID)
   }
-  // getUserPhone(userIdPhone: number | undefined):Observable<string>{
-  //   console.log(userIdPhone)
-  //   return this.http.get<string>(this.userURL+"/profile/phone/"+userIdPhone)
-  // }
-  getPostsOfTheUser(preferenceIn:ViewingPreference,userID: number):Observable<Post[]>{
-    console.log(userID)
+
+  getPostsOfTheUser(preferenceIn:ViewingPreference,targetUserID: number):Observable<Post[]>{
+    console.log(targetUserID)
     console.log(preferenceIn)
     let queryParams = new HttpParams();
     queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
-    return this.http.get<Post[]>(this.postsURL+"/userPost/"+userID.toString(),{params:queryParams})
+    return this.http.get<Post[]>(this.postsURL+"/profile/"+targetUserID.toString(),{params:queryParams})
   }
-  getSavedPosts(iD:number,preferenceIn:ViewingPreference):Observable<Post[]> {
+  getSavedPosts(iD:number,preferenceIn:ViewingPreference):Observable<Post[]>{
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("preference", JSON.stringify(preferenceIn));
-    return this.http.get<Post[]>(this.postsURL + "/saved/" + iD.toString(), {
-      params: queryParams
+    queryParams = queryParams.append("preference",JSON.stringify(preferenceIn));
+    return this.http.get<Post[]>(this.postsURL+"/saved/"+iD.toString(),{params:queryParams
     })
+  }
+  getIds(postId:number):Observable<number[]>{
+    console.log("user id passed: "+ postId)
+    return this.http.get<number[]>(this.postsURL+"/saved/ids/"+postId.toString())
+
+  }
+
+  deletePost(iD:number):Observable<Post[]>{
+    let queryParams=new HttpParams();
+    queryParams = queryParams.append("postID",iD);
+    return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString())
   }
 }
