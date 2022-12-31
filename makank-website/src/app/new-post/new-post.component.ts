@@ -56,7 +56,10 @@ export class NewPostComponent implements OnInit {
      private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-
+    var loggedIn = !!this.token.getToken();
+    if(!loggedIn){
+      this.router.navigate(['/', 'Home'])
+    }
     this. newPostForm = this.fb.group(
       {
         type: ['', Validators.required],
