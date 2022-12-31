@@ -47,8 +47,11 @@ export class ProfileComponent implements OnInit {
         this.userID = this.token.getUser().userId;
         if (this.currentUser.username != undefined) {
           this.notLogIn = false
-          this.router.navigate(['/', 'Home'])
+          
           console.log("ii")
+        }
+        else{
+          this.router.navigate(['/', 'Home'])
         }
       }
     } )
