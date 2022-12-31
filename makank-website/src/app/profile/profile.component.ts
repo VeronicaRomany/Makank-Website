@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit {
     this.profile.getUserInfo(this.userID).subscribe(result => {
       this.currentUserInfo = result
       console.log(result)
+      this.profile.setUser(result);
     })
 
     this.profile.getPostsOfTheUser(this.preference, this.userID,0).subscribe(results => {
@@ -72,7 +73,9 @@ export class ProfileComponent implements OnInit {
       this.saved = results
     })
   }
-
+ editProfile(){
+  this.router.navigate(['/', 'Edit'])
+ }
   checkSaved(id: number) {
 
 
@@ -83,7 +86,9 @@ export class ProfileComponent implements OnInit {
     }
     return false;
   }
-
+ noPic(){
+  
+ }
   toggle(id: number) {
     if (this.loggedIn) {
       console.log(id);

@@ -1,4 +1,5 @@
 package mkanak_spring.model.services;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import mkanak_spring.model.entities.User;

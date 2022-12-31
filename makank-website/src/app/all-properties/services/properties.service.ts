@@ -75,6 +75,7 @@ export class PropertiesService {
     let queryParams=new HttpParams();
     var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
     queryParams = queryParams.append("postID",iD);
+    console.log("token", this.token.getUser().token)
     return this.http.delete<any>(this.postsURL+"/delete/"+iD.toString(),{headers:headers})
   }
 

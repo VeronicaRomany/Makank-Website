@@ -47,8 +47,8 @@ public class JsonToObject {
         userInstance.setDescription((String) object.get("description"));
         userInstance.setPassword((String) object.get("password"));
         userInstance.setEmail((String) object.get("email"));
-        userInstance.setProfilePicLink((String) object.get("profile_pic_link"));
-        userInstance.setPhoneNumber((String) object.get("phone_number"));
+        userInstance.setProfilePicLink((String) object.get("profilePicLink"));
+        userInstance.setPhoneNumber((String) object.get("phoneNumber"));
 
         return userInstance;
     }

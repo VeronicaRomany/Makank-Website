@@ -8,13 +8,14 @@ import {  ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { User } from 'src/app/user';
+
 import { AuthService } from 'src/app/_services/auth.service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
 import { RegisterService } from '../registration/service/register.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { ProfileService } from '../profile/services/profile.service';
+import { User } from '../shared/user';
 
 
 export default class Validation {
@@ -167,11 +168,11 @@ export class EditProfileComponent implements OnInit {
     else
        this.newAccount.password=this.f['old_password'].value
     this.newAccount.username = this.f['username'].value
-    this.newAccount.phone_numbers[0] = this.f['phoneNumber'].value
+    this.newAccount.phoneNumber = this.f['phoneNumber'].value
     this.newAccount.email = this.f['email'].value
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
-    this.newAccount.profile_pic_link =this.f['profilePicture'].value
+    this.newAccount.profilePicLink =this.f['profilePicture'].value
 
 
 
@@ -181,8 +182,10 @@ export class EditProfileComponent implements OnInit {
 
     var headers=new HttpHeaders().append("Authorization","Bearer "+this.tokenStorage.getUser().token)
     this.http.post<boolean>("http://localhost:8080/users/profile/edit/"+this.tokenStorage.getUser().userId,JSON.parse(NewAccountJsonString),{headers: headers}).subscribe((data:boolean) =>{
-      if(data)
+      if(data){
       alert("Your edit saved")
+      this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":this.tokenStorage.getUser().userId,"token":this.tokenStorage.getUser().token});
+    }
       console.log(data);
       this.router.navigate(['/', 'Profile'])
   },);
