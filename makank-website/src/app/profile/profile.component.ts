@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../profile/services/profile.service';
 import {Globals} from "../../globals";
 import { User } from 'src/app/shared/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Post} from "../shared/post";
 import {ViewingPreference} from "../shared/viewingPreference";
 import {LargeViewComponent} from "../large-view/large-view.component";
@@ -32,18 +32,27 @@ export class ProfileComponent implements OnInit {
   numOfPosts:number=0
  
   maxPagesNum:number=0
-  constructor(private token: TokenStorageService, private profile: ProfileService, private router: Router, public dialog:MatDialog, private http:HttpClient) {
+  constructor(private token: TokenStorageService, private profile: ProfileService, private router: Router, public dialog:MatDialog, private http:HttpClient,private route:ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.currentPage=0
     this.postFlag=false
-    this.currentUser = this.token.getUser();
-    this.userID = this.token.getUser().userId;
-    if (this.currentUser.username != undefined) {
-      this.notLogIn = false
-      console.log("ii")
-    }
+    this.route.queryParams.subscribe((params:any) =>{
+      console.log(params.data+" <<<<<<<<<<<<<<<<<<<<<<<<<<")
+      if(params.data!=null){
+        this.userID=params.data
+      }else{
+        this.currentUser = this.token.getUser();
+        this.userID = this.token.getUser().userId;
+        if (this.currentUser.username != undefined) {
+          this.notLogIn = false
+          console.log("ii")
+        }
+      }
+    } )
+   
+
     this.profile.getUserInfo(this.userID).subscribe(result => {
       this.currentUserInfo = result
       console.log(result)
@@ -51,7 +60,7 @@ export class ProfileComponent implements OnInit {
     })
 
     this.profile.getPostsOfTheUser(this.preference, this.userID,0).subscribe(results => {
-      console.log("ana rg3t", results)
+      console.log("postaaaaaaaaaaat ", results)
       this.posts = results
     });
     this.profile.getPostsOfTheUserCounter(this.preference,this.userID,this.currentPage).subscribe(results => {
@@ -64,7 +73,9 @@ export class ProfileComponent implements OnInit {
       this.getSavedPostsIds();
     }
   }
-
+isMyProfile(){
+  return  this.userID == this.token.getUser().userId;
+}
   getSavedPostsIds() {
 
     let userID = this.token.getUser().userId;

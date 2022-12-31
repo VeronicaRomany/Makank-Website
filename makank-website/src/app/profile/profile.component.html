@@ -41,12 +41,12 @@
     </div>
   </div>
 </div>
-<button mat-raised-button style="background-color: rgb(61, 210, 160);   margin-left: 1150px;
+<button mat-raised-button *ngIf="isMyProfile();" style="background-color: rgb(61, 210, 160);   margin-left: 1150px;
 margin-top: 35px; padding: 3px 3px;" (click)="editProfile();">Edit</button>
 
 
 
- <div class="container" *ngIf="!notLogIn">
+ <div class="container" >
   <body>
 
   <div class="container1">
@@ -184,12 +184,12 @@ margin-top: 35px; padding: 3px 3px;" (click)="editProfile();">Edit</button>
 
               </div>
               <div class="footer">
-                <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
-                        <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)&&isMyProfile();"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                        <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)&&isMyProfile();"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                 <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
                 <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
-                <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/delete.png" alt="">
-                <img class="settings" (click)="editMypost(item.propertyID)" *ngIf="(item.sellerID == userID)" src="assets/edit.png" alt="">
+                <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)&&isMyProfile();" src="assets/delete.png" alt="">
+                <img class="settings" (click)="editMypost(item.propertyID)" *ngIf="(item.sellerID == userID)&&isMyProfile();" src="assets/edit.png" alt="">
               </div>
 
             </div>
@@ -210,10 +210,5 @@ margin-top: 35px; padding: 3px 3px;" (click)="editProfile();">Edit</button>
 </div>
 
 
-<div class="container" *ngIf="notLogIn">
-  <ul>
-    <h3>please login</h3>
-  </ul>
-</div>
 
 

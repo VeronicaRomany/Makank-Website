@@ -1,5 +1,6 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { LargeViewService } from './large-view.service';
 import { PostLargeView } from './postLargeView';
 @Component({
@@ -10,7 +11,7 @@ import { PostLargeView } from './postLargeView';
 export class LargeViewComponent implements OnInit {
   serv:LargeViewService
   largePost:PostLargeView= new PostLargeView()
-  constructor(@Inject(MAT_DIALOG_DATA) public data:{postId:number ,type:string},private service:LargeViewService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data:{postId:number ,type:string},private service:LargeViewService,private router:Router,private dialogRef: MatDialogRef<LargeViewComponent>) {
     this.serv =this.service
    }
  
@@ -49,12 +50,9 @@ lastPic(){
 }
 noPictures(){
   if(this.images[0]==null){
-    console.log("mafiiish");
-    
     return true;
-
   }
-  console.log("feeeeeeh");
+
   
   return false
 }
@@ -82,6 +80,10 @@ isApartment(){
   }
   noSellerPic(){
     return (this.largePost.seller_profile_pic==null)
+  }
+  getProfile(id:number){
+    this.router.navigate([ '/','Profile'],{queryParams:{data:id}})
+    this.dialogRef.close()
   }
   getDummyData(){
     this.largePost.area=500

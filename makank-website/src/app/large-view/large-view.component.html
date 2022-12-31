@@ -77,8 +77,8 @@
             <p>{{largePost.info}}</p>
             <ul class="social">
                 <button class="Pbt">
-                    <img class="pImage" *ngIf="!noSellerPic();" src="{{largePost.seller_profile_pic}}" alt="">
-                    <img class="pImage" *ngIf="noSellerPic();"  src="assets/p.png" alt="">
+                    <img class="pImage" *ngIf="!noSellerPic();" (click)="getProfile(largePost.seller_id);" src="{{largePost.seller_profile_pic}}" alt="">
+                    <img class="pImage" *ngIf="noSellerPic();" (click)="getProfile(largePost.seller_id);" src="assets/p.png" alt="">
                 </button>
                 <div class="co">
                     
