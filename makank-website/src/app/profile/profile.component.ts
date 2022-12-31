@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit {
         this.userID = this.token.getUser().userId;
         if (this.currentUser.username != undefined) {
           this.notLogIn = false
+          this.router.navigate(['/', 'Home'])
           console.log("ii")
         }
       }
@@ -98,7 +99,7 @@ isMyProfile(){
     return false;
   }
  noPic(){
-   return (this.currentUserInfo.profilePicLink==null)
+   return (this.currentUserInfo.profilePicLink==null ||this.currentUserInfo.profilePicLink=='')
  }
   toggle(id: number) {
     if (this.loggedIn) {

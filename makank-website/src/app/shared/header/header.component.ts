@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.router.navigate(['/', 'Home'])
     window.location.reload();
+    
   }
 
 }

@@ -79,7 +79,7 @@ isApartment(){
     image.setAttribute("src",this.images[this.counter]);
   }
   noSellerPic(){
-    return (this.largePost.seller_profile_pic==null)
+    return (this.largePost.seller_profile_pic==null||this.largePost.seller_profile_pic=='')
   }
   getProfile(id:number){
     this.router.navigate([ '/','Profile'],{queryParams:{data:id}})
