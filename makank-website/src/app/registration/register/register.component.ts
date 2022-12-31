@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { DataReturned } from 'src/app/dataReturned';
-import { User } from 'src/app/user';
+import { User } from 'src/app/shared/user';
+
 import { AuthService } from 'src/app/_services/auth.service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
@@ -150,11 +151,11 @@ export class RegisterComponent implements OnInit {
     this.newAccount.name = this.f['fullname'].value
     this.newAccount.password=this.f['password'].value
     this.newAccount.username = this.f['username'].value
-    this.newAccount.phone_numbers[0] = this.f['phoneNumber'].value
+    this.newAccount.phoneNumber = this.f['phoneNumber'].value
     this.newAccount.email = this.f['email'].value
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
-    this.newAccount.profile_pic_link =this.f['profilePicture'].value
+    this.newAccount.profilePicLink =this.f['profilePicture'].value
 
    
     var NewAccountJsonString = JSON.stringify(this.newAccount)
