@@ -1,6 +1,7 @@
 <div class="wrapper">
   <div class="left">
-      <img src="{{ currentUserInfo.profilePicLink}}" alt="user" width="200" height="200">
+      <img src="{{ currentUserInfo.profilePicLink}}" *ngIf="!noPic()"  alt="user" width="200" height="200">
+      <img src="assets/p.png" *ngIf="noPic()"  alt="user" width="200" height="200">
       <h2>{{ currentUserInfo.name }}</h2>
        <h3>{{ currentUserInfo.username }}</h3>
   </div>

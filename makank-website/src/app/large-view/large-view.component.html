@@ -9,7 +9,7 @@
                 <img src="assets/noImage.jpg"  *ngIf="noPictures();">
             </div>
          <div class="changeBtn" *ngIf="!noPictures();">
-            <a  class="previous" *ngIf="!firstPic();" >&#8249;</a>
+            <a  (click)="previousPic();" class="previous" *ngIf="!firstPic();" >&#8249;</a>
            <a (click)="changePic();" *ngIf="!lastPic();" class="next">&#8250;</a>
           </div>
         </div>
@@ -77,7 +77,8 @@
             <p>{{largePost.info}}</p>
             <ul class="social">
                 <button class="Pbt">
-                    <img class="pImage"  src="{{largePost.seller_profile_pic}}" alt="">
+                    <img class="pImage" *ngIf="!noSellerPic();" src="{{largePost.seller_profile_pic}}" alt="">
+                    <img class="pImage" *ngIf="noSellerPic();"  src="assets/p.png" alt="">
                 </button>
                 <div class="co">
                     

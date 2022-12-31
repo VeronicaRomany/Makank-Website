@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
     return false;
   }
  noPic(){
-  
+   return (this.currentUserInfo.profilePicLink==null)
  }
   toggle(id: number) {
     if (this.loggedIn) {

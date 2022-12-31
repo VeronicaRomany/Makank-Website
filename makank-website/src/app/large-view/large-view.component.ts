@@ -74,6 +74,15 @@ noPictures(){
 isApartment(){
   return this.largePost.type=="apartment";
 }
+     
+  previousPic(){
+    this.counter=(this.counter-1)%this.images.length;
+    var  image =document.getElementById('image1') as HTMLImageElement;
+    image.setAttribute("src",this.images[this.counter]);
+  }
+  noSellerPic(){
+    return (this.largePost.seller_profile_pic==null)
+  }
   getDummyData(){
     this.largePost.area=500
     this.largePost.bathrooms=4
