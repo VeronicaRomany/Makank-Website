@@ -216,7 +216,6 @@ public class PostServiceImpl implements PostService{
     public List<Post> getAllPosts(ViewingPreference preference, int pageNum, int pageSize) {
         PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
                 && preference.getFilterPreference().isStudentHousing()) {
 
             List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
