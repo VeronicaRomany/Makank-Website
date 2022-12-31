@@ -72,7 +72,6 @@ public class PostServiceImpl implements PostService{
         ViewingPreference p = converter.getPreferenceFromJSON(preference);
         PostSpecificationBuilder pb;
         if(preference!=null && p.isFiltered()
-                && Objects.equals(p.getFilterPreference().getPropertyType(), "apartment")
                 && p.getFilterPreference().isStudentHousing()) {
 
             List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(p.getFilterPreference().isStudentHousing());
@@ -94,7 +93,6 @@ public class PostServiceImpl implements PostService{
         List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id); //get saved posts by that user
         ViewingPreference preference = converter.getPreferenceFromJSON(preferences);
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
                 && preference.getFilterPreference().isStudentHousing()) {
             List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
             Set<Long> result = postIDsSaved.stream()
@@ -119,7 +117,6 @@ public class PostServiceImpl implements PostService{
         ViewingPreference preference = converter.getPreferenceFromJSON(preferences);
         PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
                 && preference.getFilterPreference().isStudentHousing()) {
 
             List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
@@ -266,7 +263,6 @@ public class PostServiceImpl implements PostService{
     public List<Post> getPostsByUser(int id,ViewingPreference preference, int pageNum,int pageSize){
         PostSpecificationBuilder pb;
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
                 && preference.getFilterPreference().isStudentHousing()) {
 
             List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
@@ -281,7 +277,6 @@ public class PostServiceImpl implements PostService{
     public List<Post> getSavedPostsByUserID(int id,ViewingPreference preference, int pageNum,int pageSize){
         List<Long> postIDsSaved = savedPostsRepo.getUserSavedPostsIDs((long) id); //get saved posts by that user
         if(preference!=null && preference.isFiltered()
-                && Objects.equals(preference.getFilterPreference().getPropertyType(), "apartment")
                 && preference.getFilterPreference().isStudentHousing()) {
             List<Long> studentHouseIDs= apartmentRepo.getStudentHousingIDs(preference.getFilterPreference().isStudentHousing());
             Set<Long> result = postIDsSaved.stream()
