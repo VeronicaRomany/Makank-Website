@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,9 +35,10 @@ export class PropertiesComponent implements OnInit {
   postFlag:boolean=false
   maxPagesNum:number=0
   clickEventsubscription:Subscription;
-  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient,private sharedService:SharedService) {
+  constructor(private service:PropertiesService,private router:Router,private token: TokenStorageService, public dialog:MatDialog, private http:HttpClient,private sharedService:SharedService,private route:ActivatedRoute) {
     this.serv= service
   this.clickEventsubscription=    this.sharedService.getClickEvent().subscribe(()=>{
+    
   this.getSavedPost();
 })
   }
@@ -46,12 +47,25 @@ export class PropertiesComponent implements OnInit {
     
     this.currentPage=0
     this.postFlag=false
-
     this.loggedIn = !!this.token.getToken();
     if(this.loggedIn){
-    this.getSavedPostsIds();
-  }
-    this.sendPostsRequests();
+      this.getSavedPostsIds();
+    }
+    this.route.queryParams.subscribe((params:any) =>{
+      console.log(params.data+" <<<<<<<<<<<<<<<<<<<<<<<<<<")
+      if(params.data!=null &&params.data=="saved"){
+        
+        this.getSavedPost()
+      }else{
+        this.sendPostsRequests();
+      }
+    }
+    
+    )
+        
+   
+  
+    
 
   }
 

@@ -1,6 +1,6 @@
 <form [formGroup]="newPostForm" class="container" >
-  <h1 class="header" *ngIf="!editing">Enter Your Property Details</h1>
-  <h1 class="header" *ngIf="editing">Edit Your Property Details</h1>
+  <h1 class="header" *ngIf="!editing" style="margin-top: 40px;">Enter Your Property Details</h1>
+  <h1 class="header" *ngIf="editing" style="margin-top: 40px;">Edit Your Property Details</h1>
   
 
   <br><br>
@@ -179,9 +179,9 @@
     </li>
 
     <br><br><br>
-    <button *ngIf="editing" type="submit" class="button button1" (click)="onEdit()" >Edit</button>
-    <button *ngIf="!editing" type="submit" class="button button1" (click)="onSubmit()" >Add Post</button>
-    <button type="button" (click)="onReset()"  class="button button2"> Reset </button>
+    <button *ngIf="editing"  type="submit" class="button button1" (click)="onEdit()" >Edit</button>
+    <button *ngIf="!editing" mat-raised-button type="submit" class="button button1" (click)="onSubmit()" >Add Post</button>
+    <button type="button" mat-raised-button (click)="onReset()"  class="button button2"> Reset </button>
 </form>
 
 

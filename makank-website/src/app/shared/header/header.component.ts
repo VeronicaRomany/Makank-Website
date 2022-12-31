@@ -35,7 +35,9 @@ export class HeaderComponent implements OnInit {
      }
   }
   clickMe(){
-    this.sharedService.sendClickEvent();
+    this.router.navigate([ '/','Home'],{queryParams:{data:"saved"}})
+   // this.sharedService.sendClickEvent();
+    
     }
  navigateHome(){
   this.router.navigate(['/', 'Home'])

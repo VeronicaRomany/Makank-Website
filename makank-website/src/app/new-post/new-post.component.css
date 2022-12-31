@@ -5,11 +5,14 @@
 
 .container{
     border-radius: 50px;
-    background-color: transparent;
-    
+    background: #D1913C;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFD194, #D1913C);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFD194, #D1913C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+box-shadow: -7px 10px 5px rgba(173, 216, 230, 0.503);
     border: 2px solid black;
     width: 1500px;
-    height: 800px;
+    height: 600px;
     margin: auto;
     margin-top: 50px;
     font-family:cursive ;
@@ -161,7 +164,7 @@
 }
 
 .ThirdLine2{
-    margin-left: 40px;
+    margin-left: 0px;
 }
 
 .ThirdLine3{
