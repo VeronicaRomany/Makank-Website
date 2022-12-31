@@ -225,8 +225,11 @@ openLargeView(postID:number ,propertyType:string){
 
 
 
-    console.log(this.preference)
-    this.getSavedPostsIds();
+    console.log(this.preference.filterPreference.studentHousing+"shoof b2a ")
+    if(this.loggedIn){
+      this.getSavedPostsIds();
+    }
+    
       this.serv.getPostsHomePage(this.preference,0).subscribe(results => {
           console.log("filteeeeer ", results)
           this.posts=results
@@ -298,8 +301,7 @@ openLargeView(postID:number ,propertyType:string){
   }
   checkNext(){
     if(this.currentPage<Math.ceil(this.numOfPosts/10)-1){
-      console.log(" e "+this.currentPage + " : "+Math.ceil(this.numOfPosts/10));
-      
+     
       return true
     }
     return false
