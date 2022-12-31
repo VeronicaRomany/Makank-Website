@@ -25,8 +25,8 @@ class JsonToObjectTest {
     void getUserFromJson() {
         JSONObject json = new JSONObject();
         json = jsonUser();
-        json.remove("profile_pic_link");
-        json.put("profile_pic_link", 1);
+        json.remove("profilePicLink");
+        json.put("profilePicLink", 1);
         JSONObject finalJson = json;
         assertThrows(ClassCastException.class, () -> jsonToObject.getUserFromJson(finalJson),
                 "Passing an invalid object class should throw an exception");
@@ -52,9 +52,8 @@ class JsonToObjectTest {
         json.put("descritpion", "hi");
         json.put("password", "password");
         json.put("email", "yara@gmail.com");
-        json.put("profile_pic_link", "null.jpg");
-        json.put("phone_number", "01234567890");
-
+        json.put("profilePicLink", "null.jpg");
+        json.put("phoneNumber", "01234567890");
         return json;
     }
 
