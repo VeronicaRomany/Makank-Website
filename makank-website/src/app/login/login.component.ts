@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthService} from "./services/auth.service.service";
-import { TokenStorageService } from './services/token-storage.service';
+import { AuthService } from '../_services/auth.service.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 import { Globals } from 'src/globals';
 
 @Component({
@@ -10,6 +10,7 @@ import { Globals } from 'src/globals';
   styleUrls: ['./login.component.css'],
   providers: [ Globals ],
 })
+
 export class LoginComponent implements OnInit {
   form: any = {
     username: null,
@@ -24,18 +25,23 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
+      console.log("Has token")
       this.isLoggedIn = true;
       this.username = this.tokenStorage.getUser().username;
+      this.router.navigate(['/', 'Home'])
     }
   }
 
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe((data: number)=> {
+    this.authService.login(username, password).subscribe((dataReturned)=> {
+        let data=dataReturned.id
+        let token=dataReturned.token
+
         if(data > 0){
           this.tokenStorage.saveToken(username);
-          this.tokenStorage.saveUser({"username":username,"password":password,"userId":data});
+          this.tokenStorage.saveUser({"username":username,"password":password,"userId":data,"token":token});
           console.log(this.tokenStorage.getUser())
 
           Globals.setUserID(data)
@@ -43,7 +49,9 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.username = this.tokenStorage.getUser().username;
+           window.location.reload();
           this.router.navigate(['/', 'Home'])
+          
         }
         else{
           if(data == -1) {
@@ -58,6 +66,7 @@ export class LoginComponent implements OnInit {
         }
       },
   );
+  this.reloadPage
   }
 
   reloadPage(): void {

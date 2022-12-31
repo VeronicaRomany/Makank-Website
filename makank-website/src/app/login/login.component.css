@@ -12,7 +12,10 @@
 .card{
     height: 80%;
     width: 30%;
-
+    background: #D1913C;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFD194, #D1913C);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFD194, #D1913C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
     
     box-shadow: rgba(0, 0, 0, 0.742) 0px 35px 50px -12px;
  

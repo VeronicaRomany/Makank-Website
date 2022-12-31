@@ -8,7 +8,9 @@ import {  ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { User } from 'src/app/user';
+import { DataReturned } from 'src/app/dataReturned';
+import { User } from 'src/app/shared/user';
+
 import { AuthService } from 'src/app/_services/auth.service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { Globals } from 'src/globals';
@@ -59,6 +61,8 @@ export class RegisterComponent implements OnInit {
   submitted = false;
 
   urllink:string="";
+  phoneLen : boolean = false;
+  phone : String=""
 
   
   file:File={
@@ -96,10 +100,10 @@ export class RegisterComponent implements OnInit {
         username: [
           '',
           [
-            Validators.required
+            Validators.required,Validators.pattern("^[A-Za-z][A-Za-z0-9]*$")
           ]
         ],
-        email: ['', [ Validators.email]],
+        email: ['', [ Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
         password: [
           '',
           [
@@ -127,6 +131,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.phone  = this.f['phoneNumber'].value
+    console.log(this.phone)
+    if(this.phone.length == 10){
+      console.log("e2fsh")
+      this.phoneLen=true;
+      return;
+    }
 
     if (this.form.invalid) {
       return;
@@ -140,41 +151,53 @@ export class RegisterComponent implements OnInit {
     this.newAccount.name = this.f['fullname'].value
     this.newAccount.password=this.f['password'].value
     this.newAccount.username = this.f['username'].value
-    this.newAccount.phone_numbers[0] = this.f['phoneNumber'].value
+    this.newAccount.phoneNumber = this.f['phoneNumber'].value
     this.newAccount.email = this.f['email'].value
     this.newAccount.description = this.f['description'].value
     this.newAccount.address = this.f['address'].value
-    this.newAccount.profile_pic_link =this.f['profilePicture'].value
+    this.newAccount.profilePicLink =this.f['profilePicture'].value
 
    
     var NewAccountJsonString = JSON.stringify(this.newAccount)
     console.log(NewAccountJsonString)
     this.urllink=""
 
-    this.http.post<number>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((data:number) =>{
-      if(data>0)
-      console.log("ana 3mlt register")
+    this.http.post<DataReturned>("http://localhost:8080/users/new",JSON.parse(NewAccountJsonString)).subscribe((dataReturned) =>{
+      let data=dataReturned.id  
+      let token=dataReturned.token
+      console.log(dataReturned,data,token)
+      if(data>0){
+
+        console.log("ana 3mlt register")
       console.log(data);
-      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((userID: number)=> {
+      this.authService.login(this.newAccount.username, this.newAccount.password).subscribe((user)=> {
         console.log("ana 3mlt login")
-        console.log(userID)
-        if(userID > 0){
+        console.log(user)
+        let data=dataReturned.id  
+        let token=dataReturned.token
+        if(data > 0){
           console.log("successfully login")
-          console.log(userID)
+          console.log(data)
           this.tokenStorage.saveToken(this.newAccount.username);
-          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":userID});
+          this.tokenStorage.saveUser({"username":this.newAccount.username,"password":this.newAccount.password,"userId":data,"token":token});
           console.log(this.tokenStorage.getUser())
-          Globals.setUserID(userID)
+          Globals.setUserID(data)
           this.router.navigate(['/', 'Home'])
         }
       
     },);
+      }else if(data ==-1){
+        console.log("taken user name")
+        window.alert("This username is already taken")
+      
 
-  },);
+  }},);
 }
 
   onReset(): void {
     this.submitted = false;
+    this.urllink="";
+    this.phoneLen=false;
     this.form.reset();
   }
 

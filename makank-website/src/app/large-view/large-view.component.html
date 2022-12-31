@@ -1,0 +1,94 @@
+
+<div class="contain">
+  
+    <div class="box">
+     
+        <div class="images">
+            <div class="img-holder active">
+                <img src="{{images[0]}}" id="image1" *ngIf="!noPictures();">
+                <img src="assets/noImage.jpg"  *ngIf="noPictures();">
+            </div>
+         <div class="changeBtn" *ngIf="!noPictures();">
+            <a  (click)="previousPic();" class="previous" *ngIf="!firstPic();" >&#8249;</a>
+           <a (click)="changePic();" *ngIf="!lastPic();" class="next">&#8250;</a>
+          </div>
+        </div>
+        <div class="basic-info">
+            <div class="type">
+            <h1 style="color: rgb(154, 32, 32); font-size:xx-large;">{{largePost.type}}</h1>
+            <h2 style="color: rgb(19, 113, 91);">{{largePost.city}}</h2>
+            <a *ngIf="largePost.student_housing">
+                <img class="pImage"  src="assets/student.png" alt="">
+            </a>
+            </div>
+           
+            <span *ngIf="largePost.rent">{{largePost.price}} LE /Month </span>
+            <span *ngIf="!largePost.rent">{{largePost.price}} LE  </span>
+            
+            <div class="options">
+             
+            </div>
+        </div>
+        <div class="description">
+  
+           
+            <ul class="features">
+                <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Area </li>
+                <h3>{{largePost.area}}</h3>
+                  </div>
+                  <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Rooms</li>
+                <h3>{{largePost.rooms}}</h3>
+                  </div>
+                <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Bathrooms</li>
+                <h3>{{largePost.bathrooms}}</h3>
+                </div>
+
+            </ul>
+            <ul class="features" *ngIf="isApartment();">
+                <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Level</li>
+                <h3>{{largePost.level}}</h3>
+                  </div>
+                  <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Elevator</li>
+                <h3>{{largePost.elevator}}</h3>
+                  </div>
+
+            </ul>
+            <ul class="features" *ngIf="!isApartment();">
+                <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Level</li>
+                <h3>{{largePost.level}}</h3>
+                  </div>
+                  <div class="co">
+                <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Garden</li>
+                <h3>{{largePost.garden}}</h3>
+                  </div>
+                  <div class="co">
+                    <li style="color: rgb(154, 32, 32); font-weight: 600; font-size: x-large;">Pool</li>
+                    <h3>{{largePost.pool}}</h3>
+                      </div>
+
+            </ul>
+            
+            <p>{{largePost.info}}</p>
+            <ul class="social">
+                <button class="Pbt">
+                    <img class="pImage" *ngIf="!noSellerPic();" (click)="getProfile(largePost.seller_id);" src="{{largePost.seller_profile_pic}}" alt="">
+                    <img class="pImage" *ngIf="noSellerPic();" (click)="getProfile(largePost.seller_id);" src="assets/p.png" alt="">
+                </button>
+                <div class="co">
+                    
+                    <h3>{{largePost.seller_name}} </h3>
+                    <h3>{{largePost.email}}</h3>
+                    <li>{{largePost.phone_number}}</li>
+                      </div>
+                     
+            </ul>
+            <h5>{{largePost.date}}</h5>
+        </div>
+    </div>
+</div>

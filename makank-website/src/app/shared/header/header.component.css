@@ -8,7 +8,7 @@ nav{
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
-    background-color: rgb(135, 237, 125);
+    background-color: rgb(247, 210, 146);
     font-family: 'Poppins',sans-serif;
     
 }
@@ -35,4 +35,11 @@ nav{
     letter-spacing: 3px;
      
 
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.log{
+display: flex;
+    margin-left: 420px
 }

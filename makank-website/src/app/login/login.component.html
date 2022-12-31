@@ -1,5 +1,7 @@
 <div class="frame">
+ 
   <div class="card">
+   
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -7,6 +9,8 @@
       #f="ngForm"
       novalidate
     >
+    <h1 style="    display: flex;
+    justify-content: center; color: white; font-size:xx-large; margin-bottom: 60px;">Login</h1>
       <div class="form-group">
         <label for="username">Username</label>
         <input

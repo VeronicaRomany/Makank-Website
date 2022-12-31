@@ -1,13 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import Validation from '../registration/register/register.component';
 import { Post } from '../shared/post';
 import { NewPostService } from './service/new-post.service';
 import { Globals } from 'src/globals';
-import { Router } from '@angular/router';
-import { TokenStorageService } from '../login/services/token-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TokenStorageService } from '../_services/token-storage.service';
+
+
+
 
 @Component({
   selector: 'app-new-post',
@@ -16,7 +18,7 @@ import { TokenStorageService } from '../login/services/token-storage.service';
   providers: [ Globals ],
 })
 export class NewPostComponent implements OnInit {
-  [x: string]: any;
+  
 
   newPostForm: FormGroup = new FormGroup({
     type: new FormControl(''),
@@ -39,24 +41,25 @@ export class NewPostComponent implements OnInit {
   submitted = false;
   villa = false;
   appartment = false;
- 
-  alreadyCheckedElevator=false;
-  alreadyCheckedPool=false;
-  alreadCheckedGarden=false;
-  alreadyCheckedStudent=false;
   photosLinks :string[]=[]
   index =0;
+  editing=false
   file: any;
-
+  event:any
   newPost : Post= new Post()
-
+  editPost : Post=new Post()
 
   
 
-  constructor(private token: TokenStorageService, private fb: FormBuilder, private readonly newpostservice : NewPostService, private http:HttpClient,private router:Router) { }
+  constructor(private token: TokenStorageService, private fb: FormBuilder,
+     private readonly newpostservice : NewPostService, private http:HttpClient,
+     private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-
+    var loggedIn = !!this.token.getToken();
+    if(!loggedIn){
+      this.router.navigate(['/', 'Home'])
+    }
     this. newPostForm = this.fb.group(
       {
         type: ['', Validators.required],
@@ -73,9 +76,69 @@ export class NewPostComponent implements OnInit {
         studentHousing: [ '', ''],
         pool: [ '', ''],
         garden: [ '', ''],
-        universities :[ '', '']
       },
     );
+
+
+    this.route.queryParams.subscribe((params:any) =>{
+      console.log(params.data)
+      if(params.data!=null){
+            this.editing=true
+            console.log("edit post with id = ",params.data);
+            this.editPost.postID=params.data
+
+            console.log( this.editPost.postID)
+            
+            // get post by id   >> request lma a3mlo ams7 al dummy data de
+            
+            this.http.get<Post>("http://localhost:8080/posts/info/"+params.data.toString()).subscribe((data:any) =>{
+              this.editPost=data
+              console.log(this.editPost)
+              if(this.editPost.rent){
+                this. newPostForm.controls["RentOrBuy"].setValue("rent")
+              }else{
+                this. newPostForm.controls["RentOrBuy"].setValue("buy")
+              }
+        
+              if(this.editPost.hasPictures){
+                for (let i = 0; i < this.editPost.pictures.length; i++) {
+                  this.photosLinks[i]=this.editPost.pictures[i]
+              }
+            }
+        
+              this. newPostForm.controls["type"].setValue(this.editPost.type)
+              this.onChooseType()
+              this. newPostForm.controls["city"].setValue(this.editPost.city)
+              this. newPostForm.controls["level"].setValue(this.editPost.level)
+              this. newPostForm.controls["price"].setValue(this.editPost.price)
+              this. newPostForm.controls["area"].setValue(this.editPost.area)
+              this. newPostForm.controls["roomsNum"].setValue(this.editPost.roomNumber)
+              this. newPostForm.controls["WCNum"].setValue(this.editPost.bathroomNumber)
+              this. newPostForm.controls["address"].setValue(this.editPost.address)
+              this. newPostForm.controls["info"].setValue(this.editPost.info)
+            })
+
+
+            // this. editPost.city = "alex"
+            // this. editPost.price= 10000
+            // this. editPost.area= 150
+            // this. editPost.address="El3asfraaaa"
+            // this .editPost.level=12
+            // this. editPost.roomNumber=12
+            // this. editPost.bathroomNumber=12
+            // this. editPost.elevator=true
+            // this. editPost.studentHousing=true
+            // this. editPost.hasGarden=true
+            // this. editPost.hasPool=true
+            // this. editPost.info=""
+            // this. editPost.rent=true
+            // this. editPost.pictures=[]
+      
+
+            // nms7 l7d hena
+            
+            
+      } })
   }
 
 
@@ -86,15 +149,18 @@ export class NewPostComponent implements OnInit {
 
 
   onSubmit(): void {
-    
     this.submitted = true;
     if (this.newPostForm.invalid) {
       return;
     }
 
-    console.log("veroooooooooooo creates new Post")
+  
 
-    //fadel sellerID
+    var headers=new HttpHeaders().append("Authorization","Bearer "+this.token.getUser().token)
+
+    console.log("create new post")
+
+   
     this.newPost.type = this.f['type'].value
     this.newPost.city = this.f['city'].value
     this.newPost.price= this.f['price'].value
@@ -103,16 +169,25 @@ export class NewPostComponent implements OnInit {
     this.newPost.level=this.f['level'].value
     this.newPost.roomNumber=this.f['roomsNum'].value
     this.newPost.bathroomNumber=this.f['WCNum'].value
-    this.newPost.elevator=this.alreadyCheckedElevator
-    this.newPost.studentHousing=this.alreadyCheckedStudent
-    this.newPost.hasGarden=this.alreadCheckedGarden
-    this.newPost.hasPool=this.alreadyCheckedPool
     this.newPost.info=this.f['info'].value
-    this.newPost.universities=this.f['universities'].value
-
     this.newPost.sellerID=this.token.getUser().userId;
-    console.log("ana hena", Globals.getUserID())
-    console.log("el id", this.newPost.sellerID)
+
+    if(this.villa){
+      this.newPost.hasGarden=(document.getElementById("garden") as HTMLInputElement).checked
+      this.newPost.hasPool=(document.getElementById("pool") as HTMLInputElement).checked
+      this.newPost.elevator=false
+      this.newPost.studentHousing=false
+    }
+
+    if(this.appartment){
+      this.newPost.elevator=(document.getElementById("elev") as HTMLInputElement).checked
+      this.newPost.studentHousing=(document.getElementById("student") as HTMLInputElement).checked
+      this.newPost.hasGarden=false
+      this.newPost.hasPool=false
+    }
+
+
+ 
 
     if(this.f['RentOrBuy'].value=="rent"){
       this.newPost.rent=true
@@ -131,40 +206,43 @@ export class NewPostComponent implements OnInit {
 
     var NewPostJsonString = JSON.stringify(this.newPost)
     console.log(NewPostJsonString)
-    this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString),{responseType:'text'}).subscribe((data:any) =>{
-      this.router.navigate(['/', 'Home'])
+
+    if(this.editing){
       
-    })
+      this.http.post("http://localhost:8080/posts/edit",JSON.parse(NewPostJsonString),{headers: headers}).subscribe((data:any) =>{
+        window.alert("Your post has be eddited")
+        this.router.navigate(['/', 'Home'])
+      })
+    }else{
 
-
-    
+      this.http.post("http://localhost:8080/posts/new",JSON.parse(NewPostJsonString),{headers: headers}).subscribe((data:any) =>{
+        this.router.navigate(['/', 'Home'])
+      })
+     
+    }
 
    
     
-    
-    
-    
-   
-    
-    
+  }
+
+
+  onEdit():void{
+    this.newPost.postID=this.editPost.propertyID
+    console.log( this.newPost.postID)
+    this.onSubmit()
   }
 
   onChooseType(): void{
-    console.log(this.f['type'].value)
-    if(this.f['type'].value=="villa"){
-        this.villa = true
-        this.appartment= false
-        this.alreadyCheckedElevator=false
-        this.alreadyCheckedStudent=false
-    }
+        console.log(this.f['type'].value)
+        if(this.f['type'].value=="villa"){
+            this.villa = true
+            this.appartment= false;
+        }
 
-    if(this.f['type'].value=="apartment"){
-      this.appartment= true
-      this.villa= false
-      this.alreadCheckedGarden=false
-      this.alreadyCheckedPool=false
-  }
-  
+        if(this.f['type'].value=="apartment"){
+          this.appartment= true
+          this.villa= false;
+      }
   }
 
 
@@ -173,87 +251,22 @@ export class NewPostComponent implements OnInit {
     this.submitted = false;
     this.appartment = false;
     this.villa = false;
-    this.alreadCheckedGarden=false;
-    this.alreadyCheckedElevator=false;
-    this.alreadyCheckedPool=false;
-    this.alreadyCheckedStudent=false;
     this.photosLinks=[];
     this.newPostForm.reset();
   }
 
+  
   RemoveMe(index:number){
     console.log(index)
      this.photosLinks.splice(index,1)
-    console.log(this.photosLinks)
-  }
-
-  handleChangeElevator(event:any) {
-    var target = event.target;
-    if(this.alreadyCheckedElevator){
-      target.checked=false
-      this.alreadyCheckedElevator=!this.alreadyCheckedElevator
-      console.log(this.alreadyCheckedElevator)
-      console.log(" not Checked")
-    }else{
-      target.checked=true;
-      this.alreadyCheckedElevator=!this.alreadyCheckedElevator
-      console.log(this.alreadyCheckedElevator)
-      console.log("Checked")
-    }
-  }
-
-  handleChangeStudent(event:any) {
-    var target = event.target;
-    if(this.alreadyCheckedStudent){
-      target.checked=false
-      this.alreadyCheckedStudent=!this.alreadyCheckedStudent
-      console.log(this.alreadyCheckedStudent)
-      console.log(" not Checked")
-    }else{
-      target.checked=true;
-      this.alreadyCheckedStudent=!this.alreadyCheckedStudent
-      console.log(this.alreadyCheckedStudent)
-      console.log("Checked")
-    }
-  }
-
-
-  handleChangePool(event:any) {
-    var target = event.target;
-    if(this.alreadyCheckedPool){
-      target.checked=false
-      this.alreadyCheckedPool=!this.alreadyCheckedPool
-      console.log(this.alreadyCheckedPool)
-      console.log(" not Checked")
-    }else{
-      target.checked=true;
-      this.alreadyCheckedPool=!this.alreadyCheckedPool
-      console.log(this.alreadyCheckedPool)
-      console.log("Checked")
-    }
-  }
-
-  handleChangeGarden(event:any) {
-    var target = event.target;
-    if(this.alreadCheckedGarden){
-      target.checked=false
-      this.alreadCheckedGarden=!this.alreadCheckedGarden
-      console.log(this.alreadCheckedGarden)
-      console.log(" not Checked")
-    }else{
-      target.checked=true;
-      this.alreadCheckedGarden=!this.alreadCheckedGarden
-      console.log(this.alreadCheckedGarden)
-      console.log("Checked")
-    }
+     console.log(this.photosLinks)
   }
 
 
   SelectFile(event:any){
     this.file = event.target.files[0];
     this.newpostservice.upload(this.file).subscribe((url: string) => this. photosLinks[this.index++]=url )
-    
-    
   }
 
 }
+

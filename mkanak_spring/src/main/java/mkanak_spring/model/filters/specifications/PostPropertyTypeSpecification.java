@@ -4,7 +4,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import mkanak_spring.model.ViewingPreference;
+import mkanak_spring.model.preferences.ViewingPreference;
 import mkanak_spring.model.entities.Post;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -18,6 +18,6 @@ public class PostPropertyTypeSpecification implements Specification<Post> {
     @Override
     public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         String str = this.preference.getFilterPreference().getPropertyType();
-        return criteriaBuilder.like(root.get("type"),str);
+        return criteriaBuilder.like(criteriaBuilder.upper(root.get("type")),str.toUpperCase());
     }
 }
