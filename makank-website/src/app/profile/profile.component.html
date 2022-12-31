@@ -184,8 +184,8 @@ margin-top: 35px; padding: 3px 3px;" (click)="editProfile();">Edit</button>
 
               </div>
               <div class="footer">
-                <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)&&isMyProfile();"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
-                        <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)&&isMyProfile();"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                <mat-icon class="saved" *ngIf="!checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: grey; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
+                        <mat-icon class="saved" *ngIf="checkSaved(item.propertyID)"  id="{{item.propertyID}}" style="color: orange; size: 80px;" (click)="toggle(item.propertyID)" >star</mat-icon>
                 <img class="button3" *ngIf="item.studentHousing" src="assets/student.png" alt="">
                 <a  (click)="openLargeView(item.propertyID,item.type)" class="button">More Info </a>
                 <img class="delete" (click)="deleteMypost(item.propertyID)" *ngIf="(item.sellerID == userID)&&isMyProfile();" src="assets/delete.png" alt="">

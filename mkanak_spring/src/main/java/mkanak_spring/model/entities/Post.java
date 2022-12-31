@@ -40,6 +40,16 @@ public class Post {
     @Column(name = "name")
     private String sellerName;
 
+    public Boolean getStudentHousing() {
+        return studentHousing;
+    }
+
+    public void setStudentHousing(Boolean studentHousing) {
+        this.studentHousing = studentHousing;
+    }
+
+    @Column(name="for_students")
+    private Boolean studentHousing;
     public String getSellerName() {return sellerName;}
     public void setSellerName(String sellerName) {this.sellerName = sellerName;}
     public String getImage() {return image;}
