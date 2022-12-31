@@ -68,7 +68,9 @@ export class PropertiesComponent implements OnInit {
     
 
   }
-
+ noPosts(){
+  return this.posts.length==0
+ }
   sendPostsRequests(){
     this.userID = this.token.getUser().userId;
     console.log(this.preference)

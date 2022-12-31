@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   username?: string;
   password?:string;
   isLoggedIn=false;
+  flag:boolean= false
   constructor(private tokenStorageService: TokenStorageService, private router:Router ,private sharedService:SharedService) { }
 
   ngOnInit(): void {
@@ -35,7 +36,13 @@ export class HeaderComponent implements OnInit {
      }
   }
   clickMe(){
+    console.log("cliick /meeeeeeeeeeeeee");
+    if(this.flag==false){
     this.router.navigate([ '/','Home'],{queryParams:{data:"saved"}})
+     this.flag=true
+    }else{
+      window.location.reload()
+    }
    // this.sharedService.sendClickEvent();
     
     }
@@ -46,26 +53,7 @@ export class HeaderComponent implements OnInit {
   //this.property.getSavedPost()
  }
 
-  temp(){
-    let v:ViewingPreference = new ViewingPreference()
-    let f:FilterPreference = new FilterPreference()
-    let s:SortingPreference = new SortingPreference()
 
-    f.withPictures=false
-    f.infoSearchWord= "45"
-    f.propertyType="Villa"
-    f.purchaseChoice="buy"
-    f.studentHousing=false
-    
-    s.ascending=true
-    s.sortingCriteria="price"
-    v.filterPreference=f
-    v.sortingPreference=s
-    v.sorted=false
-    v.filtered=true
-    console.log(JSON.stringify(v));
-    
-  }
 
 
   logout(): void {

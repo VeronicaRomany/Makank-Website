@@ -80,6 +80,9 @@ export class ProfileComponent implements OnInit {
 isMyProfile(){
   return  this.userID == this.token.getUser().userId;
 }
+noPosts(){
+  return this.posts.length==0
+ }
   getSavedPostsIds() {
 
     let userID = this.token.getUser().userId;

@@ -138,6 +138,8 @@
 
 
 <div class="article-contener"  >
+    <h1 *ngIf="noPosts()" style="    display: flex;
+    justify-content: space-evenly; color:antiquewhite;  margin-bottom:30px; "> No Results</h1>
     <ul class="groups" *ngFor="let item of posts"  >
 
 
